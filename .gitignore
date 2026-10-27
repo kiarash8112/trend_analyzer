@@ -1,0 +1,13 @@
+# Secrets
+.env
+
+# Go build output
+/bin/
+*.exe
+*.test
+*.out
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
