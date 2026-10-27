@@ -1,0 +1,93 @@
+<article class="card">
+  <header class="head">
+    <span class="rank">{{ rank() }}</span>
+    <div class="title">
+      <a class="name" [href]="repo().url" target="_blank" rel="noopener">
+        <span class="owner">{{ repo().owner }} /</span> {{ repo().name }}
+      </a>
+      @if (repo().description) {
+        <p class="desc">{{ repo().description }}</p>
+      }
+      <div class="stats">
+        <span class="stat strong">★ {{ repo().stars | number }}</span>
+        <span class="stat up">+{{ repo().stars_in_period | number }} {{ periodLabel() }}</span>
+        @if (repo().language) {
+          <span class="stat">{{ repo().language }}</span>
+        }
+        @if (repo().created_at) {
+          <span class="stat">created {{ repo().created_at | date: 'mediumDate' }}</span>
+        }
+      </div>
+    </div>
+    @if (insight(); as i) {
+      <span class="confidence" [class]="'confidence ' + i.confidence">{{ i.confidence }} confidence</span>
+    }
+  </header>
+
+  @if (insight(); as i) {
+    <section class="launch">
+      <span class="label">Introduced on</span>
+      <strong>{{ i.launch_channel }}</strong>
+      @if (i.launch_date && i.launch_date !== 'unknown') {
+        <span class="muted">· {{ i.launch_date }}</span>
+      }
+      @if (i.launch_url) {
+        <a [href]="i.launch_url" target="_blank" rel="noopener">{{ host(i.launch_url) }} ↗</a>
+      }
+    </section>
+
+    <div class="answers">
+      <section>
+        <h3>Why it got popular</h3>
+        <p>{{ i.why_popular }}</p>
+      </section>
+      <section>
+        <h3>What problem it solves</h3>
+        <p>{{ i.problem_solved }}</p>
+        @if (i.target_users) {
+          <p class="muted"><strong>For:</strong> {{ i.target_users }}</p>
+        }
+      </section>
+      <section>
+        <h3>How it got popular</h3>
+        <p>{{ i.how_it_spread }}</p>
+      </section>
+    </div>
+
+    @if (i.timeline.length) {
+      <details class="more" open>
+        <summary>Timeline</summary>
+        <ol class="timeline">
+          @for (t of i.timeline; track $index) {
+            <li>
+              <time>{{ t.date }}</time>
+              <span>
+                {{ t.event }}
+                @if (t.source_url) {
+                  <a [href]="t.source_url" target="_blank" rel="noopener">{{ host(t.source_url) }} ↗</a>
+                }
+              </span>
+            </li>
+          }
+        </ol>
+      </details>
+    }
+
+    @if (i.sources.length) {
+      <details class="more">
+        <summary>Sources ({{ i.sources.length }})</summary>
+        <ul class="sources">
+          @for (s of i.sources; track s) {
+            <li><a [href]="s" target="_blank" rel="noopener">{{ s }}</a></li>
+          }
+        </ul>
+      </details>
+    }
+
+    <footer class="foot">
+      Analyzed {{ i.analyzed_at | date: 'medium' }}@if (result().cached) { · cached }
+    </footer>
+  } @else {
+    <p class="failed">Analysis failed: {{ result().error }}</p>
+  }
+</article>

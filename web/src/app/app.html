@@ -1,0 +1,22 @@
+<div class="layout">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/">Trend Analyzer</a>
+    <h2>Reports</h2>
+    @if (reports.error()) {
+      <p class="hint">Can't reach the report server.</p>
+    }
+    <nav>
+      @for (r of reports.value() ?? []; track r.name) {
+        <a class="report" [routerLink]="['/reports', r.name]" routerLinkActive="active">
+          <span class="date">{{ r.date }}</span>
+          <span class="meta">
+            {{ r.since }}@if (r.language) { · {{ r.language }} } · {{ r.repo_count }} repos
+          </span>
+        </a>
+      }
+    </nav>
+  </aside>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
