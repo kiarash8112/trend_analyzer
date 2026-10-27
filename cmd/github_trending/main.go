@@ -27,6 +27,8 @@ func main() {
 	settings := config.Load()
 	provider := github.New(github.Config{
 		BaseURL:    settings.GitHubBaseURL,
+		APIBaseURL: settings.GitHubAPIBaseURL,
+		Token:      settings.GitHubToken,
 		UserAgent:  settings.GitHubUserAgent,
 		Timeout:    settings.GitHubTimeout,
 		MaxRetries: settings.GitHubMaxRetries,

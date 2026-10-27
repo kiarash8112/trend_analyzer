@@ -1,0 +1,24 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "num_turns": 6,
+  "duration_ms": 84213,
+  "total_cost_usd": 0.41,
+  "result": "",
+  "structured_output": {
+    "why_popular": "Launched as a Show HN by a well-known author while interest in the space was peaking.",
+    "problem_solved": "Replaces a slow manual workflow with a single command.",
+    "target_users": "Backend developers",
+    "launch_channel": "Hacker News",
+    "launch_url": "https://news.ycombinator.com/item?id=1",
+    "launch_date": "2026-10-20",
+    "how_it_spread": "Hit the HN front page, then was shared on X and in two newsletters.",
+    "timeline": [
+      {"date": "2026-10-20", "event": "Show HN post reaches #1", "source_url": "https://news.ycombinator.com/item?id=1"},
+      {"date": "2026-10-22", "event": "Featured in a weekly newsletter", "source_url": "https://example.com/newsletter"}
+    ],
+    "confidence": "high",
+    "sources": ["https://news.ycombinator.com/item?id=1", "https://example.com/newsletter"]
+  }
+}
