@@ -13,53 +13,45 @@ import (
 	"time"
 )
 
-// Config holds the settings the provider needs.
-type Config struct {
-	Bin     string        // path to the claude CLI
-	Model   string        // model alias or id; empty uses the account default
-	Timeout time.Duration // per run
-	Tools   []string      // built-in tools Claude may use
-}
+// CLI settings.
+const (
+	bin     = "claude"         // the Claude Code CLI, looked up on PATH
+	timeout = 10 * time.Minute // per run
+)
+
+// tools are the built-in tools Claude may use.
+var tools = []string{"WebSearch", "WebFetch"}
 
 // Provider runs prompts through the Claude Code CLI.
 type Provider struct {
-	cfg Config
+	model string // model alias or id; empty uses the account default
 }
 
-// New creates a Provider, filling in defaults for empty config values.
-func New(cfg Config) *Provider {
-	if cfg.Bin == "" {
-		cfg.Bin = "claude"
-	}
-	if cfg.Timeout == 0 {
-		cfg.Timeout = 10 * time.Minute
-	}
-	if cfg.Tools == nil {
-		cfg.Tools = []string{"WebSearch", "WebFetch"}
-	}
-	return &Provider{cfg: cfg}
+// New creates a Provider. model may be empty.
+func New(model string) *Provider {
+	return &Provider{model: model}
 }
 
 // Run sends prompt to Claude and asks for output matching jsonSchema.
 func (p *Provider) Run(ctx context.Context, prompt, jsonSchema string) (*CLIResult, error) {
-	ctx, cancel := context.WithTimeout(ctx, p.cfg.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, timeout)
 	defer cancel()
 
-	tools := strings.Join(p.cfg.Tools, ",")
+	allowed := strings.Join(tools, ",")
 	args := []string{
 		"-p",
 		"--output-format", "json",
 		"--json-schema", jsonSchema,
-		"--tools", tools,
-		"--allowedTools", tools,
+		"--tools", allowed,
+		"--allowedTools", allowed,
 		"--no-session-persistence",
 		"--strict-mcp-config",
 	}
-	if p.cfg.Model != "" {
-		args = append(args, "--model", p.cfg.Model)
+	if p.model != "" {
+		args = append(args, "--model", p.model)
 	}
 
-	cmd := exec.CommandContext(ctx, p.cfg.Bin, args...)
+	cmd := exec.CommandContext(ctx, bin, args...)
 	cmd.Stdin = strings.NewReader(prompt)
 	// Run outside the project so its CLAUDE.md and settings don't leak into the analysis.
 	cmd.Dir = os.TempDir()

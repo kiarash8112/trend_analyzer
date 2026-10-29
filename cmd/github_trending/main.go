@@ -1,12 +1,10 @@
 // Command github_trending prints the repositories on https://github.com/trending.
 //
-//	go run ./cmd/github_trending -since weekly -language go
-//	go run ./cmd/github_trending -json
+//	go run ./cmd/github_trending -since weekly
 package main
 
 import (
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -19,42 +17,17 @@ import (
 
 func main() {
 	since := flag.String("since", github.SinceDaily, "date range: daily, weekly or monthly")
-	language := flag.String("language", "", "programming language filter, e.g. go, python")
-	spoken := flag.String("spoken", "", "spoken language code filter, e.g. en")
-	asJSON := flag.Bool("json", false, "print JSON instead of a table")
 	flag.Parse()
 
-	settings := config.Load()
-	provider := github.New(github.Config{
-		BaseURL:    settings.GitHubBaseURL,
-		APIBaseURL: settings.GitHubAPIBaseURL,
-		Token:      settings.GitHubToken,
-		UserAgent:  settings.GitHubUserAgent,
-		Timeout:    settings.GitHubTimeout,
-		MaxRetries: settings.GitHubMaxRetries,
-	})
+	provider := github.New(config.Load().GitHubToken)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	repos, err := provider.FetchTrending(ctx, github.TrendingQuery{
-		Language:       *language,
-		Since:          *since,
-		SpokenLanguage: *spoken,
-	})
+	repos, err := provider.FetchTrending(ctx, *since)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)
-	}
-
-	if *asJSON {
-		enc := json.NewEncoder(os.Stdout)
-		enc.SetIndent("", "  ")
-		if err := enc.Encode(repos); err != nil {
-			fmt.Fprintln(os.Stderr, "error:", err)
-			os.Exit(1)
-		}
-		return
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)

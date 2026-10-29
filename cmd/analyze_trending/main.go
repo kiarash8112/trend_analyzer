@@ -3,7 +3,7 @@
 // the local Claude Code CLI, so it uses your Claude subscription.
 //
 //	go run ./cmd/analyze_trending
-//	go run ./cmd/analyze_trending -since weekly -language go -limit 5
+//	go run ./cmd/analyze_trending -since weekly -limit 5
 package main
 
 import (
@@ -27,7 +27,6 @@ import (
 
 func main() {
 	since := flag.String("since", github.SinceDaily, "date range: daily, weekly or monthly")
-	language := flag.String("language", "", "programming language filter, e.g. go, python")
 	limit := flag.Int("limit", 10, "analyze at most this many repos (0 = all)")
 	concurrency := flag.Int("concurrency", 2, "repos analyzed in parallel")
 	maxAge := flag.Duration("max-age", 72*time.Hour, "reuse cached analyses younger than this (0 = always re-analyze)")
@@ -43,30 +42,16 @@ func main() {
 		fmt.Fprintf(os.Stderr, time.Now().Format("15:04:05")+" "+format+"\n", args...)
 	}
 
-	gh := github.New(github.Config{
-		BaseURL:    settings.GitHubBaseURL,
-		APIBaseURL: settings.GitHubAPIBaseURL,
-		Token:      settings.GitHubToken,
-		UserAgent:  settings.GitHubUserAgent,
-		Timeout:    settings.GitHubTimeout,
-		MaxRetries: settings.GitHubMaxRetries,
-	})
+	gh := github.New(settings.GitHubToken)
 	if !gh.HasToken() && *starSamples > 0 {
 		logf("GITHUB_TOKEN not set: skipping star history (GitHub API limit is also only 60 requests/hour)")
 		*starSamples = 0
 	}
 
 	analyzer := &services.Analyzer{
-		GitHub: adapters.NewGitHub(gh),
-		HackerNews: adapters.NewHackerNews(hackernews.New(hackernews.Config{
-			BaseURL:   settings.HackerNewsBaseURL,
-			UserAgent: settings.GitHubUserAgent,
-		})),
-		Claude: adapters.NewClaude(claude.New(claude.Config{
-			Bin:     settings.ClaudeBin,
-			Model:   *model,
-			Timeout: settings.ClaudeTimeout,
-		})),
+		GitHub:      adapters.NewGitHub(gh),
+		HackerNews:  adapters.NewHackerNews(hackernews.New()),
+		Claude:      adapters.NewClaude(claude.New(*model)),
 		Cache:       cache.New(settings.CacheDir),
 		MaxAge:      *maxAge,
 		StarSamples: *starSamples,
@@ -77,7 +62,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
-	results, err := analyzer.AnalyzeTrending(ctx, *language, *since, *limit)
+	results, err := analyzer.AnalyzeTrending(ctx, *since, *limit)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)
@@ -85,9 +70,6 @@ func main() {
 
 	now := time.Now()
 	base := filepath.Join(settings.ReportsDir, now.Format("2006-01-02")+"-"+*since)
-	if *language != "" {
-		base += "-" + *language
-	}
 	if err := writeReports(base, results, *since, now); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)

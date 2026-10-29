@@ -19,8 +19,8 @@ func NewGitHub(p *github.Provider) *GitHub {
 }
 
 // Trending returns the repositories on the trending page.
-func (a *GitHub) Trending(ctx context.Context, language, since string) ([]models.Repo, error) {
-	raw, err := a.p.FetchTrending(ctx, github.TrendingQuery{Language: language, Since: since})
+func (a *GitHub) Trending(ctx context.Context, since string) ([]models.Repo, error) {
+	raw, err := a.p.FetchTrending(ctx, since)
 	if err != nil {
 		return nil, err
 	}

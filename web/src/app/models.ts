@@ -4,7 +4,6 @@ export interface ReportSummary {
   name: string;
   date: string;
   since: 'daily' | 'weekly' | 'monthly';
-  language?: string;
   repo_count: number;
 }
 

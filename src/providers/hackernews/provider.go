@@ -8,41 +8,30 @@ import (
 	"time"
 )
 
-// Config holds the settings the provider needs.
-type Config struct {
-	BaseURL   string
-	UserAgent string
-	Timeout   time.Duration
-}
+// HTTP client settings.
+const (
+	userAgent = "trend-analyzer/1.0"
+	timeout   = 10 * time.Second
+)
 
 // Provider searches Hacker News.
 type Provider struct {
-	cfg  Config
 	http *http.Client
 }
 
-// New creates a Provider, filling in defaults for empty config values.
-func New(cfg Config) *Provider {
-	if cfg.BaseURL == "" {
-		cfg.BaseURL = DefaultBaseURL
-	}
-	if cfg.UserAgent == "" {
-		cfg.UserAgent = "trend-analyzer/1.0"
-	}
-	if cfg.Timeout == 0 {
-		cfg.Timeout = 10 * time.Second
-	}
-	return &Provider{cfg: cfg, http: &http.Client{Timeout: cfg.Timeout}}
+// New creates a Provider.
+func New() *Provider {
+	return &Provider{http: &http.Client{Timeout: timeout}}
 }
 
 // SearchStoriesByURL returns stories that link to a URL containing target.
 func (p *Provider) SearchStoriesByURL(ctx context.Context, target string) ([]Hit, error) {
-	url := SearchByURL(p.cfg.BaseURL, target)
+	url := SearchByURL(target)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", p.cfg.UserAgent)
+	req.Header.Set("User-Agent", userAgent)
 	req.Header.Set("Accept", "application/json")
 
 	resp, err := p.http.Do(req)

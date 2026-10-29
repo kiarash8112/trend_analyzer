@@ -12,17 +12,16 @@ import (
 
 // ReportSummary describes one saved report file.
 type ReportSummary struct {
-	Name      string `json:"name"` // file name without .json, e.g. 2026-10-27-weekly-go
+	Name      string `json:"name"` // file name without .json, e.g. 2026-10-27-daily
 	Date      string `json:"date"`
 	Since     string `json:"since"`
-	Language  string `json:"language,omitempty"`
 	RepoCount int    `json:"repo_count"`
 }
 
 // ErrReportNotFound is returned for unknown or invalid report names.
 var ErrReportNotFound = errors.New("report not found")
 
-var reportName = regexp.MustCompile(`^(\d{4}-\d{2}-\d{2})-(daily|weekly|monthly)(?:-([\w.+#-]+))?$`)
+var reportName = regexp.MustCompile(`^(\d{4}-\d{2}-\d{2})-(daily|weekly|monthly)$`)
 
 // ListReports returns the JSON reports in dir, newest first.
 func ListReports(dir string) ([]ReportSummary, error) {
@@ -42,7 +41,7 @@ func ListReports(dir string) ([]ReportSummary, error) {
 		if b, err := os.ReadFile(f); err != nil || json.Unmarshal(b, &results) != nil {
 			continue
 		}
-		out = append(out, ReportSummary{Name: name, Date: m[1], Since: m[2], Language: m[3], RepoCount: len(results)})
+		out = append(out, ReportSummary{Name: name, Date: m[1], Since: m[2], RepoCount: len(results)})
 	}
 	sort.Slice(out, func(i, j int) bool { return out[i].Name > out[j].Name })
 	return out, nil

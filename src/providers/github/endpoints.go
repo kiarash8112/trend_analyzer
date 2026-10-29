@@ -3,17 +3,16 @@ package github
 import (
 	"fmt"
 	"net/url"
-	"strings"
 )
 
-// DefaultBaseURL is the public GitHub website root (the trending page is HTML, not the REST API).
-const DefaultBaseURL = "https://github.com"
+// BaseURL is the public GitHub website root (the trending page is HTML, not the REST API).
+const BaseURL = "https://github.com"
 
-// DefaultAPIBaseURL is the GitHub REST API root.
-const DefaultAPIBaseURL = "https://api.github.com"
+// APIBaseURL is the GitHub REST API root.
+const APIBaseURL = "https://api.github.com"
 
 // TrendingPath is the route of the trending repositories page.
-// Full form: /trending[/<language>]?since=<daily|weekly|monthly>&spoken_language_code=<code>
+// Full form: /trending?since=<daily|weekly|monthly>
 const TrendingPath = "/trending"
 
 // Since values accepted by the trending page.
@@ -44,39 +43,22 @@ func ValidSince(s string) bool {
 	return s == SinceDaily || s == SinceWeekly || s == SinceMonthly
 }
 
-// TrendingURL builds the trending page URL for the given filters. Empty values are omitted.
-func TrendingURL(baseURL, language, since, spokenLanguage string) string {
-	path := TrendingPath
-	if language != "" {
-		path += "/" + url.PathEscape(strings.ToLower(language))
-	}
-
-	q := url.Values{}
-	if since != "" {
-		q.Set("since", since)
-	}
-	if spokenLanguage != "" {
-		q.Set("spoken_language_code", spokenLanguage)
-	}
-
-	u := strings.TrimRight(baseURL, "/") + path
-	if enc := q.Encode(); enc != "" {
-		u += "?" + enc
-	}
-	return u
+// TrendingURL builds the trending page URL for a date range.
+func TrendingURL(since string) string {
+	return BaseURL + TrendingPath + "?since=" + url.QueryEscape(since)
 }
 
 // RepoURL is GET /repos/{owner}/{name}.
-func RepoURL(apiBaseURL, owner, name string) string {
-	return strings.TrimRight(apiBaseURL, "/") + "/repos/" + url.PathEscape(owner) + "/" + url.PathEscape(name)
+func RepoURL(owner, name string) string {
+	return APIBaseURL + "/repos/" + url.PathEscape(owner) + "/" + url.PathEscape(name)
 }
 
 // ReadmeURL is GET /repos/{owner}/{name}/readme.
-func ReadmeURL(apiBaseURL, owner, name string) string {
-	return RepoURL(apiBaseURL, owner, name) + "/readme"
+func ReadmeURL(owner, name string) string {
+	return RepoURL(owner, name) + "/readme"
 }
 
 // StargazersURL is GET /repos/{owner}/{name}/stargazers for one page.
-func StargazersURL(apiBaseURL, owner, name string, page int) string {
-	return fmt.Sprintf("%s/stargazers?per_page=%d&page=%d", RepoURL(apiBaseURL, owner, name), StargazersPerPage, page)
+func StargazersURL(owner, name string, page int) string {
+	return fmt.Sprintf("%s/stargazers?per_page=%d&page=%d", RepoURL(owner, name), StargazersPerPage, page)
 }

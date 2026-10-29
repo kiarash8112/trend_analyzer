@@ -15,79 +15,55 @@ import (
 // maxReadmeBytes caps how much of a README is downloaded.
 const maxReadmeBytes = 1 << 20
 
+// HTTP client settings.
+const (
+	userAgent  = "trend-analyzer/1.0"
+	timeout    = 15 * time.Second
+	maxRetries = 3
+)
+
 // ErrTokenRequired is returned by calls GitHub only allows with authentication.
 var ErrTokenRequired = errors.New("needs a GitHub token (set GITHUB_TOKEN)")
 
-// Config holds the settings the provider needs.
-type Config struct {
-	BaseURL    string // website, for the trending page
-	APIBaseURL string // REST API
-	Token      string // optional; required for star history
-	UserAgent  string
-	Timeout    time.Duration
-	MaxRetries int
-}
-
-// TrendingQuery filters the trending page. All fields are optional.
-type TrendingQuery struct {
-	Language       string // e.g. "go", "python"
-	Since          string // SinceDaily (default), SinceWeekly, SinceMonthly
-	SpokenLanguage string // e.g. "en"
-}
-
 // Provider fetches data from github.com and the GitHub REST API.
 type Provider struct {
-	cfg  Config
-	http *http.Client
+	token string // optional; required for star history
+	http  *http.Client
 }
 
-// New creates a Provider, filling in defaults for empty config values.
-func New(cfg Config) *Provider {
-	if cfg.BaseURL == "" {
-		cfg.BaseURL = DefaultBaseURL
-	}
-	if cfg.APIBaseURL == "" {
-		cfg.APIBaseURL = DefaultAPIBaseURL
-	}
-	if cfg.UserAgent == "" {
-		cfg.UserAgent = "trend-analyzer/1.0"
-	}
-	if cfg.Timeout == 0 {
-		cfg.Timeout = 15 * time.Second
-	}
-	if cfg.MaxRetries < 0 {
-		cfg.MaxRetries = 0
-	}
-	return &Provider{cfg: cfg, http: &http.Client{Timeout: cfg.Timeout}}
+// New creates a Provider. token may be empty.
+func New(token string) *Provider {
+	return &Provider{token: token, http: &http.Client{Timeout: timeout}}
 }
 
 // HasToken reports whether authenticated API calls are possible.
 func (p *Provider) HasToken() bool {
-	return p.cfg.Token != ""
+	return p.token != ""
 }
 
-// FetchTrending downloads and parses the trending repositories page.
-func (p *Provider) FetchTrending(ctx context.Context, q TrendingQuery) ([]TrendingRepo, error) {
-	if q.Since == "" {
-		q.Since = SinceDaily
+// FetchTrending downloads and parses the trending repositories page for since
+// (SinceDaily, SinceWeekly or SinceMonthly; empty means daily).
+func (p *Provider) FetchTrending(ctx context.Context, since string) ([]TrendingRepo, error) {
+	if since == "" {
+		since = SinceDaily
 	}
-	if !ValidSince(q.Since) {
-		return nil, fmt.Errorf("invalid since %q: want daily, weekly or monthly", q.Since)
+	if !ValidSince(since) {
+		return nil, fmt.Errorf("invalid since %q: want daily, weekly or monthly", since)
 	}
 
-	body, err := p.get(ctx, TrendingURL(p.cfg.BaseURL, q.Language, q.Since, q.SpokenLanguage), "text/html")
+	body, err := p.get(ctx, TrendingURL(since), "text/html")
 	if err != nil {
 		return nil, err
 	}
 	defer body.Close()
 
-	return ParseTrending(body, p.cfg.BaseURL)
+	return ParseTrending(body)
 }
 
 // FetchRepo returns repository metadata from the REST API.
 func (p *Provider) FetchRepo(ctx context.Context, owner, name string) (*RepoResponse, error) {
 	var out RepoResponse
-	if err := p.getJSON(ctx, RepoURL(p.cfg.APIBaseURL, owner, name), AcceptJSON, &out); err != nil {
+	if err := p.getJSON(ctx, RepoURL(owner, name), AcceptJSON, &out); err != nil {
 		return nil, err
 	}
 	return &out, nil
@@ -95,7 +71,7 @@ func (p *Provider) FetchRepo(ctx context.Context, owner, name string) (*RepoResp
 
 // FetchReadme returns the repository README as plain text.
 func (p *Provider) FetchReadme(ctx context.Context, owner, name string) (string, error) {
-	body, err := p.get(ctx, ReadmeURL(p.cfg.APIBaseURL, owner, name), AcceptRaw)
+	body, err := p.get(ctx, ReadmeURL(owner, name), AcceptRaw)
 	if err != nil {
 		return "", err
 	}
@@ -111,7 +87,7 @@ func (p *Provider) FetchStargazers(ctx context.Context, owner, name string, page
 		return nil, ErrTokenRequired
 	}
 	var out []Stargazer
-	if err := p.getJSON(ctx, StargazersURL(p.cfg.APIBaseURL, owner, name, page), AcceptStar, &out); err != nil {
+	if err := p.getJSON(ctx, StargazersURL(owner, name, page), AcceptStar, &out); err != nil {
 		return nil, err
 	}
 	return out, nil
@@ -133,7 +109,7 @@ func (p *Provider) getJSON(ctx context.Context, url, accept string, v any) error
 // get performs a GET with retries on network errors, 429 and 5xx responses.
 func (p *Provider) get(ctx context.Context, url, accept string) (io.ReadCloser, error) {
 	var lastErr error
-	for attempt := 0; attempt <= p.cfg.MaxRetries; attempt++ {
+	for attempt := 0; attempt <= maxRetries; attempt++ {
 		if attempt > 0 {
 			if err := sleep(ctx, backoff(attempt, lastErr)); err != nil {
 				return nil, err
@@ -144,12 +120,12 @@ func (p *Provider) get(ctx context.Context, url, accept string) (io.ReadCloser, 
 		if err != nil {
 			return nil, err
 		}
-		req.Header.Set("User-Agent", p.cfg.UserAgent)
+		req.Header.Set("User-Agent", userAgent)
 		req.Header.Set("Accept", accept)
-		if strings.HasPrefix(url, p.cfg.APIBaseURL) {
+		if strings.HasPrefix(url, APIBaseURL) {
 			req.Header.Set("X-GitHub-Api-Version", APIVersion)
-			if p.cfg.Token != "" {
-				req.Header.Set("Authorization", "Bearer "+p.cfg.Token)
+			if p.token != "" {
+				req.Header.Set("Authorization", "Bearer "+p.token)
 			}
 		}
 
@@ -174,7 +150,7 @@ func (p *Provider) get(ctx context.Context, url, accept string) (io.ReadCloser, 
 		}
 		lastErr = statusErr
 	}
-	return nil, fmt.Errorf("giving up after %d attempts: %w", p.cfg.MaxRetries+1, lastErr)
+	return nil, fmt.Errorf("giving up after %d attempts: %w", maxRetries+1, lastErr)
 }
 
 // StatusError is returned for non-200 responses.

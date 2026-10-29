@@ -33,8 +33,8 @@ type Result struct {
 }
 
 // AnalyzeTrending analyzes the first limit repos on the trending page (all if limit <= 0).
-func (a *Analyzer) AnalyzeTrending(ctx context.Context, language, since string, limit int) ([]Result, error) {
-	repos, err := a.GitHub.Trending(ctx, language, since)
+func (a *Analyzer) AnalyzeTrending(ctx context.Context, since string, limit int) ([]Result, error) {
+	repos, err := a.GitHub.Trending(ctx, since)
 	if err != nil {
 		return nil, err
 	}

@@ -10,7 +10,7 @@ import (
 )
 
 // ParseTrending extracts repositories from a github.com/trending HTML page.
-func ParseTrending(r io.Reader, baseURL string) ([]TrendingRepo, error) {
+func ParseTrending(r io.Reader) ([]TrendingRepo, error) {
 	doc, err := html.Parse(r)
 	if err != nil {
 		return nil, fmt.Errorf("parse trending html: %w", err)
@@ -20,7 +20,7 @@ func ParseTrending(r io.Reader, baseURL string) ([]TrendingRepo, error) {
 	for _, row := range findAll(doc, func(n *html.Node) bool {
 		return n.Data == "article" && hasClass(n, "Box-row")
 	}) {
-		repo, ok := parseRow(row, baseURL)
+		repo, ok := parseRow(row)
 		if ok {
 			repos = append(repos, repo)
 		}
@@ -28,7 +28,7 @@ func ParseTrending(r io.Reader, baseURL string) ([]TrendingRepo, error) {
 	return repos, nil
 }
 
-func parseRow(row *html.Node, baseURL string) (TrendingRepo, bool) {
+func parseRow(row *html.Node) (TrendingRepo, bool) {
 	var repo TrendingRepo
 
 	// Repo link: <h2><a href="/owner/name">
@@ -45,16 +45,13 @@ func parseRow(row *html.Node, baseURL string) (TrendingRepo, bool) {
 		return repo, false
 	}
 	repo.Owner, repo.Name = parts[0], parts[1]
-	repo.URL = strings.TrimRight(baseURL, "/") + "/" + repo.Owner + "/" + repo.Name
+	repo.URL = BaseURL + "/" + repo.Owner + "/" + repo.Name
 
 	if p := findFirst(row, func(n *html.Node) bool { return n.Data == "p" }); p != nil {
 		repo.Description = text(p)
 	}
 	if lang := findFirst(row, func(n *html.Node) bool { return attr(n, "itemprop") == "programmingLanguage" }); lang != nil {
 		repo.Language = text(lang)
-	}
-	if color := findFirst(row, func(n *html.Node) bool { return hasClass(n, "repo-language-color") }); color != nil {
-		repo.LanguageColor = strings.TrimSpace(strings.TrimPrefix(attr(color, "style"), "background-color:"))
 	}
 
 	for _, a := range findAll(row, func(n *html.Node) bool { return n.Data == "a" }) {

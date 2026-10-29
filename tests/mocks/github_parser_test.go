@@ -15,7 +15,7 @@ func TestParseTrendingFixture(t *testing.T) {
 	}
 	defer f.Close()
 
-	repos, err := github.ParseTrending(f, github.DefaultBaseURL)
+	repos, err := github.ParseTrending(f)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -31,7 +31,6 @@ type TrendingRepo struct {
 	URL           string   `json:"url"`
 	Description   string   `json:"description"`
 	Language      string   `json:"language"`
-	LanguageColor string   `json:"language_color"`
 	Stars         int      `json:"stars"`
 	Forks         int      `json:"forks"`
 	StarsInPeriod int      `json:"stars_in_period"` // e.g. "2,859 stars today"

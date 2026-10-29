@@ -10,7 +10,7 @@
         <a class="report" [routerLink]="['/reports', r.name]" routerLinkActive="active">
           <span class="date">{{ r.date }}</span>
           <span class="meta">
-            {{ r.since }}@if (r.language) { · {{ r.language }} } · {{ r.repo_count }} repos
+            {{ r.since }} · {{ r.repo_count }} repos
           </span>
         </a>
       }
