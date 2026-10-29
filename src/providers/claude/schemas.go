@@ -16,7 +16,7 @@ type CLIResult struct {
 
 // AnalysisOutput is the structured answer Claude returns for one repository.
 type AnalysisOutput struct {
-	WhyPopular    string          `json:"why_popular"`
+	WhyPopular    []string        `json:"why_popular"`
 	ProblemSolved string          `json:"problem_solved"`
 	TargetUsers   string          `json:"target_users"`
 	LaunchChannel string          `json:"launch_channel"`
@@ -42,7 +42,8 @@ const AnalysisSchema = `{
   "required": ["why_popular", "problem_solved", "target_users", "launch_channel", "launch_url",
                "launch_date", "how_it_spread", "timeline", "confidence", "sources"],
   "properties": {
-    "why_popular":    {"type": "string", "description": "Concrete reasons it got popular now"},
+    "why_popular":    {"type": "array", "items": {"type": "string"},
+                       "description": "Concrete reasons it got popular now, one reason per item, without numbering"},
     "problem_solved": {"type": "string", "description": "The problem it solves"},
     "target_users":   {"type": "string", "description": "Who it is for"},
     "launch_channel": {"type": "string", "description": "Where it was first introduced, e.g. Hacker News, X, Reddit, Product Hunt, blog; or unknown"},

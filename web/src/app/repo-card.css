@@ -133,6 +133,16 @@ h3 {
   line-height: 1.6;
 }
 
+.reasons {
+  margin: 0 0 6px;
+  padding-left: 1.4em;
+  line-height: 1.6;
+}
+
+.reasons li + li {
+  margin-top: 4px;
+}
+
 .muted {
   color: var(--muted);
 }

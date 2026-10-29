@@ -48,7 +48,7 @@ func TestDecodeInsightFromCLIFixture(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if in.LaunchChannel != "Hacker News" || in.Confidence != "high" || len(in.Timeline) != 2 || len(in.Sources) == 0 {
+	if len(in.WhyPopular) != 2 || in.LaunchChannel != "Hacker News" || in.Confidence != "high" || len(in.Timeline) != 2 || len(in.Sources) == 0 {
 		t.Errorf("unexpected insight: %+v", in)
 	}
 	if in.CostUSD == 0 {

@@ -7,7 +7,7 @@ import "time"
 type TrendInsight struct {
 	Repo          string          `json:"repo"`
 	AnalyzedAt    time.Time       `json:"analyzed_at"`
-	WhyPopular    string          `json:"why_popular"`
+	WhyPopular    []string        `json:"why_popular"`
 	ProblemSolved string          `json:"problem_solved"`
 	TargetUsers   string          `json:"target_users"`
 	LaunchChannel string          `json:"launch_channel"`

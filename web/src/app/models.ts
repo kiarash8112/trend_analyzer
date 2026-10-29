@@ -33,7 +33,7 @@ export interface TimelineEvent {
 export interface Insight {
   repo: string;
   analyzed_at: string;
-  why_popular: string;
+  why_popular: string[] | string; // a single string in reports written before it became a list
   problem_solved: string;
   target_users: string;
   launch_channel: string;

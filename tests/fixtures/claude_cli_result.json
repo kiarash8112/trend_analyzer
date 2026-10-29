@@ -7,7 +7,10 @@
   "total_cost_usd": 0.41,
   "result": "",
   "structured_output": {
-    "why_popular": "Launched as a Show HN by a well-known author while interest in the space was peaking.",
+    "why_popular": [
+      "Launched as a Show HN by a well-known author.",
+      "Interest in the space was peaking at the time."
+    ],
     "problem_solved": "Replaces a slow manual workflow with a single command.",
     "target_users": "Backend developers",
     "launch_channel": "Hacker News",

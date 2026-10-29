@@ -39,7 +39,18 @@
     <div class="answers">
       <section>
         <h3>Why it got popular</h3>
-        <p>{{ i.why_popular }}</p>
+        @if (whyPopular(); as why) {
+          @if (why.intro) {
+            <p>{{ why.intro }}</p>
+          }
+          @if (why.reasons.length) {
+            <ol class="reasons">
+              @for (reason of why.reasons; track $index) {
+                <li>{{ reason }}</li>
+              }
+            </ol>
+          }
+        }
       </section>
       <section>
         <h3>What problem it solves</h3>
