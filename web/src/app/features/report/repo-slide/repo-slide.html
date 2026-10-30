@@ -16,6 +16,18 @@
 }
 
 @if (insight(); as i) {
+  <section class="what">
+    @if (i.problem && i.solution) {
+      <app-problem-answer [problem]="i.problem" [solution]="i.solution" [repoName]="repo().name" />
+    } @else {
+      <h2>The problem it solves</h2>
+      <p>{{ i.problem_solved }}</p>
+    }
+    @if (i.target_users) {
+      <p class="for"><b>For</b> {{ i.target_users }}</p>
+    }
+  </section>
+
   <app-route-map [insight]="i" [reportDay]="reportDay()" />
 
   <h2>Why it is trending</h2>

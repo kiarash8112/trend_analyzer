@@ -8,7 +8,9 @@ type TrendInsight struct {
 	Repo          string          `json:"repo"`
 	AnalyzedAt    time.Time       `json:"analyzed_at"`
 	WhyPopular    []string        `json:"why_popular"`
-	ProblemSolved string          `json:"problem_solved"`
+	Problem       string          `json:"problem"`
+	Solution      string          `json:"solution"`
+	ProblemSolved string          `json:"problem_solved,omitempty"` // only in analyses made before Problem and Solution
 	TargetUsers   string          `json:"target_users"`
 	LaunchChannel string          `json:"launch_channel"`
 	LaunchURL     string          `json:"launch_url"`

@@ -11,7 +11,7 @@ const CONFIDENCE: Record<string, string> = {
   low: 'Low: mostly inferred; treat it as a hypothesis.',
 };
 
-/** The rest of a repo's story: what it is, how it spread, facts, events and sources. */
+/** The rest of a repo's story: how it spread, facts, events and sources. */
 @Component({
   selector: 'app-repo-background',
   imports: [DatePipe, DecimalPipe, HostPipe, EventList, SourceList],

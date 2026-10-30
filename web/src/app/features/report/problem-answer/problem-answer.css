@@ -1,0 +1,67 @@
+:host {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding-left: 34px;
+}
+
+/* The line runs from the hollow problem station to the filled answer station. */
+:host::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 6px;
+  border-radius: 3px;
+  background: linear-gradient(var(--rule-2), var(--cobalt));
+}
+
+.stop {
+  position: relative;
+}
+
+.stop::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 3px solid var(--rule-2);
+}
+
+.answer::before {
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+}
+
+h2 {
+  margin: 0 0 2px;
+  font: 600 15px var(--font-display);
+  color: var(--muted);
+}
+
+.answer h2 {
+  color: var(--cobalt);
+}
+
+p {
+  margin: 0;
+  max-width: 78ch;
+  font-size: 17px;
+  color: var(--ink-2);
+}
+
+.answer p {
+  font-size: 19px;
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .answer p {
+    font-size: 17px;
+  }
+}

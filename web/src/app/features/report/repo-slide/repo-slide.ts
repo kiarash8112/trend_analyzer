@@ -5,12 +5,13 @@ import { splitReasons } from '../../../core/utils/reasons';
 import { shortChannel } from '../../../core/utils/text';
 import { ReasonList } from '../../../shared/components/reason-list/reason-list';
 import { RouteMap } from '../../../shared/components/route-map/route-map';
+import { ProblemAnswer } from '../problem-answer/problem-answer';
 import { RepoBackground } from '../repo-background/repo-background';
 
-/** One repo as a slide: title, route and every reason, then the rest of the story. */
+/** One repo as a slide: what it is, its route and every reason, then how it spread. */
 @Component({
   selector: 'app-repo-slide',
-  imports: [DecimalPipe, RouteMap, ReasonList, RepoBackground],
+  imports: [DecimalPipe, ProblemAnswer, RouteMap, ReasonList, RepoBackground],
   templateUrl: './repo-slide.html',
   styleUrl: './repo-slide.css',
 })

@@ -279,7 +279,7 @@ Replace them with specific evidence and explanations.
 ## REQUIRED OUTPUT FORMAT
 
 ### 1. What does it do?
-A plain-English explanation of the project, its intended users, the problem it solves, and a concrete usage example.
+A plain-English explanation of the project, its intended users, the problem it solves, and a concrete usage example. State the problem on its own first, as people experience it and without naming the project; then explain how this project solves it.
 
 ### 2. Why did it become popular?
 The specific reasons behind its popularity. Explain each reason and why it mattered.

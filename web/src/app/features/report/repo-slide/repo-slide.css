@@ -45,9 +45,34 @@ h1 a:hover {
 
 .description {
   max-width: 70ch;
-  margin: 10px 0 20px;
+  margin: 10px 0 0;
   font-size: 18px;
   color: var(--ink-2);
+}
+
+.what {
+  max-width: 75ch;
+  margin: 24px 0;
+}
+
+.what p {
+  margin: 0 0 6px;
+  color: var(--ink-2);
+}
+
+.what .for {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+app-problem-answer + .for {
+  padding-left: 34px;
+}
+
+.for b {
+  font: 500 12px var(--font-display);
+  color: var(--muted);
+  margin-right: 6px;
 }
 
 .intro {

@@ -50,7 +50,8 @@ func DecodeInsight(res *claude.CLIResult) (models.TrendInsight, error) {
 	}
 	return models.TrendInsight{
 		WhyPopular:    out.WhyPopular,
-		ProblemSolved: out.ProblemSolved,
+		Problem:       out.Problem,
+		Solution:      out.Solution,
 		TargetUsers:   out.TargetUsers,
 		LaunchChannel: out.LaunchChannel,
 		LaunchURL:     out.LaunchURL,

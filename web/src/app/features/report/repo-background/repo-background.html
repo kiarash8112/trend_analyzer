@@ -1,24 +1,15 @@
-<div class="background">
-  <section>
-    <h3>What it is</h3>
-    <p>{{ insight().problem_solved }}</p>
-    @if (insight().target_users) {
-      <p class="fact"><b>For</b> {{ insight().target_users }}</p>
+<section class="spread">
+  <h3>How it spread</h3>
+  <p>{{ insight().how_it_spread }}</p>
+  <p class="fact">
+    <b>Launched on</b> {{ insight().launch_channel }}
+    @if (insight().launch_url) {
+      <a [href]="insight().launch_url" target="_blank" rel="noopener">{{
+        insight().launch_url | host
+      }}</a>
     }
-  </section>
-  <section>
-    <h3>How it spread</h3>
-    <p>{{ insight().how_it_spread }}</p>
-    <p class="fact">
-      <b>Launched on</b> {{ insight().launch_channel }}
-      @if (insight().launch_url) {
-        <a [href]="insight().launch_url" target="_blank" rel="noopener">{{
-          insight().launch_url | host
-        }}</a>
-      }
-    </p>
-  </section>
-</div>
+  </p>
+</section>
 
 <dl class="facts">
   <div>
