@@ -7,10 +7,7 @@ import { ReasonList } from '../../../shared/components/reason-list/reason-list';
 import { RouteMap } from '../../../shared/components/route-map/route-map';
 import { RepoBackground } from '../repo-background/repo-background';
 
-/** How many reasons sit on the slide itself; the rest continue below it. */
-const ON_SLIDE = 3;
-
-/** One repo as a slide: title, route and the top reasons on one screen, the full story below. */
+/** One repo as a slide: title, route and every reason, then the rest of the story. */
 @Component({
   selector: 'app-repo-slide',
   imports: [DecimalPipe, RouteMap, ReasonList, RepoBackground],
@@ -21,7 +18,6 @@ export class RepoSlide {
   readonly result = input.required<RepoResult>();
   readonly reportDay = input.required<number>();
 
-  protected readonly onSlide = ON_SLIDE;
   protected readonly repo = computed(() => this.result().evidence.repo);
   protected readonly insight = computed(() => this.result().insight);
   protected readonly why = computed(() => {

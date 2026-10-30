@@ -1,4 +1,4 @@
-<ol [start]="start()" [style.counter-reset]="'reason ' + (start() - 1)">
+<ol>
   @for (reason of reasons(); track $index) {
     <li>
       <span>{{ reason }}</span>

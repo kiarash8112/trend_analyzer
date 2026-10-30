@@ -8,6 +8,4 @@ import { Component, input } from '@angular/core';
 })
 export class ReasonList {
   readonly reasons = input.required<string[]>();
-  /** Number of the first reason, for a list continued from an earlier one. */
-  readonly start = input(1);
 }

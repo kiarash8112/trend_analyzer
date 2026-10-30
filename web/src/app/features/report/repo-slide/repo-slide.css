@@ -55,12 +55,13 @@ h1 a:hover {
   margin: 0 0 8px;
 }
 
-app-reason-list.lead {
+app-reason-list {
   display: block;
   font-size: 17px;
 }
 
 .more {
+  display: block;
   margin-top: 40px;
   padding-top: 28px;
   border-top: 1px solid var(--rule);
@@ -68,12 +69,7 @@ app-reason-list.lead {
 
 h2 {
   font: 600 18px var(--font-display);
-  margin: 0 0 6px;
-}
-
-.more app-reason-list {
-  display: block;
-  margin-bottom: 28px;
+  margin: 4px 0 6px;
 }
 
 .failed {

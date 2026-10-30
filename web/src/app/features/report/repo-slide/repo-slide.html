@@ -18,18 +18,13 @@
 @if (insight(); as i) {
   <app-route-map [insight]="i" [reportDay]="reportDay()" />
 
+  <h2>Why it is trending</h2>
   @if (why().intro) {
     <p class="intro">{{ why().intro }}</p>
   }
-  <app-reason-list class="lead" [reasons]="why().reasons.slice(0, onSlide)" />
+  <app-reason-list [reasons]="why().reasons" />
 
-  <div class="more">
-    @if (why().reasons.length > onSlide) {
-      <h2>More reasons</h2>
-      <app-reason-list [reasons]="why().reasons.slice(onSlide)" [start]="onSlide + 1" />
-    }
-    <app-repo-background [result]="result()" />
-  </div>
+  <app-repo-background class="more" [result]="result()" />
 } @else {
   <p class="failed">Analysis failed: {{ result().error }}</p>
 }
