@@ -1,0 +1,1457 @@
+[
+  {
+    "evidence": {
+      "repo": {
+        "owner": "thedotmack",
+        "name": "claude-mem",
+        "url": "https://github.com/thedotmack/claude-mem",
+        "description": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
+        "language": "TypeScript",
+        "topics": [
+          "ai",
+          "ai-agents",
+          "ai-memory",
+          "anthropic",
+          "artificial-intelligence",
+          "chromadb",
+          "claude",
+          "claude-agent-sdk",
+          "claude-agents",
+          "claude-code",
+          "claude-code-plugin",
+          "claude-skills",
+          "embeddings",
+          "long-term-memory",
+          "mem0",
+          "memory-engine",
+          "openmemory",
+          "rag",
+          "sqlite",
+          "supermemory"
+        ],
+        "homepage": "https://claude-mem.ai",
+        "license": "Apache-2.0",
+        "stars": 105700,
+        "forks": 9313,
+        "stars_in_period": 1145,
+        "period": "daily",
+        "built_by": [
+          "thedotmack",
+          "claude",
+          "rudycelekli",
+          "cursoragent",
+          "rodboev"
+        ],
+        "created_at": "2025-08-31T20:50:03Z",
+        "pushed_at": "2026-10-30T03:07:33Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fthedotmack%2Fclaude-mem\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "thedotmack/claude-mem",
+      "analyzed_at": "2026-10-30T16:16:40.604493658Z",
+      "why_popular": [
+        "The problem is common to everyone using these tools. AI coding assistants start every session knowing nothing about the work done before. Many reviewers, including the companies Augment Code and DataCamp and the site Crypto Briefing, call this 'session amnesia' and give it as the main reason people adopted the tool.",
+        "It arrived when a distribution channel opened up. Anthropic added plugin support to its coding assistant, Claude Code, in public beta around October 2025. A plugin is an add-on, and support meant users could install a whole package with a couple of commands. claude-mem was one of the early plugins that did something people immediately wanted.",
+        "It needs no manual work. It hooks into the assistant's normal session events, records what happens, has a second AI call write short summaries, and feeds the relevant ones into the next session. Reviewers repeatedly praise the two-command install and the fact that you don't have to keep notes yourself.",
+        "It claims to save money. It loads memory in layers instead of all at once, which the project says uses about 10 times fewer tokens. Tokens are the units AI services charge by. This is the project's own claim and has not been independently tested.",
+        "It is local and private by default. Data is stored in a SQLite database (a small database kept as one file) on your own machine. A \u003cprivate\u003e tag lets you keep things out of memory, and Crypto Briefing says early Reddit users praised the absence of analytics.",
+        "A crypto token probably fed the February 2026 star surge, but this is unconfirmed. A third party created a Solana token called $CMEM, and its ownership was claimed on 2026-01-19. The creator publicly embraced it and put trading links at the top of the README. The Substack post reporting a 1,469-star day on 2026-02-02 suggested the token might be driving it.",
+        "Once on GitHub Trending, it kept itself visible. Trending lists and the many directory and roundup sites built on them repeatedly featured the project, so each milestone (46K, 65K, 74K, 100K stars) produced new articles.",
+        "It expanded beyond one product. It went from a Claude Code-only plugin to supporting Codex, Gemini CLI, Copilot, Cursor, OpenCode, OpenClaw, Hermes and others. Each new integration reached users of another AI tool.",
+        "It ships updates at a very high rate: 3,767 commits and versions up to 15.7.0 as of 2026-10-30. In October 2026 alone there were about 10 releases. Each one gives the project fresh activity and a new reason to look at it."
+      ],
+      "problem": "AI coding assistants forget everything when a session ends. Each new session starts from nothing, so developers have to re-explain the project, past decisions and earlier bug fixes, which wastes both time and paid AI usage.",
+      "solution": "claude-mem is a plugin that runs in the background while an AI coding agent works. It records what the agent did (files edited, commands run, decisions made) and uses an AI model to compress that into short notes. The notes are stored in a local database, and the most relevant ones are automatically placed into the agent's context (the background information it reads first) at the start of the next session. The agent can also search past notes on request. Example: on Monday you and Claude Code fix an authentication bug and agree to use a certain database library. On Tuesday you open a new session and ask for a new feature. Without being told, the agent already 'knows' Monday's fix and the library choice, because claude-mem added a summary of them.",
+      "target_users": "Developers who use AI coding agents that run in the terminal or editor, starting with Anthropic's Claude Code and later Codex, Gemini CLI, GitHub Copilot, Cursor, OpenCode, OpenClaw and others. It suits people working on one project over many sessions. A newer hosted tier (CMEM Pro) and a shared team feature (TeamBrain) are aimed at paying individuals and teams.",
+      "launch_channel": "GitHub. The repository was created on 2025-08-31. No original launch post on Hacker News, Reddit, X or a blog was found.",
+      "launch_url": "https://github.com/thedotmack/claude-mem",
+      "launch_date": "2025-08-31",
+      "how_it_spread": "Alex Newman (GitHub handle thedotmack) created the repository on 2025-08-31 as a memory plugin for Claude Code. In late October 2025 Anthropic opened Claude Code plugins to everyone in public beta, which gave the project an easy install path. By early February 2026 it was on GitHub Trending: 17,733 stars on 2026-02-02 after a 1,469-star day, and about 26,000 later that month. That burst came shortly after a third-party Solana token, $CMEM, was claimed on 2026-01-19, publicly embraced by the creator and linked at the top of the README. It also drew criticism, including a 2026-02-23 GitHub issue calling the token promotion a red flag, which the maintainer closed. From then on, growth was steady and fed itself. Directory sites, tutorials (DataCamp, Better Stack, Medium) and repeated 'X stars' articles from Augment Code (a company selling a competing AI coding tool) recorded each milestone: 46.1K (April), 65.8K (April), 74.8K (May), about 94K (September), and 100K on 2026-10-12. Meanwhile the project added support for many other AI agents, changed its license from AGPL to the more business-friendly Apache-2.0, and introduced a paid hosted tier. October 2026 brought a new burst of releases (v15.0 to v15.7) and the 100K milestone, and daily star gains climbed to 977 on 2026-10-29.",
+      "timeline": [
+        {
+          "date": "2025-08-31",
+          "event": "Original launch: Alex Newman (thedotmack) creates the claude-mem repository on GitHub as a persistent-memory plugin for Claude Code. No launch announcement found.",
+          "source_url": "https://gittrend.io/repo/thedotmack/claude-mem"
+        },
+        {
+          "date": "2025-10",
+          "event": "Anthropic opens Claude Code plugins (installed with /plugin) to all users in public beta, giving claude-mem a two-command install path. An Oct 27, 2025 news write-up covers the launch.",
+          "source_url": "https://alternativeto.net/news/2025/10/anthropic-launches-unified-plugin-support-for-claude-code-in-public-beta/"
+        },
+        {
+          "date": "2026-01-19",
+          "event": "Ownership of $CMEM, a Solana token made through the Bags launchpad by a third party, is claimed by a community according to DEX Screener. The creator later 'officially embraced' it and linked it from the README.",
+          "source_url": "https://dexscreener.com/solana/6mzfakwnac6gsk1edfx93dzeukgfzrfq4uhwarhgsqyd"
+        },
+        {
+          "date": "2026-02-02",
+          "event": "First documented surge: 1,469 stars in one day, 17,733 total. The writer suggests the token may be contributing.",
+          "source_url": "https://claudeopus45.substack.com/p/claude-code-plugin-claude-mem-explodes"
+        },
+        {
+          "date": "2026-02",
+          "event": "A HackMD analysis reports over 26,200 stars and repeated top GitHub Trending placements, and raises concerns about the token, the AGPL license and data sent to Anthropic's servers.",
+          "source_url": "https://hackmd.io/@BASHCAT/S1tqslOwWe"
+        },
+        {
+          "date": "2026-02-23",
+          "event": "Issue #1212 criticizes the token promotion and the bundled binary and minified files. The maintainer closes it on 2026-02-24, calling them standard build output.",
+          "source_url": "https://github.com/thedotmack/claude-mem/issues/1212"
+        },
+        {
+          "date": "2026-04-07",
+          "event": "Augment Code reports 46.1K stars, 3.5K forks, 92 contributors and v12.0.0.",
+          "source_url": "https://www.augmentcode.com/learn/claude-mem-46k-stars-persistent-memory-claude-code"
+        },
+        {
+          "date": "2026-04-16",
+          "event": "Best tracked GitHub Trending rank, #4, according to gittrend.io, whose records start 2026-04-04.",
+          "source_url": "https://gittrend.io/repo/thedotmack/claude-mem"
+        },
+        {
+          "date": "2026-05-11",
+          "event": "v13.1.0 adds a team/server runtime. 74.8K stars. The license has changed from AGPL-3.0 to Apache-2.0.",
+          "source_url": "https://www.augmentcode.com/learn/claude-mem-74k-stars-agent-memory"
+        },
+        {
+          "date": "2026-08",
+          "event": "The paid hosted tier CMEM Pro is introduced, per a community wiki that cites no sources.",
+          "source_url": "https://ai.miraheze.org/wiki/Claude-mem"
+        },
+        {
+          "date": "2026-10-12",
+          "event": "Passes 100,000 stars.",
+          "source_url": "https://gittrend.io/repo/thedotmack/claude-mem"
+        },
+        {
+          "date": "2026-10-20",
+          "event": "v15.0.0 makes 'Smart' memory search the default and adds Hermes Agent support. It starts a run of releases through v15.6.0 (2026-10-29), including a new React 'My Work' viewer.",
+          "source_url": "https://github.com/thedotmack/claude-mem/releases"
+        },
+        {
+          "date": "2026-10-29",
+          "event": "Best single day in the past 30: 977 stars. The project is back on daily Trending, about 105.7K stars as of 2026-10-30.",
+          "source_url": "https://gittrend.io/repo/thedotmack/claude-mem"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/thedotmack/claude-mem",
+        "https://github.com/thedotmack/claude-mem/releases",
+        "https://github.com/thedotmack/claude-mem/issues/1212",
+        "https://gittrend.io/repo/thedotmack/claude-mem",
+        "https://claudeopus45.substack.com/p/claude-code-plugin-claude-mem-explodes",
+        "https://hackmd.io/@BASHCAT/S1tqslOwWe",
+        "https://www.augmentcode.com/learn/claude-mem-46k-stars-persistent-memory-claude-code",
+        "https://www.augmentcode.com/learn/claude-mem-74k-stars-agent-memory",
+        "https://ai.miraheze.org/wiki/Claude-mem",
+        "https://cryptobriefing.com/claude-mem-permanent-memory-46k-stars/",
+        "https://dexscreener.com/solana/6mzfakwnac6gsk1edfx93dzeukgfzrfq4uhwarhgsqyd",
+        "https://alternativeto.net/news/2025/10/anthropic-launches-unified-plugin-support-for-claude-code-in-public-beta/",
+        "https://claude.com/blog/claude-code-plugins",
+        "https://github.com/845421145-lang/agents-radar/issues/694",
+        "https://www.coddykit.com/pages/blog-detail?id=5130007\u0026slug=github-trending-october-2026-from-a-105k-star-persistent-memory-engine-to-a-30k-",
+        "https://aitoolly.com/zh/ai-news/article/2026-10-07-claude-mem-brings-persistent-cross-session-context-and-ai-powered-compression-to-claude-code-codex-a",
+        "https://www.datacamp.com/tutorial/claude-mem-guide",
+        "https://thebaysignal.com/episodes/alex-newman-claude-mem"
+      ],
+      "cost_usd": 0.6679165
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "milind-soni",
+        "name": "OpenMausBot",
+        "url": "https://github.com/milind-soni/OpenMausBot",
+        "description": "Open-source Grok Bot alternative with a virtual machine that bots can use",
+        "language": "TypeScript",
+        "topics": [
+          "ai-agents",
+          "claude-code",
+          "codex",
+          "computer-use",
+          "docker",
+          "electron",
+          "expo",
+          "grok",
+          "grok-bot",
+          "grok-bot-alternative",
+          "self-hosted",
+          "typescript"
+        ],
+        "homepage": "https://www.openmausbot.com/",
+        "license": "Apache-2.0",
+        "stars": 8193,
+        "forks": 1172,
+        "stars_in_period": 899,
+        "period": "daily",
+        "built_by": [
+          "milind-soni",
+          "claude",
+          "aivsomkar",
+          "robinsonnblack",
+          "bradhallett"
+        ],
+        "created_at": "2026-08-11T18:58:55Z",
+        "pushed_at": "2026-10-30T15:23:47Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fmilind-soni%2FOpenMausBot\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "milind-soni/OpenMausBot",
+      "analyzed_at": "2026-10-30T16:15:57.750980401Z",
+      "why_popular": [
+        "It appeared within hours of xAI's Grok Bot launch on 2026-08-11. The 'same-day open-source clone' angle was shareable, and one X reply said an OSS clone existed 'within 4 hours'.",
+        "A widely followed AI creator, Vaibhav Sisinty, amplified it on X ('Grok Bot launched today. This guy already built an open source version'). Engagement numbers could not be checked.",
+        "A clear cost argument: Grok Bot required expensive premium plans, while OpenMausBot reuses Claude, Codex or Grok subscriptions users already pay for and stores data locally.",
+        "Timing: four closed personal-agent products (Grok Bot, Meta Muse, OpenAI dots, Manus Cue) shipped within weeks of each other, and the project positioned itself and wrote search-friendly pages as the open alternative to each one.",
+        "Very fast, visible shipping: about 7,400 commits and about 2,078 merged PRs in under three months, much of it AI-assisted, plus near-daily feature videos on X (Windows, routines, Android control, mobile app).",
+        "Late-October release burst (v0.1.125 to v0.1.134 in a week) with team features, a mid-October Product Hunt launch and paid MausBot Cloud line up with record daily star gains of +836 on Oct 28–29. No single trigger was verified."
+      ],
+      "problem": "Big AI companies launched 'personal agent' products that act for you on a cloud computer, but they are closed, locked to one company's model, and require costly new subscriptions while keeping your data on their servers. People already paying for Claude or ChatGPT had no open, self-hosted way to get the same 'team of AI helpers'.",
+      "solution": "OpenMausBot (formerly OpenGrokBot, also MausBot) is a free, Apache-2.0 desktop app for Mac, Windows and Ubuntu that looks like a messaging app. Each contact is an AI bot running on the user's own Claude Code, Codex or Grok command-line tools, with its own personality, model, computer (cloud desktop, local VM or your own machine) and connected apps, and risky actions need Allow/Deny approval. An optional paid MausBot Cloud hosts bots 24/7.",
+      "target_users": "Technically comfortable users such as developers, solo founders and AI power users who already pay for Claude or ChatGPT/Codex and want a self-hosted, multi-agent alternative to Grok Bot, Meta Muse or OpenAI dots.",
+      "launch_channel": "X (Twitter)",
+      "launch_url": "https://x.com/milindlabs/status/2087289803964559746",
+      "launch_date": "2026-08-11",
+      "how_it_spread": "It launched on X the same day as xAI's Grok Bot, was amplified by AI-influencer reposts and reactions, and kept spreading through near-daily feature posts by the founders. Later it was picked up by tool directories, review blogs and YouTube explainers. It reached Trendshift's TypeScript trending list in mid/late September (after the Meta Muse launch and around the rename to OpenMausBot), launched on Product Hunt on 2026-10-13 (#7 of the day), added paid cloud hosting on 2026-10-16, and after a dense run of releases in late October hit GitHub Trending on Oct 29–30, peaking at #2.",
+      "timeline": [
+        {
+          "date": "2026-08-11",
+          "event": "xAI launches Grok Bot beta for premium SuperGrok Heavy and Cursor plans",
+          "source_url": "https://www.datacamp.com/blog/grok-bot"
+        },
+        {
+          "date": "2026-08-11",
+          "event": "Milind Soni creates the repo (as OpenGrokBot) and announces an open-source Grok Bot on X, crediting ascii.dev, Cua and co-builder Omkar Satpute",
+          "source_url": "https://x.com/milindlabs/status/2087289803964559746"
+        },
+        {
+          "date": "2026-08-11",
+          "event": "Reply from Keith W: 'within 4 hours an OSS clone exists'",
+          "source_url": "https://x.com/keith__w/status/2087325352490094891"
+        },
+        {
+          "date": "2026-08-12",
+          "event": "Vaibhav Sisinty amplifies it on X (date approximate, decoded from post ID)",
+          "source_url": "https://x.com/VaibhavSisinty/status/2087426362793771026?lang=en"
+        },
+        {
+          "date": "2026-08-13",
+          "event": "Windows build announced (approximate date)",
+          "source_url": "https://x.com/milindlabs/status/2087981111091896552"
+        },
+        {
+          "date": "2026-09-08",
+          "event": "Meta launches Muse, a second closed product for the project to position against",
+          "source_url": "https://axios.com/2026/09/08/meta-debuts-muse-personal-ai-agent"
+        },
+        {
+          "date": "2026-09-11",
+          "event": "Independent review reports 2.5k+ stars",
+          "source_url": "https://baeseokjae.github.io/posts/openmausbot-grok-bot-alternative/"
+        },
+        {
+          "date": "2026-09-23",
+          "event": "Ranks #9 on Trendshift TypeScript trending; around this time 'Introducing OpenMausBot' rename post",
+          "source_url": "https://trendshift.io/repositories/138660"
+        },
+        {
+          "date": "2026-10-13",
+          "event": "Product Hunt launch as MausBot, #7 of the day, 165 upvotes",
+          "source_url": "https://www.producthunt.com/products/mausbot"
+        },
+        {
+          "date": "2026-10-16",
+          "event": "v0.1.113 adds in-app purchase of paid MausBot Cloud",
+          "source_url": "https://github.com/milind-soni/OpenMausBot/releases/tag/v0.1.113"
+        },
+        {
+          "date": "2026-10-23",
+          "event": "About 5.5k stars per comparison article",
+          "source_url": "https://www.bitdoze.com/best-open-source-grok-bot-alternatives/"
+        },
+        {
+          "date": "2026-10-29",
+          "event": "Reaches GitHub Trending (best #2) after +836 stars/day on Oct 28 and 29 and a burst of releases",
+          "source_url": "https://trendshift.io/repositories/138660"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/milind-soni/OpenMausBot",
+        "https://github.com/milind-soni/OpenMausBot/releases",
+        "https://github.com/milind-soni/OpenMausBot/releases/tag/v0.1.113",
+        "https://trendshift.io/repositories/138660",
+        "https://mausbot.com/",
+        "https://mausbot.com/blog/open-source-alternative-to-grok-bot",
+        "https://x.com/milindlabs/status/2087289803964559746",
+        "https://x.com/milindlabs/status/2087309575993344070",
+        "https://x.com/keith__w/status/2087325352490094891",
+        "https://x.com/VaibhavSisinty/status/2087426362793771026?lang=en",
+        "https://x.com/milindlabs/status/2087981111091896552",
+        "https://x.com/milindlabs/status/2088323759220592959",
+        "https://x.com/milindlabs/status/2089847867611795545",
+        "https://x.com/milindlabs/status/2095197892034392089",
+        "https://x.com/milindlabs/status/2109981780732518625",
+        "https://www.datacamp.com/blog/grok-bot",
+        "https://docs.x.ai/grok-bot/overview",
+        "https://www.llmmatchmaker.com/blog/grok-bot-x-subscription",
+        "https://axios.com/2026/09/08/meta-debuts-muse-personal-ai-agent",
+        "https://www.producthunt.com/products/mausbot",
+        "https://baeseokjae.github.io/posts/openmausbot-grok-bot-alternative/",
+        "https://www.bitdoze.com/best-open-source-grok-bot-alternatives/",
+        "https://phongminhho.substack.com/p/xai-co-grok-bot-meta-co-muse-openai",
+        "https://www.youtube.com/watch?v=h6xYILVva-U"
+      ],
+      "cost_usd": 0.8988021000000002
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "pbakaus",
+        "name": "impeccable",
+        "url": "https://github.com/pbakaus/impeccable",
+        "description": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
+        "language": "Rust",
+        "topics": [
+          "agent-skills",
+          "ai",
+          "anti-slop",
+          "design",
+          "slop"
+        ],
+        "homepage": "https://impeccable.style",
+        "license": "Apache-2.0",
+        "stars": 96666,
+        "forks": 5694,
+        "stars_in_period": 2299,
+        "period": "daily",
+        "built_by": [
+          "pbakaus",
+          "claude",
+          "github-actions",
+          "abdulwahabone",
+          "cursoragent"
+        ],
+        "created_at": "2025-11-16T01:52:04Z",
+        "pushed_at": "2026-10-30T10:16:27Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fpbakaus%2Fimpeccable\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "pbakaus/impeccable",
+      "analyzed_at": "2026-10-30T16:26:38.066602317Z",
+      "why_popular": [
+        "Creator credibility: Paul Bakaus created jQuery UI and was product lead for Chrome DevTools at Google, so web developers were inclined to trust a design tool from him",
+        "It targets a widely mocked problem: AI-built interfaces all look alike (Inter font, purple gradients, nested cards), and non-designers lack the words to steer the AI away from that look",
+        "It started from Anthropic's popular frontend-design skill (~277k installs) and was pitched as a drop-in upgrade, so it could reach that skill's existing users",
+        "Early support for the cross-tool 'agent skills' format in 2026 meant it worked in Claude Code, Cursor, Codex, Copilot and many other AI coding tools",
+        "On 2026-06-22 GitHub began shipping it pre-installed in the GitHub Copilot app, giving it built-in distribution",
+        "Seed funding led by a16z for Bakaus's company Renaissance Geek, announced the same day, added credibility and paid for a full-time team",
+        "Very frequent releases (Live Mode, v4 world builder, Rust engine, three releases in the two weeks before trending) gave people repeated reasons to post about it",
+        "Deterministic slop-detector rules that run automatically after each agent edit, plus command-line, CI and Chrome-extension versions, make it useful beyond a simple prompt pack"
+      ],
+      "problem": "AI coding assistants asked to build an interface tend to produce the same generic look (default fonts, purple gradients, nested cards), and most people using them aren't designers, so they lack both the words to ask for something better and a way to catch these clichés before shipping.",
+      "solution": "Impeccable is an open-source skill that plugs into AI coding agents. It adds about two dozen named design commands (bolder, quieter, typeset, polish), review commands (critique, audit), a project context file, and a 62-rule detector that runs automatically after each edit to flag AI-slop patterns, also available from the command line, in CI and as a Chrome extension.",
+      "target_users": "Developers, founders and solo builders who use AI coding agents (Claude Code, Cursor, Codex, GitHub Copilot and others) to build user interfaces, especially those without design training",
+      "launch_channel": "X (Twitter) and the Claude Code plugin marketplace; no single launch post could be confirmed",
+      "launch_url": "https://x.com/pbakaus/status/2009758986418172226",
+      "launch_date": "unknown",
+      "how_it_spread": "The repo was created on 2025-11-16. Bakaus promoted it on X from early 2026, including a listing on Claude's plugin marketplace around 2026-01-09. Version 1.x releases followed in late February and March 2026, and it first reached GitHub Trending around 2026-03-10, followed by blog reviews and directory listings. Live Mode (April) and v3.5 (May) kept it in the news. The big jump came on 2026-06-22, when GitHub bundled it into the new Copilot app and Bakaus announced a16z-funded Renaissance Geek, at more than 40,000 stars. Impeccable 4 (July), the Rust engine port (September) and frequent October releases kept growth going, reaching ~96.7k stars with +2,299 in one day on 2026-10-30.",
+      "timeline": [
+        {
+          "date": "2025-11-16",
+          "event": "GitHub repository created by Paul Bakaus",
+          "source_url": "https://github.com/pbakaus/impeccable"
+        },
+        {
+          "date": "2026-01-09",
+          "event": "Bakaus announced on X that Impeccable, a drop-in upgrade for Anthropic's frontend-design skill with 17 commands, was on the Claude plugin marketplace (date derived from the post ID)",
+          "source_url": "https://x.com/pbakaus/status/2009758986418172226"
+        },
+        {
+          "date": "2026-02-28",
+          "event": "v1.0.0 public release according to a community wiki (secondary source)",
+          "source_url": "https://ai.miraheze.org/wiki/Impeccable"
+        },
+        {
+          "date": "2026-03-04",
+          "event": "v1.1 announced: all commands became agent skills; support for Antigravity and VS Code",
+          "source_url": "https://x.com/pbakaus/status/2029334353894162720"
+        },
+        {
+          "date": "2026-03-10",
+          "event": "AI news aggregator reported it gaining traction on GitHub Trending",
+          "source_url": "https://aitoolly.com/ai-news/article/2026-03-10-impeccable-a-design-language-to-enhance-ai-tool-performance-in-frontend-design-with-17-commands-and"
+        },
+        {
+          "date": "2026-03-13",
+          "event": "Independent developer blog review",
+          "source_url": "https://paddo.dev/blog/impeccable-design-vocabulary/"
+        },
+        {
+          "date": "2026-05-29",
+          "event": "Impeccable 3.5 announced: iterating on real UI in the production codebase",
+          "source_url": "https://x.com/pbakaus/status/2060208540992880794"
+        },
+        {
+          "date": "2026-06-22",
+          "event": "Renaissance Geek launched with an a16z-led seed round; Impeccable pre-bundled in the GitHub Copilot app; 40,000+ stars",
+          "source_url": "https://www.a16z.news/p/impeccable-by-design"
+        },
+        {
+          "date": "2026-06-22",
+          "event": "AlphaSignal coverage of GitHub building Impeccable into Copilot",
+          "source_url": "https://alphasignal.ai/news/github-bakes-impeccable-into-copilot-to-fix-ai-s-generic-ui-problem"
+        },
+        {
+          "date": "2026-07",
+          "event": "Impeccable 4 'world builder' for designing new pages from scratch",
+          "source_url": "https://x.com/pbakaus/status/2079984598105358828"
+        },
+        {
+          "date": "2026-09-09",
+          "event": "Engine ported to Rust (Impeccable 4.3): ~10ms design hooks, no Node setup needed (date derived from the post ID)",
+          "source_url": "https://x.com/pbakaus/status/2097498807542165711"
+        },
+        {
+          "date": "2026-09",
+          "event": "Impeccable for PRs, a paid design-review agent, announced in closed beta",
+          "source_url": "https://x.com/pbakaus/status/2100284971961430019"
+        },
+        {
+          "date": "2026-10-06",
+          "event": "Bakaus said the repo had been trending on GitHub in recent weeks",
+          "source_url": "https://x.com/pbakaus/status/2107608447541989859"
+        },
+        {
+          "date": "2026-10-26",
+          "event": "Skill/CLI 4.8.0 release, following 4.6 (Oct 15) and 4.7 (Oct 19)",
+          "source_url": "https://github.com/pbakaus/impeccable/releases"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/pbakaus/impeccable",
+        "https://github.com/pbakaus/impeccable/releases",
+        "https://www.a16z.news/p/impeccable-by-design",
+        "https://www.paulbakaus.com/impeccable-by-design/",
+        "https://alphasignal.ai/news/github-bakes-impeccable-into-copilot-to-fix-ai-s-generic-ui-problem",
+        "https://x.com/pbakaus/status/2009758986418172226",
+        "https://x.com/pbakaus/status/2029334353894162720",
+        "https://x.com/pbakaus/status/2060208540992880794",
+        "https://x.com/pbakaus/status/2079984598105358828",
+        "https://x.com/pbakaus/status/2097498807542165711",
+        "https://x.com/pbakaus/status/2100284971961430019",
+        "https://x.com/pbakaus/status/2107608447541989859",
+        "https://ai.miraheze.org/wiki/Impeccable",
+        "https://aitoolly.com/ai-news/article/2026-03-10-impeccable-a-design-language-to-enhance-ai-tool-performance-in-frontend-design-with-17-commands-and",
+        "https://paddo.dev/blog/impeccable-design-vocabulary/",
+        "https://skillselion.com/skills/pbakaus/impeccable",
+        "https://composio.dev/blog/top-design-skills",
+        "https://emelia.io/hub/impeccable-design-skill-review",
+        "https://abduzeedo.com/node/89119",
+        "https://www.linkedin.com/posts/paulbakaus_your-dev-server-just-became-your-design-tool-activity-7453503376492769280-cPqb"
+      ],
+      "cost_usd": 0.6736146999999999
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "CopilotKit",
+        "name": "OpenBot",
+        "url": "https://github.com/CopilotKit/OpenBot",
+        "description": "Open-source AI coworkers that each get a computer of their own: a browser, files and tools, with every action decided before it happens and recorded after. Bring any AG-UI agent.",
+        "language": "TypeScript",
+        "topics": [
+          "ag-ui",
+          "agent-governance",
+          "ai-agents",
+          "browser-automation",
+          "copilotkit",
+          "generative-ui",
+          "mcp"
+        ],
+        "homepage": "https://www.copilotkit.ai/openbot",
+        "license": "MIT",
+        "stars": 8577,
+        "forks": 1088,
+        "stars_in_period": 707,
+        "period": "daily",
+        "built_by": [
+          "davidmckayv",
+          "kevin9327",
+          "claude",
+          "Ayush7614",
+          "guidovizoso"
+        ],
+        "created_at": "2026-08-17T00:44:59Z",
+        "pushed_at": "2026-10-30T16:17:17Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2FCopilotKit%2FOpenBot\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "CopilotKit/OpenBot",
+      "analyzed_at": "2026-10-30T16:28:19.940149698Z",
+      "why_popular": [
+        "Launched days after xAI's Grok Bot reportedly entered a pricey early beta (~2026-08-11, secondary sources), and was pitched explicitly as 'an open source Grok Bot' for companies, catching people searching for the famous product",
+        "Came from CopilotKit, a startup with an existing developer audience: its main toolkit has ~38.4k GitHub stars and it created AG-UI, a standard that its README says Google, Microsoft, AWS and LangChain have adopted",
+        "CopilotKit's $27M raise (May 2026, led by Glilot Capital, NFX, SignalFire) paid for a very fast release pace (v0.0.1 to v0.2.0 and ~593 commits in about two months)",
+        "Early coverage by the ThursdAI podcast and AI-agent news sites on 2026-08-20, plus company posts like the 3,500-star milestone (2026-09-01) and an OpenBot-vs-GrokBot video (2026-09-22)",
+        "Answers a real enterprise worry: each agent runs in a sealed-off computer, and every action goes through a rule-checking, logging gateway, on the company's own servers",
+        "CopilotKit's launch of the paid product Soar 'powered by OpenBot' on 2026-10-22, plus a week of comparison posts, lined up with OpenBot entering GitHub Trending the same day",
+        "A feedback loop from GitHub Trending itself (likely but unproven) during the Oct 28-30 spike"
+      ],
+      "problem": "Companies want AI 'coworkers' that browse websites, use logins and complete tasks, but the hosted versions keep the company's data on someone else's servers and give little control over, or record of, what the agent actually did.",
+      "solution": "OpenBot is an MIT-licensed, self-hosted template from CopilotKit. Each AI coworker gets its own sealed-off container with a browser, logins and files. Every action passes through a single gateway that checks it against admin-written rules, then allows or refuses it and records it in an audit log. Any agent that speaks the AG-UI standard can plug in, and humans can watch the bot's screen live and take over.",
+      "target_users": "Engineering and IT teams at companies, especially in regulated industries, that want ChatGPT/Grok-style AI agents running on their own servers with their own model keys, under policy controls and audit logs.",
+      "launch_channel": "X (Twitter) post by CopilotKit CEO Atai Barkai, with the GitHub repo created two days earlier",
+      "launch_url": "https://x.com/ataiiam/status/2090125716767773120",
+      "launch_date": "2026-08-19",
+      "how_it_spread": "The repo was created on 2026-08-17 and launched on X on 2026-08-19 as an 'open-source Grok Bot'. It was picked up by the ThursdAI podcast and AI-agent news sites on 2026-08-20 (~600-1,000 stars). It reached 3,500 stars by 2026-09-01 through CopilotKit's own audience, a milestone blog post and rapid releases. Growth then slowed through mid-October (as low as 279 stars a week). CopilotKit's 2026-10-22 launch of Soar, a paid product built on OpenBot, plus comparison posts against Grok Bot, Claude and OpenAI, put it on GitHub Trending from Oct 22. It peaked at #4 on Oct 29-30 with ~450 stars a day, reaching ~8,500 stars. No Hacker News or Reddit threads were found.",
+      "timeline": [
+        {
+          "date": "2026-05-05",
+          "event": "CopilotKit announces a $27M raise led by Glilot Capital, NFX and SignalFire",
+          "source_url": "https://www.copilotkit.ai/blog"
+        },
+        {
+          "date": "2026-08-11",
+          "event": "xAI's Grok Bot reportedly enters early beta as a hosted AI coworker (secondary sources)",
+          "source_url": "https://app.dealroom.co/news/note/grok-bot-enters-early-beta"
+        },
+        {
+          "date": "2026-08-17",
+          "event": "Public CopilotKit/OpenBot repo created and v0.0.1 alpha tagged",
+          "source_url": "https://agentriot.com/news/ai-agents/copilotkit-openbot-alpha-gateway-computers"
+        },
+        {
+          "date": "2026-08-19",
+          "event": "CEO Atai Barkai announces OpenBot on X as 'an open source Grok Bot … designed for real companies'",
+          "source_url": "https://x.com/ataiiam/status/2090125716767773120"
+        },
+        {
+          "date": "2026-08-20",
+          "event": "ThursdAI podcast and AgentRiot/Zentor cover the launch; ~600-1,003 stars reported",
+          "source_url": "https://thursdai.news/companies/copilotkit"
+        },
+        {
+          "date": "2026-09-01",
+          "event": "CopilotKit blog: OpenBot passes 3,500 stars with v0.0.5 (Drive/Notion, SSO, Helm, routines)",
+          "source_url": "https://www.copilotkit.ai/blog/openbot-updates-v0.0.5"
+        },
+        {
+          "date": "2026-09-22",
+          "event": "OpenBot vs GrokBot comparison video posted on X; covered by RuntimeWire",
+          "source_url": "https://runtimewire.com/article/copilotkit-founders-pitch-self-hosted-openbot-directly-against-grok-bot"
+        },
+        {
+          "date": "2026-10-12",
+          "event": "v0.2.0 released (Composio accounts, Slack/GitHub linking), after v0.1.x security and AG-UI 1.0 updates",
+          "source_url": "https://github.com/CopilotKit/OpenBot/releases"
+        },
+        {
+          "date": "2026-10-22",
+          "event": "CopilotKit launches Soar, a commercial product 'powered by OpenBot'; OpenBot enters GitHub daily Trending",
+          "source_url": "https://trendshift.io/repositories/175080"
+        },
+        {
+          "date": "2026-10-29",
+          "event": "Peak day of +468 stars; reaches #4 on GitHub Trending (Oct 29-30)",
+          "source_url": "https://trendshift.io/repositories/175080"
+        },
+        {
+          "date": "2026-10-30",
+          "event": "+443 stars; trending-tracker bots log the repo; ~8,577 total stars",
+          "source_url": "https://github.com/web1992/github-trending/issues/1877"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/CopilotKit/OpenBot",
+        "https://github.com/CopilotKit/OpenBot/releases",
+        "https://www.copilotkit.ai/openbot",
+        "https://x.com/ataiiam/status/2090125716767773120",
+        "https://agentriot.com/news/ai-agents/copilotkit-openbot-alpha-gateway-computers",
+        "https://zentor.ai/blog/copilotkit-openbot",
+        "https://thursdai.news/companies/copilotkit",
+        "https://www.copilotkit.ai/blog/openbot-updates-v0.0.5",
+        "https://www.copilotkit.ai/blog",
+        "https://runtimewire.com/article/copilotkit-founders-pitch-self-hosted-openbot-directly-against-grok-bot",
+        "https://trendshift.io/repositories/175080",
+        "https://www.copilotkit.ai/soar",
+        "https://pulse2.com/copilotkit-27-million-series-a-raised-for-enterprise-agentic-frontend-stack/",
+        "https://www.calcalistech.com/ctechnews/article/bkbjddprbx",
+        "https://github.com/copilotkit/copilotkit",
+        "https://app.dealroom.co/news/note/grok-bot-enters-early-beta",
+        "https://1023jack.com/news/how-grok-bot-revolutionizes-ai-collaboration-as-xai-s-24-7-coworker/",
+        "https://mausbot.com/blog/open-bot-vs-mausbot",
+        "https://4geeks.com/en/blog/ai-tools/what-is-copilotkit-openbot",
+        "https://github.com/web1992/github-trending/issues/1877",
+        "https://railway.com/deploy/openbot"
+      ],
+      "cost_usd": 0.7113225000000001
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "Renhuai123",
+        "name": "ziwei-doushu",
+        "url": "https://github.com/Renhuai123/ziwei-doushu",
+        "description": "紫微斗数开源排盘引擎 — 基于倪海厦《天纪》体系，含完整排盘算法、四化系统、格局知识库、古籍原文数据",
+        "language": "TypeScript",
+        "topics": [
+          "bazi",
+          "chinese-astrology",
+          "divination",
+          "fortune-telling",
+          "nextjs",
+          "open-source",
+          "purple-star-astrology",
+          "typescript",
+          "zi-wei-dou-shu",
+          "ziwei-doushu"
+        ],
+        "homepage": "https://metisziwei.com/?from=gh-about",
+        "license": "MIT",
+        "stars": 11007,
+        "forks": 2205,
+        "stars_in_period": 1146,
+        "period": "daily",
+        "built_by": [
+          "Renhuai123",
+          "claude",
+          "dependabot",
+          "Renhuai",
+          "sakura168899-debug"
+        ],
+        "created_at": "2026-05-01T05:09:59Z",
+        "pushed_at": "2026-10-27T12:59:28Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2FRenhuai123%2Fziwei-doushu\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "Renhuai123/ziwei-doushu",
+      "analyzed_at": "2026-10-30T16:13:18.705788559Z",
+      "why_popular": [
+        "The v4.0 dataset released on 2026-10-15 (674,976 charts and 8.77 million readings, about 20.4 billion characters) gave people a big number to repeat. Stars went from about 4k to about 11k in the following weeks.",
+        "Developers who want to build AI fortune-telling apps need ready-made structured reading text and correct chart math, and almost none existed in the open. The forks bear this out: GLM AI readings, an MCP server, re-skinned sites.",
+        "The Geek Lite X post (about 28k followers) on 2026-05-15 had about 49k views. It pitched the project as training material for fortune-telling AI and gave it its first outside reach.",
+        "Building on the well-known teacher Ni Haixia's Tianji lectures, with quotes linked to the exact second of the video, brought in practitioners as well as programmers.",
+        "Credibility work in September and October: tests, CI and security fixes, an English README, and readings checked line by line against sources.",
+        "Loose licenses (MIT for code, CC BY 4.0 for data) allow commercial reuse, which encouraged more than 2,200 forks and re-hosts.",
+        "There was little competition: the main existing open-source library, iztro (about 4.3k stars), makes charts but has no reading corpus."
+      ],
+      "problem": "Building a Chinese Zi Wei Dou Shu (Purple Star astrology) chart correctly is complex: lunar calendar conversion, true solar time, historical daylight-saving years. Good tools and reading text have mostly been locked inside closed commercial apps, so developers had no open, trustworthy engine or data to build apps or AI readers on.",
+      "solution": "ziwei-doushu is an MIT-licensed TypeScript charting engine based on Ni Haixia's Tianji system. It includes the Four Transformations, a pattern knowledge base, classical texts, 1,848 timestamped Ni Haixia quotes, and a free CC BY 4.0 dataset of 674,976 precomputed charts × 13 life areas of readings, generated by fixed rules rather than AI. Developers can build their own charting sites or AI fortune-tellers with it. The author's commercial site, metisziwei.com, keeps its full rule library closed.",
+      "target_users": "Chinese-speaking developers building astrology or fortune-telling apps and AI chatbots, plus Zi Wei Dou Shu enthusiasts and followers of Ni Haixia who want accurate, sourced charts.",
+      "launch_channel": "GitHub (first commit by the solo author 王多鱼AI); first notable outside amplification on X via Geek Lite (@QingQ77)",
+      "launch_url": "https://github.com/Renhuai123/ziwei-doushu",
+      "launch_date": "2026-05-01",
+      "how_it_spread": "Launched quietly on GitHub on 2026-05-01. A 518k-chart sample dataset followed on 2026-05-07, and Geek Lite's X post on 2026-05-15 (about 49k views) introduced it to AI-minded Chinese developers. It grew slowly to about 4k stars over the summer while the author launched the paid companion site metisziwei.com. After a September refresh (tests, sourced quotes, English README) and the 2026-10-15 v4.0 dataset of 8.77M readings, stars nearly tripled to about 11k. It appeared on GitHub Trending from about 2026-10-24, and heavy forking produced AI and MCP derivatives. No Hacker News, Reddit, media coverage or funding was found; the trigger for the October spike is unidentified.",
+      "timeline": [
+        {
+          "date": "2026-05-01",
+          "event": "Initial open-source release of the charting engine by Renhuai123 (王多鱼AI)",
+          "source_url": "https://github.com/Renhuai123/ziwei-doushu/commits/main?until=2026-09-20"
+        },
+        {
+          "date": "2026-05-07",
+          "event": "v3 sample dataset of 518,400 charts released",
+          "source_url": "https://github.com/Renhuai123/ziwei-doushu/releases"
+        },
+        {
+          "date": "2026-05-15",
+          "event": "Geek Lite (@QingQ77, about 28k followers) posts about the project on X; about 49k views and 631 likes",
+          "source_url": "https://x.com/QingQ77/status/2055223411815657781"
+        },
+        {
+          "date": "2026-06-24",
+          "event": "README links moved to the commercial site's new domain, metisziwei.com, after its ICP filing",
+          "source_url": "https://github.com/Renhuai123/ziwei-doushu/commits/main?until=2026-09-20"
+        },
+        {
+          "date": "2026-09-21",
+          "event": "Major refresh: engine rewrite, regression tests and CI, open issues cut from 18 to 4",
+          "source_url": "https://github.com/Renhuai123/ziwei-doushu/commits/main"
+        },
+        {
+          "date": "2026-10-03",
+          "event": "Engine release: 1,848 timestamped Ni Haixia quotes, English README, security alerts cleared",
+          "source_url": "https://github.com/Renhuai123/ziwei-doushu/releases"
+        },
+        {
+          "date": "2026-10-15",
+          "event": "v4.0 dataset: 674,976 charts × 13 areas = 8.77M readings",
+          "source_url": "https://github.com/Renhuai123/ziwei-doushu/releases"
+        },
+        {
+          "date": "2026-10-24",
+          "event": "Automated trackers log the repo on GitHub Trending; the author moves the 'not locked behind walls' slogan to the top of the README",
+          "source_url": "https://github.com/web1992/github-trending/issues/1817"
+        },
+        {
+          "date": "2026-10-27",
+          "event": "Overseas true-solar-time support added; about 11,007 stars and 2,206 forks",
+          "source_url": "https://api.github.com/repos/Renhuai123/ziwei-doushu"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/Renhuai123/ziwei-doushu",
+        "https://api.github.com/repos/Renhuai123/ziwei-doushu",
+        "https://github.com/Renhuai123/ziwei-doushu/commits/main?until=2026-09-20",
+        "https://github.com/Renhuai123/ziwei-doushu/commits/main",
+        "https://github.com/Renhuai123/ziwei-doushu/releases",
+        "https://github.com/Renhuai123",
+        "https://github.com/Renhuai123/nihai-tianji-corpus",
+        "https://x.com/QingQ77/status/2055223411815657781",
+        "https://api.fxtwitter.com/QingQ77/status/2055223411815657781",
+        "https://api.star-history.com/svg?repos=Renhuai123/ziwei-doushu\u0026type=Date",
+        "https://github.com/web1992/github-trending/issues/1810",
+        "https://github.com/web1992/github-trending/issues/1817",
+        "https://github.com/uibm/trending-watcher/issues/5391",
+        "https://github.com/brianshih04/ziwei-doushu",
+        "https://github.com/JUTZUGC/ziwei-doushu",
+        "https://github.com/9-GETOVER-9/ziwei-doushu",
+        "https://github.com/SylarLong/iztro",
+        "https://en.wikipedia.org/wiki/Ziwei_doushu"
+      ],
+      "cost_usd": 0.6474997
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "expo",
+        "name": "skills",
+        "url": "https://github.com/expo/skills",
+        "description": "A collection of AI agent skills for working with Expo projects and Expo Application Services",
+        "language": "Shell",
+        "license": "MIT",
+        "stars": 3820,
+        "forks": 243,
+        "stars_in_period": 233,
+        "period": "daily",
+        "built_by": [
+          "EvanBacon",
+          "Kudo",
+          "gwdp",
+          "claude",
+          "ide"
+        ],
+        "created_at": "2025-11-30T03:57:18Z",
+        "pushed_at": "2026-10-29T10:37:46Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fexpo%2Fskills\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "expo/skills",
+      "analyzed_at": "2026-10-30T16:18:39.886150323Z",
+      "why_popular": [
+        "It is the official set of AI instructions from Expo, the company behind the most widely used toolkit for building iPhone and Android apps with React Native. Developers trust instructions written by the people who build the framework more than community-made versions.",
+        "It arrived at the same time as 'agent skills' became a standard. Anthropic introduced the SKILL.md format for Claude in October 2025, and in January 2026 Vercel released a skills.sh directory and an 'npx skills add' installer that work across many AI coding tools. Expo's repo was one of the first big framework-vendor skill packs in that ecosystem.",
+        "Evan Bacon, a well-known Expo engineer with a large following on X, promoted it repeatedly with ready-to-paste commands. He announced it on 2026-01-15, showed one-prompt SDK upgrades on 2026-01-16, and posted a claim of a 46% eval improvement on 2026-04-09.",
+        "It is distributed through official plugin stores. It is listed in Anthropic's official Claude Code plugin marketplace (expo@claude-plugins-official) and in OpenAI's curated Codex marketplace (expo@openai-curated), and Expo's own documentation and project templates turn it on by default.",
+        "It solves a real problem: AI models tend to write outdated Expo code because Expo changes quickly. Skills that handle SDK upgrades and native-looking UI give users a visible payoff.",
+        "Expo keeps releasing new things around it, which keeps bringing people back: new EAS skills (Simulator, Observe, Update), the @expo/agent-cli launch on 2026-10-27, and SDK 58.",
+        "Other platform owners are publishing skills too. Google's official android/skills repo was active in late October 2026, and a daily AI digest presented Expo's repo as part of that 'platform-owner' wave."
+      ],
+      "problem": "AI coding assistants often write mobile-app code that is out of date or wrong. Frameworks like Expo change every few months, and a model's training data lags behind. Developers end up fixing deprecated APIs, broken upgrades, and UIs that don't look native.",
+      "solution": "expo/skills is a collection of plain-text instruction files (SKILL.md) written by the Expo team. AI coding agents such as Claude Code, Codex, and Cursor load a file only when the task calls for it. Each one covers current Expo best practice for one area: navigation, native UI, SDK upgrades, building and submitting apps to the stores, over-the-air updates, CI workflows, and so on. You install it with one command or as a plugin. The Claude Code and Codex plugins also connect Expo's MCP server, which gives the agent live access to Expo's documentation and cloud services.",
+      "target_users": "Developers who build iOS, Android, and web apps with Expo or React Native and use AI coding agents such as Claude Code, Codex, Cursor, or Copilot. This includes beginners and 'vibe coders' who rely heavily on the agent.",
+      "launch_channel": "X (Twitter), in posts by Expo engineer Evan Bacon. The GitHub repository already existed before that.",
+      "launch_url": "https://x.com/Baconbrix/status/2011862532320084329",
+      "launch_date": "2026-01-15",
+      "how_it_spread": "The repository was created on 2025-11-30. Evan Bacon announced it publicly on X on about 2026-01-15, with Claude Code plugin install commands. Follow-up posts showed concrete wins: automatic SDK 55 upgrades and migrating expo-av to expo-audio and expo-video. Vercel's skills.sh directory and installer, released around 2026-01-20, gave the repo a cross-agent way to install it and an install-count badge. By April 2026 it was listed in Anthropic's official Claude Code plugin marketplace, and Bacon and the Expo account promoted it again with an eval claim. Expo's documentation (docs.expo.dev/skills), blog posts, and project templates made it the default way to give an agent Expo knowledge. Third-party skill directories, DEV and Medium tutorials, and Chinese-language write-ups repeated it. In October 2026, Expo added a Codex (OpenAI-curated) plugin, new paid-service EAS skills, and the @expo/agent-cli launch, while Google's android/skills repo drew attention to platform-owned skills. Together these coincided with the GitHub Trending spike.",
+      "timeline": [
+        {
+          "date": "2025-11-30",
+          "event": "GitHub repository expo/skills created (repo metadata). No public announcement found for that date.",
+          "source_url": "https://github.com/expo/skills"
+        },
+        {
+          "date": "2026-01-15",
+          "event": "Evan Bacon announces 'the new @Expo Claude Code skills' on X, with install commands for expo-app-design, expo-deployment, and upgrading-expo. A second post the same day pitches 'years of domain-specific knowledge' applied to an app. The date is derived from the post ID.",
+          "source_url": "https://x.com/Baconbrix/status/2011862532320084329"
+        },
+        {
+          "date": "2026-01-16",
+          "event": "Bacon shows the upgrading-expo skill auto-upgrading an app to the SDK 55 canary (an early test release of the next Expo version).",
+          "source_url": "https://x.com/Baconbrix/status/2012248879400726667"
+        },
+        {
+          "date": "2026-01-20",
+          "event": "Vercel releases the skills CLI and the skills.sh directory, a cross-agent installer and leaderboard. Expo's README uses it as the install path for non-Claude agents. Date per secondary sources.",
+          "source_url": "https://vercel.com/changelog/introducing-skills-the-open-agent-skills-ecosystem"
+        },
+        {
+          "date": "2026-04-09",
+          "event": "Bacon claims the new skills improve native UI usage by +46% in Expo's internal evals and points users to the official Claude Code plugin marketplace (expo@claude-plugins-official). The Expo account promotes the skills the next day.",
+          "source_url": "https://x.com/Baconbrix/status/2042035489897857219"
+        },
+        {
+          "date": "2026-06-23",
+          "event": "Expo's 2026 recap post lists the official skills repo next to the Expo MCP server as its main AI integrations.",
+          "source_url": "https://dev.to/expo/what-expo-shipped-in-2026-new-performance-tools-and-ai-integrations-3i2m"
+        },
+        {
+          "date": "2026-07-13",
+          "event": "Expo blog names skills as one of 'the three tools that actually matter' for building mobile apps with AI.",
+          "source_url": "https://expo.dev/blog/how-to-build-mobile-apps-with-ai-the-three-tools-that-actually-matter"
+        },
+        {
+          "date": "2026-10-23",
+          "event": "Kudo Chien migrates the Codex plugin to the Agent Plugins manifest. The README now lists an OpenAI-curated Codex install.",
+          "source_url": "https://github.com/expo/skills/commits/main"
+        },
+        {
+          "date": "2026-10-27",
+          "event": "Expo launches @expo/agent-cli, a command-line tool designed for AI agents. Each skill now sends feedback through this CLI.",
+          "source_url": "https://expo.dev/blog/introducing-expo-agent-cli"
+        },
+        {
+          "date": "2026-10-29",
+          "event": "A daily AI digest lists expo/skills at 3,643 stars (+90 that day) and frames it as following Android's official skills release about a week earlier.",
+          "source_url": "https://github.com/diclogic/ai-daily-digest/issues/197"
+        },
+        {
+          "date": "2026-10-30",
+          "event": "Repo appears on GitHub Trending (daily) at 3,820 stars, +233 that day.",
+          "source_url": "https://github.com/expo/skills"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/expo/skills",
+        "https://github.com/expo/skills/commits/main",
+        "https://skills.sh/expo/skills",
+        "https://docs.expo.dev/skills/",
+        "https://x.com/Baconbrix/status/2011862532320084329",
+        "https://x.com/Baconbrix/status/2011872694791520273",
+        "https://x.com/Baconbrix/status/2012248879400726667",
+        "https://x.com/Baconbrix/status/2015516513718128681",
+        "https://x.com/Baconbrix/status/2042035489897857219",
+        "https://x.com/expo/status/2042349088016842883?lang=en",
+        "https://expo.dev/blog/how-to-build-mobile-apps-with-ai-the-three-tools-that-actually-matter",
+        "https://dev.to/expo/what-expo-shipped-in-2026-new-performance-tools-and-ai-integrations-3i2m",
+        "https://expo.dev/blog",
+        "https://expo.dev/blog/introducing-expo-agent-cli",
+        "https://expo.dev/blog/expo-agent-beta",
+        "https://github.com/diclogic/ai-daily-digest/issues/197",
+        "https://vercel.com/changelog/introducing-skills-the-open-agent-skills-ecosystem",
+        "https://github.com/android/skills",
+        "https://www.sourcepulse.org/projects/22803512",
+        "https://deepseek.csdn.net/6a387d64662f9a54cb827e16.html"
+      ],
+      "cost_usd": 0.46956099999999995
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "macro-inc",
+        "name": "macro",
+        "url": "https://github.com/macro-inc/macro",
+        "description": "Macro is a unified workspace for teams: email, chat, docs, tasks, agents, calls, and CRM — @-linked together with shared AI memory.",
+        "language": "Rust",
+        "topics": [
+          "agent",
+          "ai",
+          "ai-agents",
+          "all-in-one",
+          "crm",
+          "crm-system",
+          "email",
+          "linear",
+          "mcp",
+          "messaging",
+          "notes",
+          "notion",
+          "office",
+          "rust",
+          "slack",
+          "slack-alternative",
+          "startup",
+          "startup-tools",
+          "typescript",
+          "workspace"
+        ],
+        "homepage": "https://macro.com",
+        "license": "AGPL-3.0",
+        "stars": 5752,
+        "forks": 537,
+        "stars_in_period": 117,
+        "period": "daily",
+        "built_by": [
+          "gbirman",
+          "whutchinson98",
+          "synoet",
+          "sedson",
+          "peterchinman"
+        ],
+        "created_at": "2025-11-08T15:18:27Z",
+        "pushed_at": "2026-10-30T16:12:00Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fmacro-inc%2Fmacro\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "macro-inc/macro",
+      "analyzed_at": "2026-10-30T16:19:12.030362245Z",
+      "why_popular": [
+        "Founder Jacob Beckerman's 2026-08-07 post moved the whole product to a real open-source license (AGPLv3, 'not open core'). Before that the code was only viewable ('source-available'). This made the repository itself the thing to star and share.",
+        "The 'Macro 1.0' launch on X on 2026-08-10 framed it as an open-source office suite for the AI era, written in Rust. Posts by others, such as Vaibhav Sisinty's 'the entire office stack just got replaced by one open source app', spread the message further.",
+        "The pitch is easy to share: one app that replaces Slack, Notion, Linear, Superhuman and HubSpot. It appeals to developers looking for open-source alternatives to paid tools.",
+        "GitHub Trending fed on itself. About 1,180 stars arrived in one day around 2026-08-13, and Macro says it reached #1 on Trending in August, which exposed it to many more developers.",
+        "Timing matched the AI-agent trend. Shared team memory plus MCP access lets AI agents work across email, chat, documents and the CRM together.",
+        "Credibility from investors. a16z, a large venture capital firm, led a $9.3M seed round in 2023, and Macro says it has raised more than $30M, so a paid team keeps building the product.",
+        "Near-daily releases kept attention going, including the 2026-10-26 release with Notion, Linear and Jira imports that make switching easier."
+      ],
+      "problem": "Small companies run on many separate apps for email, chat, documents, tasks and customer records. These apps don't share information, so trackers and CRMs go out of date and AI assistants can't see the full context of the company's work.",
+      "solution": "Macro puts email, team chat, markdown documents, tasks, a whiteboard, files, recorded calls, a CRM and AI agents in one app built on one database. Any item can be @-linked to any other in both directions, and agents (inside Macro or outside tools connecting through MCP) can search and act across all of it. The code is fully open source under AGPLv3 and can be self-hosted, though most customers are expected to use the hosted service.",
+      "target_users": "Small companies and startups, especially technical teams, and teams inside larger companies who want one 'operating system' for email, chat, documents, tasks, CRM and AI agents. Self-hosting is mainly aimed at regulated organizations such as military or healthcare.",
+      "launch_channel": "X (Macro 1.0 open-source launch). An earlier low-engagement Show HN post on Hacker News and a Product Hunt launch came first.",
+      "launch_url": "https://x.com/macrodotcom/status/2086843485898887523",
+      "launch_date": "2026-08-10",
+      "how_it_spread": "Macro started in 2020 as an a16z-backed PDF/document tool and later rebuilt itself as an all-in-one workspace. Its GitHub repository (created 2025-11-08) was first only viewable ('source-available'). A Show HN post (~June 2026, 8 points), a devtools.fm podcast (2026-06-22) and a Product Hunt launch (2026-07-02, #5 of the day) produced little attention: the repo had 689 stars on 2026-07-31. The founder's 'Why Macro Is Open Source' post (2026-08-07) and the Macro 1.0 launch on X (2026-08-10), amplified by AI-focused accounts, drove about 1,180 stars in one day and a #1 GitHub Trending spot in August. Near-daily releases followed, including the large 2026-10-26 release with Notion, Linear and Jira imports, and the count reached about 5,750 stars by 2026-10-30.",
+      "timeline": [
+        {
+          "date": "2023-03-04",
+          "event": "Press coverage of the $9.3M seed round led by a16z for Macro's original document/PDF product. The founder is Jacob Beckerman, a former Bridgewater engineer, and the company was founded in 2020.",
+          "source_url": "https://finance.technews.tw/2023/03/04/macro-raises-9-3m-to-layer-intelligence-on-top-of-digital-documents/"
+        },
+        {
+          "date": "2023-05-25",
+          "event": "Macro PDF Editor ranks #3 of the day on Product Hunt (earlier product, not the workspace).",
+          "source_url": "https://producthunt.com/products/macro-workspace"
+        },
+        {
+          "date": "2025-11-08",
+          "event": "GitHub repository macro-inc/macro created, initially under a source-available model.",
+          "source_url": "https://github.com/macro-inc/macro"
+        },
+        {
+          "date": "2026-06 (approx.)",
+          "event": "Show HN post by jbecke: 'Macro, a unified system for email, chat, tasks, docs, and agents (AGPL/Rust)'. Received 8 points and 1 comment.",
+          "source_url": "https://news.ycombinator.com/item?id=48546561"
+        },
+        {
+          "date": "2026-06-22",
+          "event": "Founder interviewed on the devtools.fm podcast.",
+          "source_url": "https://podscan.fm/podcasts/devtoolsfm-developer-tools-open-source-software-development"
+        },
+        {
+          "date": "2026-07-02",
+          "event": "Workspace launched on Product Hunt, ranking #5 of the day.",
+          "source_url": "https://producthunt.com/products/macro-workspace"
+        },
+        {
+          "date": "2026-07-31",
+          "event": "Third-party review records 689 GitHub stars.",
+          "source_url": "https://baeseokjae.github.io/posts/macro-unified-email-chat-tasks-docs-agents-2026/"
+        },
+        {
+          "date": "2026-08-07",
+          "event": "Founder publishes 'Why Macro Is Open Source', announcing a fully open-source AGPLv3 product.",
+          "source_url": "https://macro.com/posts/why-macro-is-open-source"
+        },
+        {
+          "date": "2026-08-10",
+          "event": "Macro 1.0 launched on X as an open-source 'office suite for the intelligence age'.",
+          "source_url": "https://x.com/macrodotcom/status/2086843485898887523"
+        },
+        {
+          "date": "2026-08-11 (approx.)",
+          "event": "Vaibhav Sisinty's post on X amplifies the 'entire office stack replaced' message.",
+          "source_url": "https://x.com/VaibhavSisinty/status/2087196095273377925"
+        },
+        {
+          "date": "2026-08-13",
+          "event": "Blog reports 2,400+ stars, about 1,180 gained in one day. Macro says it reached #1 on GitHub Trending in August.",
+          "source_url": "https://www.coddykit.com/pages/blog-detail?id=513012\u0026slug=macro-the-open-source-unified-workspace-with-2-400-github-stars-that-replaces-sl"
+        },
+        {
+          "date": "2026-10-26",
+          "event": "Large release adds agent-guided Notion import, Linear and Jira imports, bring-your-own Anthropic/OpenAI keys, Outlook improvements and a new design system.",
+          "source_url": "https://github.com/macro-inc/macro/releases/tag/v2026.10.26.0"
+        },
+        {
+          "date": "2026-10-29",
+          "event": "Star count at about 5,640, rising to 5,752 (+117 in a day) on 2026-10-30.",
+          "source_url": "https://github.com/macro-inc/macro"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/macro-inc/macro",
+        "https://macro.com/",
+        "https://macro.com/posts/why-macro-is-open-source",
+        "https://x.com/macrodotcom/status/2086843485898887523",
+        "https://x.com/VaibhavSisinty/status/2087196095273377925",
+        "https://news.ycombinator.com/item?id=48546561",
+        "https://producthunt.com/products/macro-workspace",
+        "https://finance.technews.tw/2023/03/04/macro-raises-9-3m-to-layer-intelligence-on-top-of-digital-documents/",
+        "https://podscan.fm/podcasts/devtoolsfm-developer-tools-open-source-software-development",
+        "https://baeseokjae.github.io/posts/macro-unified-email-chat-tasks-docs-agents-2026/",
+        "https://www.coddykit.com/pages/blog-detail?id=513012\u0026slug=macro-the-open-source-unified-workspace-with-2-400-github-stars-that-replaces-sl",
+        "https://github.com/macro-inc/macro/releases/tag/v2026.10.26.0",
+        "https://www.opensourcealternatives.to/item/macro",
+        "https://standout.work/companies/macro"
+      ],
+      "cost_usd": 0.7259275000000001
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "mattpocock",
+        "name": "skills",
+        "url": "https://github.com/mattpocock/skills",
+        "description": "Skills for Real Engineers. Straight from my .agents directory.",
+        "language": "Shell",
+        "homepage": "https://aihero.dev/skills",
+        "license": "MIT",
+        "stars": 307198,
+        "forks": 25849,
+        "stars_in_period": 882,
+        "period": "daily",
+        "built_by": [
+          "mattpocock",
+          "claude",
+          "github-actions",
+          "gabimoncha"
+        ],
+        "created_at": "2026-02-03T11:15:53Z",
+        "pushed_at": "2026-10-30T14:00:30Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fmattpocock%2Fskills\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "mattpocock/skills",
+      "analyzed_at": "2026-10-30T16:21:43.635565596Z",
+      "why_popular": [
+        "The creator, Matt Pocock, is a well-known TypeScript teacher (Total TypeScript, AI Hero, formerly a developer advocate at Vercel), so developers trust his 'real daily setup'.",
+        "He has a built-in audience: about 60,000 newsletter subscribers. OMC News tied the April 2026 surge to newsletter activity and social sharing.",
+        "/grill-me, a very short skill that makes the AI interview you before coding, went viral on its own and is still the most-installed skill (1.5M installs on skills.sh).",
+        "Timing: Anthropic's Agent Skills format had just become a cross-tool standard, and Vercel's skills.sh made installing skills a one-line command, so developers were looking for a trusted set to install.",
+        "A clear 'real engineering, not vibe coding' message, with each skill tied to a named failure mode and a quote from a classic software book, made it easy to share.",
+        "GitHub Trending fed itself: a record +5,551 stars on 2026-04-27, followed by YouTube videos, dev.to posts and coverage in several languages.",
+        "Self-updating plugins for Claude Code (official marketplace), Codex and Copilot, plus constant releases, a conference talk and a Pragmatic Engineer episode, kept growth going."
+      ],
+      "problem": "AI coding assistants often start building before they understand what you want, write wordy or untested code, and quickly pile up messy, hard-to-change codebases. Getting them to follow good engineering habits consistently means retyping long instructions every session.",
+      "solution": "mattpocock/skills is Matt Pocock's open collection of plain-English SKILL.md instruction files (Agent Skills). They encode engineering habits as commands such as /grill-me (the AI interviews you first), /tdd (test-first), /diagnosing-bugs, /to-spec and /improve-codebase-architecture. They install in one command into Claude Code, Codex, Copilot, Gemini CLI, Cursor and other assistants.",
+      "target_users": "Professional developers who use AI coding assistants daily and want disciplined, controllable workflows rather than 'vibe coding'.",
+      "launch_channel": "unknown",
+      "launch_url": "",
+      "launch_date": "2026-02-03",
+      "how_it_spread": "The repo was created on 2026-02-03. A first wave of attention around the /grill-me skill brought it to about 10,000 stars by late March. Newsletter activity and social sharing produced a record +5,551 stars on 2026-04-27 and the top of GitHub Trending, followed by YouTube videos, dev.to and international blog coverage (45,000 stars by 2026-04-29). Growth continued through the summer (143,000 in June, 216,000 in August) with releases and Claude Code plugin integration. It returned to daily Trending in September (254,000), was boosted by an AI Engineer World's Fair talk and a Pragmatic Engineer episode, and passed 300,000 stars in October.",
+      "timeline": [
+        {
+          "date": "2026-02-03",
+          "event": "Repository created by Matt Pocock (GitHub metadata); no public launch post found",
+          "source_url": "https://github.com/mattpocock/skills"
+        },
+        {
+          "date": "2026-02-25",
+          "event": "First 28-word version of /grill-me",
+          "source_url": "https://dplouffe.ca/2026/10/23/matt-pocock-skills-review/"
+        },
+        {
+          "date": "2026-03-16",
+          "event": "AI Hero article '5 agent skills I use every day' previews the approach (reported by implicator.ai)",
+          "source_url": "https://www.implicator.ai/matt-pocock-skills-repo-jumps-past-45k-stars-with-reusable-ai-instructions/"
+        },
+        {
+          "date": "2026-03-27",
+          "event": "About 10,360 stars after 52 days (OSS Insight, cited by mcp.directory)",
+          "source_url": "https://mcp.directory/blog/matt-pocock-skills-the-npm-moment-explained-2026"
+        },
+        {
+          "date": "2026-04-27",
+          "event": "Record +5,551 stars in one day, to about 27,000; attributed to newsletter activity and social sharing",
+          "source_url": "https://news.one-man-company.com/news/hot-repo-mattpocock-skills"
+        },
+        {
+          "date": "2026-04-29",
+          "event": "Indie Hacker News video and blog wave; 45,289 stars",
+          "source_url": "https://www.implicator.ai/matt-pocock-skills-repo-jumps-past-45k-stars-with-reusable-ai-instructions/"
+        },
+        {
+          "date": "2026-05-13",
+          "event": "GitHub Trending coverage by Developers Digest",
+          "source_url": "https://www.developersdigest.tech/blog/github-trending-skills-2026-05-13"
+        },
+        {
+          "date": "2026-08-05",
+          "event": "v1.2.0 adds Claude Code plugin integration; over 216,000 stars by early August",
+          "source_url": "https://mer.vin/news/mattpocock-skills-the-skill-pack-topping-github-trending/"
+        },
+        {
+          "date": "2026-09-06",
+          "event": "Re-enters daily Trending at #2, +2,206 stars, about 254,000 total",
+          "source_url": "https://mer.vin/news/mattpocock-skills-the-skill-pack-topping-github-trending/"
+        },
+        {
+          "date": "2026-09-17",
+          "event": "Pragmatic Engineer episode with Matt Pocock on AI skills",
+          "source_url": "https://newsletter.pragmaticengineer.com/p/ai-skills-with-matt-pocock"
+        },
+        {
+          "date": "2026-10-23",
+          "event": "Over 300,000 stars; v1.3.1 had shipped on Oct 4",
+          "source_url": "https://dplouffe.ca/2026/10/23/matt-pocock-skills-review/"
+        },
+        {
+          "date": "2026-10-30",
+          "event": "307,198 stars, +882 today; trending with no identified new trigger",
+          "source_url": "https://github.com/mattpocock/skills"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/mattpocock/skills",
+        "https://news.one-man-company.com/news/hot-repo-mattpocock-skills",
+        "https://www.implicator.ai/matt-pocock-skills-repo-jumps-past-45k-stars-with-reusable-ai-instructions/",
+        "https://mcp.directory/blog/matt-pocock-skills-the-npm-moment-explained-2026",
+        "https://www.developersdigest.tech/blog/github-trending-skills-2026-05-13",
+        "https://mer.vin/news/mattpocock-skills-the-skill-pack-topping-github-trending/",
+        "https://dplouffe.ca/2026/10/23/matt-pocock-skills-review/",
+        "https://skills.sh/mattpocock/skills",
+        "https://claude.com/plugins/mattpocock-skills",
+        "https://ai.engineer/talks/building-great-agent-skills",
+        "https://newsletter.pragmaticengineer.com/p/ai-skills-with-matt-pocock",
+        "https://www.ai.engineer/speakers/matt-pocock",
+        "https://techinformed.com/how-vercel-built-an-ai-agent-ecosystem-on-claudes-open-skills-standard/",
+        "https://inference.sh/blog/skills-agent-skills-overview",
+        "https://github.com/Pipedrive-OSS/mattpocock-skills",
+        "https://knightli.com/ja/2026/05/15/matt-pocock-skills-ai-engineering-workflow/",
+        "https://hi.news.hada.io/topic?id=29259"
+      ],
+      "cost_usd": 0.6553584
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "pingdotgg",
+        "name": "t3code",
+        "url": "https://github.com/pingdotgg/t3code",
+        "description": "",
+        "language": "TypeScript",
+        "homepage": "https://t3.codes",
+        "license": "MIT",
+        "stars": 32478,
+        "forks": 8597,
+        "stars_in_period": 920,
+        "period": "daily",
+        "built_by": [
+          "juliusmarminge",
+          "claude",
+          "t3dotgg",
+          "maria-rcks",
+          "codex"
+        ],
+        "created_at": "2026-02-08T23:46:22Z",
+        "pushed_at": "2026-10-30T16:18:51Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2Fpingdotgg%2Ft3code\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "pingdotgg/t3code",
+      "analyzed_at": "2026-10-30T16:22:39.203274306Z",
+      "why_popular": [
+        "Its creator, Theo Browne, already had a large audience: about 550k+ YouTube subscribers and a big following on X, where every milestone was announced to developers watching AI coding tools.",
+        "Timing: OpenAI's Codex desktop app (2026-02-02) showed there was demand for a graphical manager for coding agents, but it worked only with OpenAI's agent. T3 Code launched a month later as an open, multi-vendor alternative.",
+        "It works with the agents and subscriptions developers already have (Codex, Claude Code, Cursor, Grok Build, OpenCode, Antigravity). That avoids lock-in to one vendor, and Theo reports most of its Codex users also use Claude Code.",
+        "Free iOS and Android apps plus one-command remote access (T3 Connect) on 2026-07-29 let developers supervise agents from their phones, which reached people beyond GitHub.",
+        "It is MIT-licensed, sells nothing, and is easy to fork, which reassures developers wary of depending on a vendor.",
+        "It ships constantly: nightly builds several times a day, the v0.1.0 beta with cross-agent delegation on 2026-10-15, and a public pledge from 2026-10-25 to ship one improvement every day, each announced on X.",
+        "Just before today's spike, v0.1.4 and v0.1.5 shipped on 2026-10-29 alongside Theo's widely viewed 'why use T3 Code instead of Claude Code or Codex' post."
+      ],
+      "problem": "Developers who delegate coding to AI agents from different companies have to juggle separate terminal windows and vendor-specific apps. They lose track of what each agent changed and can't easily supervise the work when they're away from their computer.",
+      "solution": "T3 Code is a free, open-source control surface. It runs a local server that drives the coding agents you already pay for (Codex, Claude Code, Cursor, Grok Build, OpenCode, Antigravity) and lets you manage their threads, diffs, approvals and pull requests from one desktop, web or mobile app. Since v0.1.0, agents from different vendors can also hand tasks to each other.",
+      "target_users": "Developers who use one or more AI coding agents, especially those running several agents in parallel or wanting to supervise them remotely from a phone.",
+      "launch_channel": "X (Twitter), via creator Theo Browne's account",
+      "launch_url": "https://x.com/theo/status/2030071716530245800",
+      "launch_date": "2026-03-07",
+      "how_it_spread": "It launched on X to Theo Browne's audience about a month after OpenAI's Codex desktop app made agent managers a hot category, and early tutorials (e.g., Better Stack) followed within days. Growth continued as support for more agents was added through spring. The free iOS and Android apps and T3 Connect remote access (2026-07-29) widened its reach, and it passed 20k stars on 2026-08-27. The v0.1.0 beta on 2026-10-15 got blog and news coverage (28k stars by 2026-10-17). Theo's daily-improvement pledge from 2026-10-25 and the two releases plus promotional post on 2026-10-29 kept it in feeds, leading to +920 stars today. I found no major Hacker News or Reddit launch thread.",
+      "timeline": [
+        {
+          "date": "2026-02-02",
+          "event": "OpenAI launches its Codex desktop app for Mac, showing demand for graphical agent managers (context)",
+          "source_url": "https://siliconangle.com/2026/02/02/openai-launches-codex-app-macos-speed-software-projects/"
+        },
+        {
+          "date": "2026-02-08",
+          "event": "pingdotgg/t3code repository created",
+          "source_url": "https://github.com/pingdotgg/t3code"
+        },
+        {
+          "date": "2026-03-07",
+          "event": "Theo Browne announces on X that T3 Code is available to everyone, open source, and built on the Codex CLI (date derived from post ID)",
+          "source_url": "https://x.com/theo/status/2030071716530245800"
+        },
+        {
+          "date": "2026-07-28",
+          "event": "T3 Connect: one-command free remote access to T3 Code instances",
+          "source_url": "https://x.com/theo/status/2082277789395501263"
+        },
+        {
+          "date": "2026-07-29",
+          "event": "iOS and Android apps launch in the app stores",
+          "source_url": "https://x.com/theo/status/2082613200441524514"
+        },
+        {
+          "date": "2026-08-27",
+          "event": "Passes 20,000 GitHub stars",
+          "source_url": "https://flaviocopes.com/t3-code/"
+        },
+        {
+          "date": "2026-10-15",
+          "event": "v0.1.0 ships: Orchestrator V2 with cross-agent delegation; project leaves alpha for beta",
+          "source_url": "https://github.com/pingdotgg/t3code/releases/tag/v0.1.0"
+        },
+        {
+          "date": "2026-10-17",
+          "event": "News coverage of V2; repo at 28,030 stars and 7,503 forks",
+          "source_url": "https://openorchestrators.org/news/t3-code-v2-cross-harness-delegation/"
+        },
+        {
+          "date": "2026-10-25",
+          "event": "Theo pledges one meaningful T3 Code improvement every day",
+          "source_url": "https://aicodingweekly.news/stories/theo-t3-code-search-18-hour-hill-climb-53-of-54"
+        },
+        {
+          "date": "2026-10-29",
+          "event": "v0.1.4 and v0.1.5 released; Theo posts 'Why should I use T3 Code instead of Claude Code or Codex?'",
+          "source_url": "https://x.com/theo/status/2115911518663647662"
+        },
+        {
+          "date": "2026-10-30",
+          "event": "Trending on GitHub with 32,478 stars (+920 in one day)",
+          "source_url": "https://github.com/pingdotgg/t3code"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/pingdotgg/t3code",
+        "https://github.com/pingdotgg/t3code/releases",
+        "https://github.com/pingdotgg/t3code/releases/tag/v0.1.0",
+        "https://x.com/theo/status/2030071716530245800",
+        "https://x.com/theo/status/2049966129389654273",
+        "https://x.com/theo/status/2082277789395501263",
+        "https://x.com/theo/status/2082613200441524514",
+        "https://finance.biggo.com/podcast/25052e3c107f7d9a",
+        "https://x.com/theo/status/2106106626377977889",
+        "https://x.com/theo/status/2110907433656938681",
+        "https://x.com/theo/status/2112035326625730981",
+        "https://x.com/theo/status/2114955692193054930",
+        "https://x.com/theo/status/2115911518663647662",
+        "https://aicodingweekly.news/stories/theo-t3-code-search-18-hour-hill-climb-53-of-54",
+        "https://flaviocopes.com/t3-code/",
+        "https://mwolson.org/blog/2026-10-15-t3-code-v0-1-0-orchestration-and-beta/",
+        "https://openorchestrators.org/news/t3-code-v2-cross-harness-delegation/",
+        "https://betterstack.com/community/guides/ai/t3-code/",
+        "https://siliconangle.com/2026/02/02/openai-launches-codex-app-macos-speed-software-projects/",
+        "https://www.ycombinator.com/companies/ping-gg",
+        "https://socialblade.com/youtube/handle/t3dotgg/achievements",
+        "https://ai.miraheze.org/wiki/T3_Code"
+      ],
+      "cost_usd": 0.6666038000000001
+    },
+    "cached": false
+  },
+  {
+    "evidence": {
+      "repo": {
+        "owner": "HKUDS",
+        "name": "DeepTutor",
+        "url": "https://github.com/HKUDS/DeepTutor",
+        "description": "DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/ .",
+        "language": "Python",
+        "topics": [
+          "ai-agents",
+          "ai-tutor",
+          "clawbot",
+          "cli-tool",
+          "deepresearch",
+          "interactive-learning",
+          "learning",
+          "multi-agent-systems",
+          "rag"
+        ],
+        "homepage": "http://arxiv.org/abs/2604.26962",
+        "license": "Apache-2.0",
+        "stars": 51503,
+        "forks": 6308,
+        "stars_in_period": 2282,
+        "period": "daily",
+        "built_by": [
+          "pancacake",
+          "claude",
+          "Pinkllow",
+          "github-actions",
+          "evan188199-tech"
+        ],
+        "created_at": "2025-12-28T15:35:54Z",
+        "pushed_at": "2026-10-30T14:15:04Z"
+      },
+      "stars": {
+        "truncated": false
+      },
+      "notes": [
+        "Hacker News search: GET https://hn.algolia.com/api/v1/search?hitsPerPage=20\u0026query=github.com%2FHKUDS%2FDeepTutor\u0026restrictSearchableAttributes=url\u0026tags=story: unexpected status 403"
+      ]
+    },
+    "insight": {
+      "repo": "HKUDS/DeepTutor",
+      "analyzed_at": "2026-10-30T16:11:54.417636586Z",
+      "why_popular": [
+        "Made by HKUDS, the Data Intelligence Lab at the University of Hong Kong, which also made LightRAG, a popular open-source retrieval library that reached #2 on GitHub Trending in April 2025. A known lab name brings early attention.",
+        "Fills a clear gap: general chatbots don't remember what a learner already knows and don't stick to the learner's own materials. DeepTutor packages document grounding, quizzes, learning paths and long-term learner memory into one free, self-hosted app.",
+        "Rides the 2025–26 'AI agent' wave. It positions itself as 'agent-native', with a CLI/SDK and hooks for coding agents such as Claude Code and Codex, plus a 'clawbot' topic tag.",
+        "Ships releases very often (v0.2 in January 2026 through v1.7.0 on 2026-10-28, often several a week). Each release gives a fresh reason to post about it, and it has trended several times.",
+        "Academic credibility from an arXiv tech report (2604.26962, first posted 2026-04-10) that also introduces TutorBench, its own tutoring benchmark.",
+        "Broad reach: READMEs in 12 languages and community groups on Discord, Feishu and WeChat, with heavy Chinese-language social amplification.",
+        "The latest spike (2026-10-26 to 10-30, about 1,100–2,100 stars a day) puts it on GitHub's daily Trending list, which feeds itself. Chinese X posts citing '+2,371 stars in a day' circulated during the spike."
+      ],
+      "problem": "Students and self-learners using general AI chatbots get answers that aren't based on their own course materials, aren't paced to what they already know, and are forgotten between sessions. There is no persistent, personal tutor that remembers their progress, quizzes them and cites their own sources.",
+      "solution": "DeepTutor is a free, open-source (Apache-2.0) tutoring app you run on your own computer. You upload PDFs, notes, EPUBs or YouTube videos into knowledge bases. It then answers questions with page-level citations, generates quizzes and question banks at chosen difficulty, builds guided 'mastery' learning paths and interactive books, and keeps a layered memory of what each learner has studied. It can use many different AI model providers and also offers a CLI/SDK so other AI agents can drive it.",
+      "target_users": "Students, self-learners, teachers and tutors who want a private, customizable AI tutor; also developers and researchers building education or AI-agent tools.",
+      "launch_channel": "GitHub (official release by HKUDS); the original social announcement post was not found",
+      "launch_url": "https://github.com/HKUDS/DeepTutor",
+      "launch_date": "2025-12-29",
+      "how_it_spread": "It launched on GitHub from an established lab and passed 10k stars in 39 days, helped by fast early releases and Chinese tech-media coverage. On 2026-04-04 a v1.0 'agent-native' rewrite came out, followed by the arXiv paper on 2026-04-10, and it reached 20k stars by 2026-04-19. Constant releases kept it on trending lists (for example around 2026-08-12) and drew aggregator and blog write-ups. It passed 40k stars on 2026-09-20. A burst from 2026-10-26 to 10-30 added about 8,800 stars, pushed it to #3 on Trendshift's daily chart, and set off social posts about the spike.",
+      "timeline": [
+        {
+          "date": "2025-12-29",
+          "event": "HKUDS (HKU Data Intelligence Lab) officially releases DeepTutor on GitHub",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-01-02",
+          "event": "v0.2.0 adds Docker deployment; rapid v0.x releases follow through 2026-01-23",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-02-06",
+          "event": "10,000 stars reached in 39 days",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-04-04",
+          "event": "v1.0.0-beta.1: agent-native rewrite with CLI/SDK, TutorBot, Co-Writer, Guided Learning",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-04-10",
+          "event": "arXiv tech report 'DeepTutor: Towards Agentic Personalized Tutoring' (Zhao, Zhang, Ren, Guo, Chu, Yi Ma, Chao Huang)",
+          "source_url": "https://arxiv.org/abs/2604.26962"
+        },
+        {
+          "date": "2026-04-19",
+          "event": "20,000 stars reached in 111 days",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-05-22",
+          "event": "Docs site deeptutor.info launched",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-08-12",
+          "event": "Trending appearance after the v1.5.11 maintenance release, covered by remio.ai",
+          "source_url": "https://www.remio.ai/it/post/hkuds-deeptutor-is-trending-but-its-real-test-starts-after-the-github-rush-it"
+        },
+        {
+          "date": "2026-09-20",
+          "event": "40,000 stars reached in about 9 months",
+          "source_url": "https://github.com/HKUDS/DeepTutor"
+        },
+        {
+          "date": "2026-10-26",
+          "event": "Star spike begins (+1,111 that day, then about 2,000 a day); #3 overall on Trendshift daily on 10-27",
+          "source_url": "https://trendshift.io/repositories/17099"
+        },
+        {
+          "date": "2026-10-28",
+          "event": "v1.7.0 released (modular install, narrated video lessons, block notebooks)",
+          "source_url": "https://github.com/HKUDS/DeepTutor/releases/tag/v1.7.0"
+        }
+      ],
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/HKUDS/DeepTutor",
+        "https://github.com/HKUDS/DeepTutor/releases/tag/v1.7.0",
+        "https://arxiv.org/abs/2604.26962",
+        "https://trendshift.io/repositories/17099",
+        "https://xiaohu.ai/en/article/deeptutor-open-source-tutor/",
+        "https://www.remio.ai/it/post/hkuds-deeptutor-is-trending-but-its-real-test-starts-after-the-github-rush-it",
+        "https://www.coddykit.com/pages/blog-detail?id=5130003\u0026slug=github-trending-october-2026-from-a-90k-star-design-language-to-a-self-learning-",
+        "https://trendshift.io/repositories/13043",
+        "https://pypi.org/project/deeptutor/"
+      ],
+      "cost_usd": 0.3613435
+    },
+    "cached": false
+  }
+]
