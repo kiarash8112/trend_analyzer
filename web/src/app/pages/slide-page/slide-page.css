@@ -3,11 +3,16 @@
 }
 
 .bar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 24px;
   padding: 10px var(--gutter);
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
 }
 
 .back {

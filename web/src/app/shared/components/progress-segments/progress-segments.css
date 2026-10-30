@@ -24,10 +24,15 @@ a.seen::before {
   background: color-mix(in srgb, var(--cobalt) 45%, var(--rule-2));
 }
 
+/* The current segment fills with reading progress over a pale track. */
 a.on::before {
-  background: var(--cobalt);
+  background: linear-gradient(
+    to right,
+    var(--cobalt) var(--fill, 0%),
+    color-mix(in srgb, var(--cobalt) 25%, var(--rule-2)) var(--fill, 0%)
+  );
 }
 
-a:hover::before {
+a:not(.on):hover::before {
   background: color-mix(in srgb, var(--cobalt) 70%, var(--rule-2));
 }

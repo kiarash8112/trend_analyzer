@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-/** One segment per repo of the day; each segment links to its slide. */
+/** One segment per repo of the day; each links to its slide, and the current one fills as you read. */
 @Component({
   selector: 'app-progress-segments',
   imports: [RouterLink],
@@ -15,6 +15,8 @@ export class ProgressSegments {
   /** Builds the router link for a 1-based position. */
   readonly linkFor = input.required<(position: number) => unknown[]>();
   readonly labels = input<string[]>([]);
+  /** How far through the current position the reader is, 0 to 1. */
+  readonly progress = input(0);
 
   protected readonly positions = computed(() =>
     Array.from({ length: this.count() }, (_, i) => i + 1),

@@ -1,4 +1,12 @@
-import { Component, computed, inject, input, linkedSignal } from '@angular/core';
+import {
+  Component,
+  afterRenderEffect,
+  computed,
+  inject,
+  input,
+  linkedSignal,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ReportApi } from '../../core/services/report-api';
 import { parseDay } from '../../core/utils/dates';
@@ -13,7 +21,11 @@ import { ProgressSegments } from '../../shared/components/progress-segments/prog
   imports: [RouterLink, TopBar, ArrowLink, ProgressSegments, RepoSlide],
   templateUrl: './slide-page.html',
   styleUrl: './slide-page.css',
-  host: { '(document:keydown)': 'onKey($event)' },
+  host: {
+    '(document:keydown)': 'onKey($event)',
+    '(window:scroll)': 'measureScroll()',
+    '(window:resize)': 'measureScroll()',
+  },
 })
 export class SlidePage {
   /** Route params. */
@@ -51,6 +63,22 @@ export class SlidePage {
   protected readonly nextLink = computed(() =>
     this.position() < this.total() ? this.linkFor(this.position() + 1) : null,
   );
+
+  /** How far the reader is through the current slide, 0 to 1; fills the current segment. */
+  protected readonly readProgress = signal(0);
+
+  constructor() {
+    // Re-measure once a new slide has rendered, since its height changes the scrollable range.
+    afterRenderEffect(() => {
+      this.current();
+      this.measureScroll();
+    });
+  }
+
+  protected measureScroll(): void {
+    const range = document.documentElement.scrollHeight - window.innerHeight;
+    this.readProgress.set(range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 1);
+  }
 
   protected onKey(event: KeyboardEvent): void {
     const target = event.target as HTMLElement;
