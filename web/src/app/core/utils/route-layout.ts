@@ -1,6 +1,5 @@
 import { Insight } from '../models/report';
 import { DAY_MS, isoDay, parseDay } from './dates';
-import { truncate } from './text';
 
 export interface RouteStop {
   x: number;
@@ -11,13 +10,15 @@ export interface RouteStop {
 }
 
 export interface RouteLabel {
-  x: number;
-  y: number;
-  anchor: 'start' | 'end';
+  /** Left edge of the label column, as a percentage of the route's width. */
+  left: number;
+  side: 'above' | 'below';
+  /** The column hangs left of its station when it would run past the right edge. */
+  alignEnd: boolean;
   text: string;
-  full: string;
   date: string;
-  /** Connector from the label to its station. */
+  /** Connector from the station to the label row, in route units. */
+  x: number;
   y1: number;
   y2: number;
 }
@@ -28,7 +29,11 @@ export interface RouteMonth {
 }
 
 export interface RouteLayout {
-  width: number;
+  /** viewBox x origin and width; the route is drawn from 0 to width - 20. */
+  viewX: number;
+  viewWidth: number;
+  /** Width of one label column, as a percentage of the route's width. */
+  labelWidth: number;
   height: number;
   path: string;
   stops: RouteStop[];
@@ -39,11 +44,14 @@ export interface RouteLayout {
 }
 
 const WIDTH = 1100;
-const LEVELS = [128, 96, 64];
+const VIEW_X = -10;
+const VIEW_WIDTH = WIDTH + 20;
+const HEIGHT = 120;
+const LEVELS = [92, 60, 28];
 const STEP = 32;
-const LABEL_TOP = 22;
-const LABEL_BOTTOM = 170;
-const CHAR_WIDTH = 6.6;
+/** A label column in route units; its text wraps inside it, so nothing is cut. */
+const LABEL_WIDTH = 210;
+const LABEL_GAP = 14;
 const SURGE_DAYS = 30;
 
 /**
@@ -99,7 +107,8 @@ export function routeLayout(insight: Insight, reportDay: number): RouteLayout | 
 
   const stops: RouteStop[] = [];
   const labels: RouteLabel[] = [];
-  const lastRight = { up: -Infinity, down: -Infinity };
+  const lastRight = { above: -Infinity, below: -Infinity };
+  const pct = (units: number) => ((units - VIEW_X) / VIEW_WIDTH) * 100;
   groups.forEach((g, i) => {
     const sx = x(g[0].t);
     const sy = yAt(sx);
@@ -110,24 +119,25 @@ export function routeLayout(insight: Insight, reportDay: number): RouteLayout | 
       now: i === groups.length - 1,
     });
 
-    const full = g.map((e) => e.event).join(' · ');
-    const text = truncate(full, 34);
-    const w = Math.max(text.length * CHAR_WIDTH, 90);
-    const anchor = sx + w > WIDTH ? 'end' : 'start';
-    const left = anchor === 'end' ? sx - w : sx;
-    const side = left > lastRight.up + 12 ? 'up' : left > lastRight.down + 12 ? 'down' : null;
+    const alignEnd = sx + LABEL_WIDTH > WIDTH;
+    const left = alignEnd ? sx - LABEL_WIDTH : sx;
+    const side =
+      left > lastRight.above + LABEL_GAP
+        ? 'above'
+        : left > lastRight.below + LABEL_GAP
+          ? 'below'
+          : null;
     if (!side) return;
-    lastRight[side] = anchor === 'end' ? sx : sx + w;
-    const y = side === 'up' ? LABEL_TOP : LABEL_BOTTOM;
+    lastRight[side] = left + LABEL_WIDTH;
     labels.push({
-      x: sx,
-      y,
-      anchor,
-      text,
-      full,
+      left: pct(left),
+      side,
+      alignEnd,
+      text: g.map((e) => e.event).join(' · '),
       date: g[0].date,
-      y1: side === 'up' ? y + 20 : sy + 10,
-      y2: side === 'up' ? sy - 10 : y - 14,
+      x: sx,
+      y1: side === 'above' ? 0 : sy + 10,
+      y2: side === 'above' ? sy - 10 : HEIGHT,
     });
   });
 
@@ -142,8 +152,10 @@ export function routeLayout(insight: Insight, reportDay: number): RouteLayout | 
   }
 
   return {
-    width: WIDTH,
-    height: 218,
+    viewX: VIEW_X,
+    viewWidth: VIEW_WIDTH,
+    labelWidth: (LABEL_WIDTH / VIEW_WIDTH) * 100,
+    height: HEIGHT,
     path,
     stops,
     labels,

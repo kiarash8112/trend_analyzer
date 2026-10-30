@@ -11,6 +11,7 @@
 
 svg {
   display: block;
+  margin: 2px 0;
   width: 100%;
   height: auto;
   overflow: visible;
@@ -47,15 +48,55 @@ svg {
   stroke: var(--rule-2);
 }
 
-.event {
-  font: 500 13px var(--font-display);
-  fill: var(--ink);
-}
-
-.date,
 .month {
   font: 400 10.5px var(--font-mono);
   fill: var(--muted);
+}
+
+/* Label rows: every label shares one grid cell, placed by margin, so a row is as tall as its
+   longest label and full text wraps inside its column instead of being cut. */
+.row {
+  display: grid;
+}
+
+.row.above {
+  align-items: end;
+}
+
+.row.below {
+  align-items: start;
+}
+
+.event {
+  grid-area: 1 / 1;
+  margin: 0;
+  padding: 0 0 0 8px;
+  border-left: 1px solid var(--rule-2);
+  font: 500 13px/1.4 var(--font-display);
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.event.end {
+  padding: 0 8px 0 0;
+  border-left: 0;
+  border-right: 1px solid var(--rule-2);
+  text-align: right;
+}
+
+.row.above .event {
+  padding-bottom: 4px;
+}
+
+.row.below .event {
+  padding-top: 4px;
+}
+
+.event .date {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .vertical {
@@ -80,7 +121,7 @@ svg {
 }
 
 @media (max-width: 760px) {
-  svg {
+  .route {
     display: none;
   }
 
