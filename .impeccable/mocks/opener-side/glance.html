@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>At a glance</title><link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>:root{--paper:#f8f9fb;--wash:#eaf0fd;--wash-rule:#d4def5;--ink:#141a2b;--ink-2:#3c4558;--muted:#5f687e;--rule:#dfe3ea;--rule-2:#c9d0dc;--cobalt:#2856d9;--deep:#1d3fa6;--warn:#8a5a00}
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:1440px;height:900px;overflow:hidden;background:var(--paper);color:var(--ink);font:16px/1.6 "IBM Plex Sans",sans-serif}
+.bar{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:12px 72px;background:var(--paper);border-bottom:1px solid var(--rule)}.back{font:500 14px "Familjen Grotesk";color:var(--cobalt)}
+.seg{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}.seg i{height:5px;border-radius:3px;background:var(--rule-2)}.seg i.s{background:#8ea4e6}.seg i.on{background:linear-gradient(90deg,var(--cobalt) 6%,#b9c6ec 6%)}
+.mono{font-family:"JetBrains Mono",monospace}.count{font-size:13px;color:var(--muted)}
+.arrow{position:absolute;top:470px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font:500 24px "Familjen Grotesk";border:1px solid var(--rule-2);background:#fff;box-shadow:0 2px 0 var(--rule-2)}.arrow.p{left:72px}.arrow.n{right:72px;background:var(--cobalt);color:#fff;border-color:var(--deep);box-shadow:0 2px 0 var(--deep)}
+.slide{margin:12px 152px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:32px 64px;height:840px;overflow:hidden}
+h1{font:700 44px/1.05 "Familjen Grotesk";letter-spacing:-.03em}h1 span{font-weight:500;color:var(--muted)}
+.meta{display:flex;gap:18px;align-items:baseline;margin-top:8px;font:500 15px "Familjen Grotesk";color:var(--muted)}.stars{font:500 22px "JetBrains Mono";color:var(--cobalt)}
+.desc{margin:8px 0 0;font-size:18px;color:var(--ink-2)}
+.pa{position:relative;display:grid;gap:16px;padding-left:34px}
+.pa::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:6px;border-radius:3px;background:linear-gradient(var(--rule-2),var(--cobalt))}
+.st{position:relative}.st::before{content:"";position:absolute;left:-34px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--rule-2)}.st.ans::before{border-color:var(--cobalt);background:var(--cobalt)}
+.st h2{font:600 15px "Familjen Grotesk";color:var(--muted);margin:0 0 2px}.st.ans h2{color:var(--cobalt)}
+.st p{font-size:16px;color:var(--ink-2)}.st.ans p{font-size:18px;color:var(--ink)}
+.for{margin-top:14px;padding-left:34px;font-size:14px;color:var(--ink-2)}.for b,.k{font:500 12px "Familjen Grotesk";color:var(--muted);margin-right:6px}
+.route{margin-top:26px;border-top:1px solid var(--rule);padding-top:12px;font:500 12px "Familjen Grotesk";color:var(--muted)}
+.open{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;margin-top:24px;align-items:start}
+.glance{border-top:2px solid var(--ink)}
+.glance h2{font:600 15px "Familjen Grotesk";padding:10px 0 4px}
+.glance dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.glance dt{font:500 12px/1.9 "Familjen Grotesk";color:var(--muted)}
+.glance dd{color:var(--ink)}.glance dd.big{font:500 22px/1.2 "JetBrains Mono";color:var(--cobalt)}
+.glance a{color:var(--cobalt)}.conf{color:var(--warn)}
+</style></head><body><div class="bar"><span class="back">← All 10 repos</span><div class="seg"><i class="s"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="count mono">2 of 10</span></div><span class="arrow p">←</span><span class="arrow n">→</span><section class="slide"><h1><span>milind-soni /</span> OpenMausBot</h1><p class="meta"><span class="stars">+899 today</span><span>Launched on X · <span class="mono">2026-08-11</span></span></p><p class="desc">Open-source Grok Bot alternative with a virtual machine that bots can use</p><div class="open"><div><div class="pa"><div class="st"><h2>The problem</h2><p>Big AI companies launched ‘personal agent’ products that act for you on a cloud computer, but they are closed, locked to one company’s model, and require costly new subscriptions while keeping your data on their servers. People already paying for Claude or ChatGPT had no open, self-hosted way to get the same ‘team of AI helpers’.</p></div><div class="st ans"><h2>OpenMausBot’s answer</h2><p>OpenMausBot (formerly OpenGrokBot, also MausBot) is a free, Apache-2.0 desktop app for Mac, Windows and Ubuntu that looks like a messaging app. Each contact is an AI bot running on the user’s own Claude Code, Codex or Grok command-line tools, with its own personality, model, computer and connected apps, and risky actions need Allow/Deny approval.</p></div></div><p class="for"><b>For</b>Developers, solo founders and AI power users who already pay for Claude or ChatGPT/Codex and want a self-hosted, multi-agent alternative.</p></div>
+<aside class="glance"><h2>At a glance</h2><dl>
+<div><dt>Stars today</dt><dd class="big">+899</dd></div>
+<div><dt>Total stars</dt><dd class="mono">8,193 · 1,172 forks</dd></div>
+<div><dt>Language</dt><dd>TypeScript</dd></div>
+<div><dt>License</dt><dd>Apache-2.0</dd></div>
+<div><dt>Launched</dt><dd><a href="#">X post</a> · <span class="mono">2026-08-11</span></dd></div>
+<div><dt>Website</dt><dd><a href="#">openmausbot.com</a></dd></div>
+<div><dt>Built by</dt><dd>milind-soni, aivsomkar, robinsonnblack +2</dd></div>
+<div><dt>Confidence</dt><dd class="conf">Medium: some steps inferred</dd></div>
+</dl></aside></div><p class="route">Route · 2026-08-11 to today, spaced by real dates</p></section></body></html>

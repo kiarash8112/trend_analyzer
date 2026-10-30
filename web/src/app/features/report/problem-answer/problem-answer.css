@@ -1,31 +1,21 @@
+/* Wide screens: the problem and the answer side by side, joined by one horizontal line. */
 :host {
-  position: relative;
   display: grid;
-  gap: 18px;
-  padding-left: 34px;
-}
-
-/* The line runs from the hollow problem station to the filled answer station. */
-:host::before {
-  content: '';
-  position: absolute;
-  left: 9px;
-  top: 12px;
-  bottom: 12px;
-  width: 6px;
-  border-radius: 3px;
-  background: linear-gradient(var(--rule-2), var(--cobalt));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 0 56px;
+  padding-top: 30px;
 }
 
 .stop {
   position: relative;
 }
 
+/* Station markers sit on the line above each column. */
 .stop::before {
   content: '';
   position: absolute;
-  left: -34px;
-  top: 5px;
+  left: 0;
+  top: -30px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -38,8 +28,20 @@
   background: var(--cobalt);
 }
 
+/* The line runs from the problem station across the gap to the answer station. */
+.stop:first-child::after {
+  content: '';
+  position: absolute;
+  top: -25px;
+  left: 16px;
+  right: -52px;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--rule-2), var(--cobalt));
+}
+
 h2 {
-  margin: 0 0 2px;
+  margin: 0 0 4px;
   font: 600 15px var(--font-display);
   color: var(--muted);
 }
@@ -50,17 +52,44 @@ h2 {
 
 p {
   margin: 0;
-  max-width: 78ch;
-  font-size: 17px;
+  font-size: 16px;
   color: var(--ink-2);
 }
 
 .answer p {
-  font-size: 19px;
+  font-size: 18px;
   color: var(--ink);
 }
 
-@media (max-width: 760px) {
+/* Narrow screens: two columns get too thin, so the line turns vertical. */
+@media (max-width: 900px) {
+  :host {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 0 0 0 34px;
+    position: relative;
+  }
+
+  :host::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 12px;
+    bottom: 12px;
+    width: 6px;
+    border-radius: 3px;
+    background: linear-gradient(var(--rule-2), var(--cobalt));
+  }
+
+  .stop::before {
+    left: -34px;
+    top: 5px;
+  }
+
+  .stop:first-child::after {
+    content: none;
+  }
+
   .answer p {
     font-size: 17px;
   }

@@ -51,11 +51,11 @@ h1 a:hover {
 }
 
 .what {
-  max-width: 75ch;
   margin: 24px 0;
 }
 
-.what p {
+.what > p {
+  max-width: 75ch;
   margin: 0 0 6px;
   color: var(--ink-2);
 }
@@ -65,8 +65,10 @@ h1 a:hover {
   font-size: 14px;
 }
 
-app-problem-answer + .for {
-  padding-left: 34px;
+@media (max-width: 900px) {
+  app-problem-answer + .for {
+    padding-left: 34px;
+  }
 }
 
 .for b {
