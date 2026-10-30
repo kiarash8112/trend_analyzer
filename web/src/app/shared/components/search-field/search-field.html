@@ -1,0 +1,7 @@
+<input
+  type="search"
+  [placeholder]="placeholder()"
+  [attr.aria-label]="label()"
+  [value]="value()"
+  (input)="value.set($any($event.target).value)"
+/>

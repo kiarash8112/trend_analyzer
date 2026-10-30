@@ -1,0 +1,45 @@
+<app-top-bar [reports]="reports()" [current]="current()" />
+
+@if (current()) {
+  <section class="head">
+    <div>
+      <h1>{{ title() }}</h1>
+      <p>
+        {{ report.value()?.length ?? 0 }}
+        {{ report.value()?.length === 1 ? 'repo' : 'repos' }} on GitHub Trending today, and the
+        story of how each one got popular.
+      </p>
+    </div>
+    <app-search-field
+      [(value)]="query"
+      label="Filter repositories"
+      placeholder="Filter by repo, language, channel…"
+    />
+  </section>
+
+  <main>
+    @if (report.isLoading()) {
+      <p class="state">Loading report…</p>
+    } @else if (report.error()) {
+      <p class="state error">Couldn't load this report. Is the report server running?</p>
+    } @else if (rows().length) {
+      <app-timetable
+        [rows]="rows()"
+        [openRank]="openRank()"
+        [reportDay]="reportDay()"
+        (toggle)="toggle($event)"
+      />
+    } @else {
+      <p class="state">No repos match “{{ query() }}”.</p>
+    }
+  </main>
+} @else if (listLoading()) {
+  <p class="state">Loading…</p>
+} @else if (listError()) {
+  <p class="state error">Can't reach the report server.</p>
+} @else {
+  <div class="state">
+    <h1>No reports yet</h1>
+    <p>Run <code>go run ./cmd/analyze_trending</code> to create one.</p>
+  </div>
+}

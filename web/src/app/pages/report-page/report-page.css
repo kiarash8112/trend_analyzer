@@ -1,0 +1,49 @@
+:host {
+  display: block;
+}
+
+.head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px var(--gutter) 20px;
+}
+
+h1 {
+  margin: 0;
+  font: 700 34px/1.1 var(--font-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.head p {
+  margin: 6px 0 0;
+  color: var(--ink-2);
+}
+
+main {
+  margin: 0 var(--gutter) 64px;
+}
+
+.state {
+  padding: 48px var(--gutter);
+  color: var(--muted);
+  text-align: center;
+}
+
+.state.error {
+  color: var(--danger);
+}
+
+@media (max-width: 760px) {
+  .head {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 20px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+}

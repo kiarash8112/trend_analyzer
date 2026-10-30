@@ -1,0 +1,16 @@
+<details>
+  <summary>All events ({{ events().length }})</summary>
+  <ol>
+    @for (e of events(); track $index) {
+      <li>
+        <span class="mono">{{ e.date }}</span>
+        <span>
+          {{ e.event }}
+          @if (e.source_url) {
+            <a [href]="e.source_url" target="_blank" rel="noopener">{{ e.source_url | host }}</a>
+          }
+        </span>
+      </li>
+    }
+  </ol>
+</details>

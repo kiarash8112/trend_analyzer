@@ -1,0 +1,10 @@
+<details>
+  <summary>Sources ({{ sources().length }})</summary>
+  <ul>
+    @for (s of sources(); track s) {
+      <li>
+        <a [href]="s" target="_blank" rel="noopener">{{ s }}</a>
+      </li>
+    }
+  </ul>
+</details>

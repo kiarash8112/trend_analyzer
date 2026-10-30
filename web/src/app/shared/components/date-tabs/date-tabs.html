@@ -1,0 +1,10 @@
+<nav aria-label="Reports by date">
+  @for (r of reports(); track r.name) {
+    <a
+      class="key"
+      [routerLink]="['/reports', r.name]"
+      [attr.aria-current]="r.name === current() ? 'date' : null"
+      >{{ label(r.date) }}</a
+    >
+  }
+</nav>

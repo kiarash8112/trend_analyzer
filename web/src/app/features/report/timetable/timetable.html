@@ -1,0 +1,16 @@
+<div class="columns" aria-hidden="true">
+  <span>Line</span>
+  <span>Repo</span>
+  <span>Stars today</span>
+  <span>Via (launched on)</span>
+  <span>Why it is trending</span>
+</div>
+@for (row of rows(); track row.result.evidence.repo.url) {
+  <app-timetable-row
+    [result]="row.result"
+    [rank]="row.rank"
+    [open]="row.rank === openRank()"
+    [reportDay]="reportDay()"
+    (toggle)="toggle.emit(row.rank)"
+  />
+}

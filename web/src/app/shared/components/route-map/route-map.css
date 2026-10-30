@@ -1,0 +1,124 @@
+:host {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.label {
+  font: 500 12px var(--font-display);
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.track {
+  fill: none;
+  stroke: var(--cobalt);
+  stroke-width: 9;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 2200;
+  stroke-dashoffset: 2200;
+  animation: draw 900ms var(--ease) forwards;
+}
+
+.stop {
+  fill: var(--surface);
+  stroke: var(--cobalt);
+  stroke-width: 3;
+}
+
+.now {
+  fill: var(--surface);
+  stroke: var(--cobalt);
+  stroke-width: 4;
+}
+
+.tick {
+  stroke: var(--wash-rule);
+}
+
+.leader {
+  stroke: var(--rule-2);
+}
+
+.event {
+  font: 500 13px var(--font-display);
+  fill: var(--ink);
+}
+
+.date,
+.month {
+  font: 400 10.5px var(--font-mono);
+  fill: var(--muted);
+}
+
+.vertical {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  svg {
+    display: none;
+  }
+
+  .vertical {
+    display: block;
+  }
+
+  .vertical::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 6px;
+    border-radius: 3px;
+    background: var(--cobalt);
+  }
+
+  .vertical li {
+    position: relative;
+    padding: 4px 0 10px 32px;
+  }
+
+  .vertical li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 3px solid var(--cobalt);
+  }
+
+  .vertical .mono {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+  }
+}

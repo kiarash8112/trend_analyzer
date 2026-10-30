@@ -1,0 +1,40 @@
+nav {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 2px 5px;
+}
+
+.key {
+  font: 500 15px/1 var(--font-display);
+  padding: 10px 16px;
+  border: 1px solid var(--rule-2);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  box-shadow: 0 2px 0 var(--rule-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 120ms var(--ease),
+    box-shadow 120ms var(--ease);
+}
+
+.key:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--rule-2);
+  color: var(--ink);
+}
+
+.key:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 var(--rule-2);
+}
+
+.key[aria-current='date'] {
+  background: var(--cobalt);
+  border-color: var(--cobalt-deep);
+  color: #fff;
+  box-shadow: 0 2px 0 var(--cobalt-deep);
+}
