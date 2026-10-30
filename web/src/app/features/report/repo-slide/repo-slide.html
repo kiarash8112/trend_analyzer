@@ -1,0 +1,35 @@
+<h1>
+  <a [href]="repo().url" target="_blank" rel="noopener">
+    <span class="owner">{{ repo().owner }} /</span> {{ repo().name }}
+  </a>
+</h1>
+<p class="meta">
+  <span class="stars">+{{ repo().stars_in_period | number }} today</span>
+  @if (insight(); as i) {
+    <span
+      >Launched on {{ channel() }} · <span class="mono">{{ i.launch_date }}</span></span
+    >
+  }
+</p>
+@if (repo().description) {
+  <p class="description">{{ repo().description }}</p>
+}
+
+@if (insight(); as i) {
+  <app-route-map [insight]="i" [reportDay]="reportDay()" />
+
+  @if (why().intro) {
+    <p class="intro">{{ why().intro }}</p>
+  }
+  <app-reason-list class="lead" [reasons]="why().reasons.slice(0, onSlide)" />
+
+  <div class="more">
+    @if (why().reasons.length > onSlide) {
+      <h2>More reasons</h2>
+      <app-reason-list [reasons]="why().reasons.slice(onSlide)" [start]="onSlide + 1" />
+    }
+    <app-repo-background [result]="result()" />
+  </div>
+} @else {
+  <p class="failed">Analysis failed: {{ result().error }}</p>
+}

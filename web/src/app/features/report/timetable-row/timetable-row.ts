@@ -1,36 +1,25 @@
-import {
-  Component,
-  ElementRef,
-  afterRenderEffect,
-  computed,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { RepoResult } from '../../../core/models/report';
 import { splitReasons } from '../../../core/utils/reasons';
 import { shortChannel } from '../../../core/utils/text';
 import { LineRoundel } from '../../../shared/components/line-roundel/line-roundel';
-import { RepoDetail } from '../repo-detail/repo-detail';
 
-/** One repo in the timetable; clicking the row (or its roundel) opens the detail below it. */
+/** One repo in the timetable; clicking the row (or its roundel) opens the repo's slide. */
 @Component({
   selector: 'app-timetable-row',
-  imports: [DecimalPipe, LineRoundel, RepoDetail],
+  imports: [DecimalPipe, LineRoundel],
   templateUrl: './timetable-row.html',
   styleUrl: './timetable-row.css',
-  host: { '[class.open]': 'open()' },
 })
 export class TimetableRow {
   readonly result = input.required<RepoResult>();
   readonly rank = input.required<number>();
-  readonly open = input(false);
-  readonly reportDay = input.required<number>();
-  readonly toggle = output<void>();
+  /** Router link to this repo's slide. */
+  readonly link = input.required<unknown[]>();
 
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  private scrollOnOpen = false;
+  private readonly router = inject(Router);
 
   protected readonly repo = computed(() => this.result().evidence.repo);
   protected readonly insight = computed(() => this.result().insight);
@@ -40,29 +29,15 @@ export class TimetableRow {
     if (!i) {
       return `Analysis failed: ${this.result().error}`;
     }
+    // The repo's own description; repos without one fall back to the first reason.
     const why = splitReasons(i.why_popular);
-    return why.reasons[0] ?? why.intro;
+    return this.repo().description || why.reasons[0] || why.intro;
   });
-
-  constructor() {
-    // Opening a row brings its start to the top, even when the row above just collapsed.
-    afterRenderEffect(() => {
-      if (this.open() && this.scrollOnOpen) {
-        this.scrollOnOpen = false;
-        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        this.host.nativeElement.scrollIntoView({
-          block: 'start',
-          behavior: reduce ? 'auto' : 'smooth',
-        });
-      }
-    });
-  }
 
   protected onRowClick(event: MouseEvent): void {
     if (!this.insight() || (event.target as HTMLElement).closest('a')) {
       return;
     }
-    this.scrollOnOpen = !this.open();
-    this.toggle.emit();
+    this.router.navigate(this.link());
   }
 }

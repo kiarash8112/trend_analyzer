@@ -1,0 +1,132 @@
+:host {
+  display: block;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 10px var(--gutter);
+}
+
+.back {
+  font: 500 14px var(--font-display);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.count {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 56px;
+  gap: 24px;
+  align-items: start;
+  padding: 8px var(--gutter) 0;
+}
+
+/* The arrows stay at the middle of the screen while the slide scrolls. */
+.side {
+  position: sticky;
+  top: calc(50vh - 28px);
+  margin-top: 240px;
+}
+
+.slide {
+  min-width: 0;
+  padding: 40px 64px 48px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  animation: enter 280ms var(--ease) both;
+}
+
+.slide.from-next {
+  --from: 28px;
+}
+
+.slide.from-previous {
+  --from: -28px;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--from));
+  }
+}
+
+.hint {
+  margin: 16px 0 64px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.state {
+  padding: 48px var(--gutter);
+  color: var(--muted);
+  text-align: center;
+}
+
+.state.error {
+  color: var(--danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .bar {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+
+  app-progress-segments {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  /* Phones: the slide takes the width, the arrows ride at the bottom of the screen. */
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 var(--gutter);
+  }
+
+  .slide {
+    grid-row: 1;
+    padding: 24px 18px 32px;
+  }
+
+  .side {
+    position: fixed;
+    top: auto;
+    bottom: 16px;
+    margin: 0;
+    z-index: 2;
+  }
+
+  .side:first-child {
+    left: 16px;
+  }
+
+  .side:last-child {
+    right: 16px;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .slide {
+    margin-bottom: 96px;
+  }
+}

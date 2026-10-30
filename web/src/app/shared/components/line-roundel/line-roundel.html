@@ -1,9 +1,5 @@
-<button
-  type="button"
-  [class.on]="expanded()"
-  [attr.aria-expanded]="expanded()"
-  [attr.aria-label]="label()"
-  [disabled]="disabled()"
->
-  {{ number() }}
-</button>
+@if (link(); as l) {
+  <a [routerLink]="l" [attr.aria-label]="label()">{{ number() }}</a>
+} @else {
+  <span class="off" aria-hidden="true">{{ number() }}</span>
+}

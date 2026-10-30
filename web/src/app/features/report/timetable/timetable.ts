@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RepoResult } from '../../../core/models/report';
 import { TimetableRow } from '../timetable-row/timetable-row';
 
@@ -7,7 +7,7 @@ export interface RankedResult {
   result: RepoResult;
 }
 
-/** Today's repos as a departure timetable; one row can be open at a time. */
+/** Today's repos as a departure timetable; each row opens its repo's slide. */
 @Component({
   selector: 'app-timetable',
   imports: [TimetableRow],
@@ -16,7 +16,6 @@ export interface RankedResult {
 })
 export class Timetable {
   readonly rows = input.required<RankedResult[]>();
-  readonly openRank = input<number | null>(null);
-  readonly reportDay = input.required<number>();
-  readonly toggle = output<number>();
+  /** The report the rows belong to, for the slide links. */
+  readonly reportName = input.required<string>();
 }

@@ -75,9 +75,11 @@ export function routeLayout(insight: Insight, reportDay: number): RouteLayout | 
   const surge = end - SURGE_DAYS * DAY_MS;
 
   const steps: number[] = [];
-  if (launch !== null && launch > start) steps.push(x(launch));
+  // A launch step needs room to climb; a launch a few days after the first event starts launched.
+  const launchStep = launch !== null && x(launch) - x(start) > STEP * 1.5;
+  if (launchStep) steps.push(x(launch));
   if (surge > start) steps.push(x(surge));
-  const baseLevel = launch !== null && start < launch ? 0 : 1;
+  const baseLevel = launchStep ? 0 : 1;
 
   let level = baseLevel;
   let path = `M${x(start)} ${LEVELS[level]}`;

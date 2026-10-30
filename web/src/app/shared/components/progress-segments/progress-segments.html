@@ -1,0 +1,12 @@
+<nav aria-label="Repos of the day">
+  @for (n of positions(); track n) {
+    <a
+      [routerLink]="linkFor()(n)"
+      [class.seen]="n < current()"
+      [class.on]="n === current()"
+      [attr.aria-current]="n === current() ? 'page' : null"
+      [attr.aria-label]="n + ' of ' + count() + (labels()[n - 1] ? ': ' + labels()[n - 1] : '')"
+      [title]="labels()[n - 1] ?? ''"
+    ></a>
+  }
+</nav>

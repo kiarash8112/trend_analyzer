@@ -1,15 +1,3 @@
-@if (repo().description) {
-  <p class="description">{{ repo().description }}</p>
-}
-
-<app-route-map [insight]="insight()" [reportDay]="reportDay()" />
-
-<h3>Why it is trending</h3>
-@if (why().intro) {
-  <p class="intro">{{ why().intro }}</p>
-}
-<app-reason-list [reasons]="why().reasons" />
-
 <div class="background">
   <section>
     <h3>What it is</h3>

@@ -1,12 +1,6 @@
 :host {
   display: block;
   border-bottom: 1px solid var(--rule);
-  scroll-margin-top: 12px;
-}
-
-:host(.open) {
-  background: var(--wash);
-  border-bottom-color: var(--wash-rule);
 }
 
 .row {
@@ -21,10 +15,6 @@
 
 .row:not(.off):hover {
   background: color-mix(in srgb, var(--wash) 45%, transparent);
-}
-
-:host(.open) .row:hover {
-  background: none;
 }
 
 .row.off {
@@ -78,10 +68,6 @@ app-line-roundel {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-:host(.open) .lead {
-  display: none;
 }
 
 .lead.failed {

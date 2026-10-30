@@ -1,0 +1,96 @@
+:host {
+  display: block;
+}
+
+h1 {
+  margin: 0;
+  font: 700 46px/1.05 var(--font-display);
+  letter-spacing: -0.03em;
+  overflow-wrap: break-word;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+h1 a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  transition: text-decoration-color 160ms var(--ease);
+}
+
+h1 a:hover {
+  text-decoration-color: var(--cobalt);
+}
+
+.owner {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 18px;
+  margin: 10px 0 0;
+  font: 500 15px var(--font-display);
+  color: var(--muted);
+}
+
+.stars {
+  font: 500 24px var(--font-mono);
+  color: var(--cobalt);
+}
+
+.description {
+  max-width: 70ch;
+  margin: 10px 0 20px;
+  font-size: 18px;
+  color: var(--ink-2);
+}
+
+.intro {
+  max-width: 75ch;
+  margin: 0 0 8px;
+}
+
+app-reason-list.lead {
+  display: block;
+  font-size: 17px;
+}
+
+.more {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+
+h2 {
+  font: 600 18px var(--font-display);
+  margin: 0 0 6px;
+}
+
+.more app-reason-list {
+  display: block;
+  margin-bottom: 28px;
+}
+
+.failed {
+  color: var(--danger);
+  margin: 24px 0;
+}
+
+@media (max-width: 760px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  .stars {
+    font-size: 19px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+}

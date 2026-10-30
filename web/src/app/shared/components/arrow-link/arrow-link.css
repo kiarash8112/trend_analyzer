@@ -1,0 +1,39 @@
+a,
+span {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--rule-2);
+  background: var(--surface);
+  box-shadow: 0 2px 0 var(--rule-2);
+  color: var(--ink);
+  font: 500 24px/1 var(--font-display);
+  text-decoration: none;
+  transition:
+    transform 120ms var(--ease),
+    box-shadow 120ms var(--ease);
+}
+
+a.next {
+  background: var(--cobalt);
+  border-color: var(--cobalt-deep);
+  box-shadow: 0 2px 0 var(--cobalt-deep);
+  color: #fff;
+}
+
+a:hover {
+  transform: translateY(-1px);
+}
+
+a:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+span.off {
+  color: var(--rule-2);
+  box-shadow: none;
+  background: transparent;
+}

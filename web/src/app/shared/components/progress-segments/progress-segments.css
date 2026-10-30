@@ -1,0 +1,33 @@
+nav {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+/* A tall hit area around a thin bar. */
+a {
+  display: block;
+  padding: 8px 0;
+}
+
+a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--rule-2);
+  transition: background-color 160ms var(--ease);
+}
+
+a.seen::before {
+  background: color-mix(in srgb, var(--cobalt) 45%, var(--rule-2));
+}
+
+a.on::before {
+  background: var(--cobalt);
+}
+
+a:hover::before {
+  background: color-mix(in srgb, var(--cobalt) 70%, var(--rule-2));
+}

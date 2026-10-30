@@ -1,11 +1,8 @@
 <div class="row" [class.off]="!insight()" (click)="onRowClick($event)">
   <app-line-roundel
     [number]="rank()"
-    [expanded]="open()"
-    [disabled]="!insight()"
-    [label]="
-      (open() ? 'Hide' : 'Show') + ' why ' + repo().owner + '/' + repo().name + ' is trending'
-    "
+    [link]="insight() ? link() : null"
+    [label]="'Read why ' + repo().owner + '/' + repo().name + ' is trending'"
   />
   <a class="name" [href]="repo().url" target="_blank" rel="noopener">
     <span class="owner">{{ repo().owner }} /</span> {{ repo().name }}
@@ -17,7 +14,3 @@
   </span>
   <span class="lead" [class.failed]="!insight()">{{ lead() }}</span>
 </div>
-
-@if (open() && insight()) {
-  <app-repo-detail [result]="result()" [reportDay]="reportDay()" />
-}

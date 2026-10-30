@@ -1,0 +1,9 @@
+@if (link(); as l) {
+  <a [routerLink]="l" [class]="direction()" [attr.aria-label]="label()">
+    {{ direction() === 'next' ? '→' : '←' }}
+  </a>
+} @else {
+  <span [class]="direction() + ' off'" aria-hidden="true">
+    {{ direction() === 'next' ? '→' : '←' }}
+  </span>
+}
