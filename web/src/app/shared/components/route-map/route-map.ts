@@ -1,4 +1,5 @@
 import { Component, computed, input } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Insight } from '../../../core/models/report';
 import { routeLayout } from '../../../core/utils/route-layout';
 
@@ -8,6 +9,7 @@ import { routeLayout } from '../../../core/utils/route-layout';
  */
 @Component({
   selector: 'app-route-map',
+  imports: [NgTemplateOutlet],
   templateUrl: './route-map.html',
   styleUrl: './route-map.css',
 })

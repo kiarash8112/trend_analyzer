@@ -42,7 +42,11 @@ func RenderMarkdown(results []Result, since string, now time.Time) string {
 		for _, reason := range in.WhyPopular {
 			fmt.Fprintf(&b, "- %s\n", reason)
 		}
-		fmt.Fprintf(&b, "\n**Problem it solves:** %s\n", in.ProblemSolved)
+		if in.Problem != "" {
+			fmt.Fprintf(&b, "\n**The problem:** %s\n\n**The answer:** %s\n", in.Problem, in.Solution)
+		} else {
+			fmt.Fprintf(&b, "\n**Problem it solves:** %s\n", in.ProblemSolved)
+		}
 		if in.TargetUsers != "" {
 			fmt.Fprintf(&b, "\n**Who it's for:** %s\n", in.TargetUsers)
 		}

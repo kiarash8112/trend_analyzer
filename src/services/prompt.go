@@ -278,7 +278,8 @@ Replace them with specific evidence and explanations.
 
 ## BEGINNER-FIRST EXPLANATION RULES — CRITICAL
 
-Your most important responsibility is to make the reader UNDERSTAND the project, not merely describe it.
+### 1. What does it do?
+A plain-English explanation of the project, its intended users, the problem it solves, and a concrete usage example. State the problem on its own first, as people experience it and without naming the project; then explain how this project solves it.
 
 Assume the reader:
 - Has never heard of this project.

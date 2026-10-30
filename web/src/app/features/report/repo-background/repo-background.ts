@@ -2,10 +2,7 @@ import { Component, computed, input } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { RepoResult } from '../../../core/models/report';
 import { HostPipe } from '../../../core/pipes/host.pipe';
-import { splitReasons } from '../../../core/utils/reasons';
 import { EventList } from '../../../shared/components/event-list/event-list';
-import { ReasonList } from '../../../shared/components/reason-list/reason-list';
-import { RouteMap } from '../../../shared/components/route-map/route-map';
 import { SourceList } from '../../../shared/components/source-list/source-list';
 
 const CONFIDENCE: Record<string, string> = {
@@ -14,20 +11,18 @@ const CONFIDENCE: Record<string, string> = {
   low: 'Low: mostly inferred; treat it as a hypothesis.',
 };
 
-/** The opened row: route, every reason, background, facts and sources. */
+/** The rest of a repo's story: how it spread, facts, events and sources. */
 @Component({
-  selector: 'app-repo-detail',
-  imports: [DatePipe, DecimalPipe, HostPipe, RouteMap, ReasonList, EventList, SourceList],
-  templateUrl: './repo-detail.html',
-  styleUrl: './repo-detail.css',
+  selector: 'app-repo-background',
+  imports: [DatePipe, DecimalPipe, HostPipe, EventList, SourceList],
+  templateUrl: './repo-background.html',
+  styleUrl: './repo-background.css',
 })
-export class RepoDetail {
+export class RepoBackground {
   readonly result = input.required<RepoResult>();
-  readonly reportDay = input.required<number>();
 
   protected readonly repo = computed(() => this.result().evidence.repo);
   protected readonly insight = computed(() => this.result().insight!);
-  protected readonly why = computed(() => splitReasons(this.insight().why_popular));
   protected readonly confidence = computed(
     () => CONFIDENCE[this.insight().confidence] ?? this.insight().confidence,
   );

@@ -1,45 +1,48 @@
 @if (layout(); as l) {
   <p class="label">Route · {{ l.start }} to today, spaced by real dates</p>
-  <svg
-    [attr.viewBox]="'-10 0 ' + (l.width + 20) + ' ' + l.height"
-    role="img"
-    [attr.aria-label]="'Timeline from ' + l.start + ', ' + l.events.length + ' events'"
-  >
-    @for (m of l.months; track m.x) {
-      <line class="tick" [attr.x1]="m.x" y1="48" [attr.x2]="m.x" y2="146" />
-      <text class="month" [attr.x]="m.x + 3" y="212">{{ m.label }}</text>
-    }
-    <path class="track" [attr.d]="l.path" />
-    @for (s of l.stops; track s.x) {
-      @if (s.span) {
-        <rect
-          class="stop"
-          [attr.x]="s.x - 9"
-          [attr.y]="s.y - 9"
-          [attr.width]="s.span + 18"
-          height="18"
-          rx="9"
-        />
-      } @else {
-        <circle
-          [class]="s.now ? 'now' : 'stop'"
-          [attr.cx]="s.x"
-          [attr.cy]="s.y"
-          [attr.r]="s.now ? 11 : 7"
+  <div class="route">
+    <ng-container *ngTemplateOutlet="row; context: { $implicit: l, side: 'above' }"></ng-container>
+    <svg
+      [attr.viewBox]="l.viewX + ' 0 ' + l.viewWidth + ' ' + l.height"
+      role="img"
+      [attr.aria-label]="'Timeline from ' + l.start + ', ' + l.events.length + ' events'"
+    >
+      @for (m of l.months; track m.x) {
+        <line class="tick" [attr.x1]="m.x" y1="0" [attr.x2]="m.x" [attr.y2]="l.height" />
+        <text class="month" [attr.x]="m.x + 3" [attr.y]="l.height - 6">{{ m.label }}</text>
+      }
+      @for (lb of l.labels; track lb.x) {
+        <line
+          class="leader"
+          [attr.x1]="lb.x"
+          [attr.y1]="lb.y1"
+          [attr.x2]="lb.x"
+          [attr.y2]="lb.y2"
         />
       }
-    }
-    @for (lb of l.labels; track lb.x) {
-      <line class="leader" [attr.x1]="lb.x" [attr.y1]="lb.y1" [attr.x2]="lb.x" [attr.y2]="lb.y2" />
-      <text class="event" [attr.x]="lb.x" [attr.y]="lb.y" [attr.text-anchor]="lb.anchor">
-        {{ lb.text }}
-        <title>{{ lb.full }}</title>
-      </text>
-      <text class="date" [attr.x]="lb.x" [attr.y]="lb.y + 14" [attr.text-anchor]="lb.anchor">
-        {{ lb.date }}
-      </text>
-    }
-  </svg>
+      <path class="track" [attr.d]="l.path" />
+      @for (s of l.stops; track s.x) {
+        @if (s.span) {
+          <rect
+            class="stop"
+            [attr.x]="s.x - 9"
+            [attr.y]="s.y - 9"
+            [attr.width]="s.span + 18"
+            height="18"
+            rx="9"
+          />
+        } @else {
+          <circle
+            [class]="s.now ? 'now' : 'stop'"
+            [attr.cx]="s.x"
+            [attr.cy]="s.y"
+            [attr.r]="s.now ? 11 : 7"
+          />
+        }
+      }
+    </svg>
+    <ng-container *ngTemplateOutlet="row; context: { $implicit: l, side: 'below' }"></ng-container>
+  </div>
   <ol class="vertical">
     @for (e of l.events; track $index) {
       <li>
@@ -49,3 +52,21 @@
     }
   </ol>
 }
+
+<ng-template #row let-l let-side="side">
+  <div class="row" [class]="'row ' + side" aria-hidden="true">
+    @for (lb of l.labels; track lb.x) {
+      @if (lb.side === side) {
+        <p
+          class="event"
+          [class.end]="lb.alignEnd"
+          [style.margin-left.%]="lb.left"
+          [style.width.%]="l.labelWidth"
+        >
+          <span class="date mono">{{ lb.date }}</span>
+          {{ lb.text }}
+        </p>
+      }
+    }
+  </div>
+</ng-template>

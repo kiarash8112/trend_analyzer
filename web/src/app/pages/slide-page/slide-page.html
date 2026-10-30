@@ -1,0 +1,44 @@
+<app-top-bar [reports]="reports()" [current]="name()" />
+
+<div class="bar">
+  <a class="back" [routerLink]="listLink()">← All {{ total() }} repos</a>
+  <app-progress-segments
+    [count]="total()"
+    [current]="position()"
+    [linkFor]="linkFor"
+    [labels]="names()"
+    [progress]="readProgress()"
+  />
+  <span class="count mono">{{ position() }} of {{ total() }}</span>
+</div>
+
+@if (report.isLoading()) {
+  <p class="state">Loading report…</p>
+} @else if (report.error()) {
+  <p class="state error">Couldn't load this report. Is the report server running?</p>
+} @else if (current(); as result) {
+  <div class="stage">
+    <app-arrow-link
+      class="side"
+      direction="previous"
+      [link]="previousLink()"
+      [label]="'Previous repo: ' + (names()[position() - 2] ?? '')"
+    />
+    @for (r of [result]; track position()) {
+      <article class="slide" [class]="'slide from-' + direction()">
+        <app-repo-slide [result]="r" [reportDay]="reportDay()" />
+      </article>
+    }
+    <app-arrow-link
+      class="side"
+      direction="next"
+      [link]="nextLink()"
+      [label]="'Next repo: ' + (names()[position()] ?? '')"
+    />
+  </div>
+  <p class="hint mono">← → to move · Esc for the list</p>
+} @else {
+  <p class="state">
+    There is no repo {{ rank() }} in this report. <a [routerLink]="listLink()">Back to the list</a>
+  </p>
+}

@@ -1,0 +1,38 @@
+nav {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+/* A tall hit area around a thin bar. */
+a {
+  display: block;
+  padding: 8px 0;
+}
+
+a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--rule-2);
+  transition: background-color 160ms var(--ease);
+}
+
+a.seen::before {
+  background: color-mix(in srgb, var(--cobalt) 45%, var(--rule-2));
+}
+
+/* The current segment fills with reading progress over a pale track. */
+a.on::before {
+  background: linear-gradient(
+    to right,
+    var(--cobalt) var(--fill, 0%),
+    color-mix(in srgb, var(--cobalt) 25%, var(--rule-2)) var(--fill, 0%)
+  );
+}
+
+a:not(.on):hover::before {
+  background: color-mix(in srgb, var(--cobalt) 70%, var(--rule-2));
+}

@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Story pager</title><link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>:root{--paper:#f8f9fb;--surface:#fff;--wash:#eaf0fd;--wash-rule:#d4def5;--ink:#141a2b;--ink-2:#3c4558;--muted:#5f687e;--rule:#dfe3ea;--rule-2:#c9d0dc;--cobalt:#2856d9;--deep:#1d3fa6}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--paper);color:var(--ink);font:16px/1.6 'IBM Plex Sans',sans-serif}
+.top{display:flex;align-items:center;gap:28px;padding:18px 72px;background:#fff;border-bottom:1px solid var(--rule)}
+.brand{font:700 22px/1 'Familjen Grotesk';letter-spacing:-.02em}
+.key{font:500 15px/1 'Familjen Grotesk';padding:10px 16px;border:1px solid var(--rule-2);border-radius:6px;background:#fff;color:var(--muted);box-shadow:0 2px 0 var(--rule-2);white-space:nowrap}
+.key.on{background:var(--cobalt);border-color:var(--deep);color:#fff;box-shadow:0 2px 0 var(--deep)}
+.mono{font-family:'JetBrains Mono',monospace}
+.meta{margin-left:auto;font-size:13px;color:var(--muted)}
+.why{list-style:none;counter-reset:w}
+.why li{counter-increment:w;display:grid;grid-template-columns:40px 1fr;padding:9px 0;border-top:1px solid var(--wash-rule)}
+.why li::before{content:counter(w);width:24px;height:24px;border-radius:50%;border:2px solid var(--cobalt);color:var(--cobalt);font:500 12px/20px 'JetBrains Mono';text-align:center}
+.bar{display:flex;align-items:center;gap:16px;padding:18px 72px;border-bottom:1px solid var(--rule)}
+.bar .back{font:500 14px 'Familjen Grotesk';color:var(--cobalt)}
+.bar .count{margin-left:auto;font:500 14px 'JetBrains Mono';color:var(--muted)}
+.bar .key{padding:9px 13px}
+main{width:1040px;margin:0 auto;padding:28px 0 0}
+.t{display:flex;align-items:center;gap:16px}
+.roundel{width:44px;height:44px;border-radius:50%;background:var(--cobalt);color:#fff;display:grid;place-items:center;font:700 19px 'Familjen Grotesk'}
+h1{font:700 38px/1.1 'Familjen Grotesk';letter-spacing:-.025em}h1 span{font-weight:500;color:var(--muted)}
+.stars{margin-left:auto;font:500 20px 'JetBrains Mono';color:var(--cobalt)}
+.d{margin:8px 0 18px 60px;font-size:17px;color:var(--ink-2)}
+.lab{font:500 12px 'Familjen Grotesk';color:var(--muted);margin:0 0 4px}
+h3{font:600 16px 'Familjen Grotesk';margin:16px 0 2px}
+.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:14px 72px;background:#fff;border-top:1px solid var(--rule);box-shadow:0 -6px 16px rgba(20,26,43,.06)}
+.nb{display:flex;align-items:center;gap:12px}.nb small{display:block;font:500 12px 'Familjen Grotesk';color:var(--muted)}.nb b{font:600 17px 'Familjen Grotesk'}
+.nb.r{text-align:right}.dots{display:flex;gap:6px}.dots i{width:8px;height:8px;border-radius:50%;background:var(--rule-2)}.dots i.on{background:var(--cobalt);width:22px;border-radius:4px}
+</style></head><body><header class="top"><span class="brand">Trend Analyzer</span><span class="key on">Fri, Oct 30</span><span class="key">Thu, Oct 29</span><span class="meta mono">github trending · daily</span></header>
+<div class="bar"><span class="back">← All 10 repos</span><span class="count">2 of 10 · ← → keys to move</span></div>
+<main><div class="t"><span class="roundel">2</span><h1><span>milind-soni /</span> OpenMausBot</h1><span class="stars">+899 today</span></div>
+<p class="d">Open-source Grok Bot alternative with a virtual machine that bots can use</p>
+<p class="lab">Route · 2026-08-11 to today, spaced by real dates</p><svg viewBox="0 0 1100 110" width="100%" style="display:block"><g stroke="#d4def5"><line x1="300" y1="0" x2="300" y2="110"/><line x1="690" y1="0" x2="690" y2="110"/></g><path d="M10 80 H860 L892 48 H1090" fill="none" stroke="#2856d9" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><g fill="#fff" stroke="#2856d9" stroke-width="3"><circle cx="10" cy="80" r="7"/><circle cx="90" cy="80" r="7"/><circle cx="290" cy="80" r="7"/><circle cx="470" cy="80" r="7"/><circle cx="660" cy="80" r="7"/><circle cx="755" cy="80" r="7"/><circle cx="1000" cy="48" r="7"/><circle cx="1085" cy="48" r="11" stroke-width="4"/></g><g font-family="JetBrains Mono" font-size="10.5" fill="#5f687e"><text x="304" y="104">sep</text><text x="694" y="104">oct</text></g><g font-family="Familjen Grotesk" font-size="12.5" font-weight="500" fill="#141a2b"><text x="10" y="16">Launched with Grok Bot · 2026-08-11</text><text x="470" y="16">Star spike, #17 on Trendshift · 09-15</text><text x="1085" y="16" text-anchor="end">#2 on GitHub Trending · 10-28</text></g></svg>
+<h3>Why it is trending</h3><ol class="why"><li>It launched the same day (2026-08-11) as xAI's Grok Bot, so it was the first answer to anyone searching for an open-source Grok Bot.</li><li>It addresses Grok Bot's limits: Grok Bot only runs Grok models and needs an expensive plan; OpenMausBot is free, works with any model and reuses the subscriptions people already have.</li><li>Meta Muse, Manus Cue and OpenAI dots all launched similar closed products in September 2026, and the project rebranded as the open alternative to all of them.</li></ol></main>
+<footer class="foot"><div class="nb"><span class="key">←</span><span><small>Previous · 1</small><b>thedotmack / claude-mem</b></span></div><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="nb r"><span><small>Next · 3</small><b>pbakaus / impeccable</b></span><span class="key on">→</span></div></footer>
+</body></html>

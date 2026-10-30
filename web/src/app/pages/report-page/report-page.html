@@ -23,12 +23,7 @@
     } @else if (report.error()) {
       <p class="state error">Couldn't load this report. Is the report server running?</p>
     } @else if (rows().length) {
-      <app-timetable
-        [rows]="rows()"
-        [openRank]="openRank()"
-        [reportDay]="reportDay()"
-        (toggle)="toggle($event)"
-      />
+      <app-timetable [rows]="rows()" [reportName]="current()!" />
     } @else {
       <p class="state">No repos match “{{ query() }}”.</p>
     }

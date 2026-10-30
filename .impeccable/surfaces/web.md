@@ -5,6 +5,13 @@ primary_target: "web"
 related_targets: []
 ---
 
+---
+version: 1
+slug: "web"
+primary_target: "web"
+related_targets: []
+---
+
 # Report reader (web/)
 
 Scope: the daily report page and its date navigation. Mode: Read.
@@ -14,6 +21,8 @@ Audience and job: GitHub community readers with no context skim today's trending
 Constraints: Angular, data from `/api/reports` and `/api/reports/{name}`; a failed analysis shows its error in its row and never breaks the page; filter by text stays.
 
 Memorable moment: opening a row draws that repo's route, launch to today, spaced by real dates.
+
+Navigation (chosen 2026-10-30, surface round seed key 6f9536ff): list + slides. The timetable is the overview; opening a repo shows it as a slide (route + top three reasons on one screen, the rest below) with a segmented progress bar, previous/next arrows, ← → keys and Esc back to the list. Sketch: .impeccable/mocks/pager/slide-stories.html.
 
 ## Direction contract
 
