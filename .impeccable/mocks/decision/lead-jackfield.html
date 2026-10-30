@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Patch Bay</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--g0:#0b0b0c;--g1:#141416;--g2:#1c1c1f;--g4:#3a3a40;--g6:#8a8a90;--g9:#f2f2f0;--amb:#ffb000}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--g0);color:var(--g9);font:17px/1.6 'Barlow',sans-serif}
+body{background-image:repeating-linear-gradient(to bottom,transparent 0 63px,var(--g2) 63px 64px)}
+header{display:flex;justify-content:space-between;align-items:center;height:64px;padding:0 40px;border-bottom:1px solid var(--g4);background:var(--g0)}
+header h1{font:700 22px/1 'Barlow Condensed';letter-spacing:.06em;text-transform:uppercase}
+header h1 b{color:var(--amb)}
+header .d{font:500 13px 'JetBrains Mono';color:var(--g6)}
+.days{display:flex;gap:20px;font:600 14px 'Barlow Condensed';letter-spacing:.05em;text-transform:uppercase;color:var(--g6)}
+.days .on{color:var(--amb)}
+.wrap{display:grid;grid-template-columns:300px 1fr}
+.legend{background:var(--g1);border-right:1px solid var(--g4)}
+.lane{height:64px;display:grid;grid-template-columns:52px 1fr;align-items:center;padding:0 20px;border-bottom:1px solid var(--g2)}
+.lane .no{font:600 15px 'JetBrains Mono';color:var(--g6)}
+.lane .nm{font:600 18px/1.1 'Barlow Condensed';letter-spacing:.02em}
+.lane .nm small{display:block;font:500 12px 'JetBrains Mono';color:var(--g6);letter-spacing:0}
+.lane.on{background:var(--amb);color:var(--g0)}
+.lane.on .no,.lane.on small{color:var(--g0)}
+.field{position:relative}
+.rail{height:64px;position:relative;border-bottom:1px solid var(--g2)}
+.rail svg{position:absolute;left:40px;top:0}
+.open{height:384px;padding:28px 56px 0 40px;display:grid;grid-template-columns:620px 1fr;gap:56px;background:var(--g1);border-bottom:1px solid var(--g4)}
+.band{grid-column:1/-1;display:flex;gap:28px;font:500 13px 'JetBrains Mono';color:var(--g6);padding-bottom:14px;border-bottom:1px solid var(--g4)}
+.band b{color:var(--g9);font-weight:500}
+.band .up{color:var(--amb)}
+.open h2{font:700 30px/1.1 'Barlow Condensed';letter-spacing:.02em;text-transform:uppercase;margin-bottom:8px}
+.open ol{padding-left:22px}
+.open li{margin-bottom:8px;color:#e4e4e2}
+.open li::marker{color:var(--amb);font:600 15px 'JetBrains Mono'}
+.ev{font:500 13px/1.9 'JetBrains Mono';color:var(--g6)}
+.ev b{color:var(--amb);font-weight:500}
+.key{font:500 12px 'JetBrains Mono';color:var(--g6);margin-top:16px}
+</style></head><body>
+<header><h1>Trend Analyzer <b>/</b> Trending lanes</h1><nav class="days"><span class="on">Thu 29 Oct</span><span>Wed 28</span><span>Tue 27</span><span>Archive</span></nav><span class="d">github trending · daily · 10 lanes</span></header>
+<div class="wrap">
+<aside class="legend">
+<div class="lane on"><span class="no">01</span><span class="nm">DeepTutor<small>HKUDS · +1,926</small></span></div>
+<div class="lane"><span class="no">02</span><span class="nm">superpowers<small>obra · +1,037</small></span></div>
+<div class="lane"><span class="no">03</span><span class="nm">impeccable<small>pbakaus · +2,881</small></span></div>
+<div class="lane"><span class="no">04</span><span class="nm">thinkrail<small>JetBrains · +1,116</small></span></div>
+<div class="lane"><span class="no">05</span><span class="nm">OpenMausBot<small>milind-soni · +1,190</small></span></div>
+<div class="lane"><span class="no">06</span><span class="nm">…<small>5 more lanes</small></span></div>
+</aside>
+<section class="field">
+<div class="rail"><svg width="1000" height="64"><line x1="0" y1="32" x2="940" y2="32" stroke="#ffb000" stroke-width="3"/><line x1="0" y1="20" x2="0" y2="44" stroke="#ffb000" stroke-width="3"/><g stroke="#ffb000" stroke-width="2"><line x1="40" y1="24" x2="40" y2="40"/><line x1="380" y1="24" x2="380" y2="40"/><line x1="900" y1="24" x2="900" y2="40"/></g><line x1="460" y1="26" x2="472" y2="38" stroke="#ffb000" stroke-width="2"/><circle cx="940" cy="32" r="7" fill="#ffb000"/></svg></div>
+<div class="open">
+<div class="band"><span>maker <b>HKUDS lab</b></span><span>lang <b>Python</b></span><span>stars <b>49,545</b></span><span>today <b class="up">+1,926</b></span><span>launched <b>2025-12-29 · GitHub</b></span><span>evidence <b>medium ┼</b></span></div>
+<div><h2>Why DeepTutor is trending</h2><ol>
+<li>The HKUDS lab at the University of Hong Kong made LightRAG and nanobot, so DeepTutor launched to an audience that starred it within days.</li>
+<li>A v1.0 rewrite and an arXiv paper in April 2026 restarted growth: past 10k stars in 39 days.</li>
+<li>The October surge matches the v1.7.0 release on 28 October: narrated video lessons and block notebooks.</li></ol></div>
+<div><div class="ev"><b>2025-12-29</b> launched on GitHub<br><b>2026-01-03</b> 1.4k stars, lab audience<br><b>2026-04-04</b> v1.0 agent-native rewrite<br><b>2026-04-10</b> arXiv paper<br><b>2026-10-28</b> v1.7.0 → trending</div>
+<p class="key">rail: ━ sourced · ┼ partly inferred · ╌ unconfirmed</p></div>
+</div>
+<div class="rail"><svg width="1000" height="64"><line x1="0" y1="32" x2="940" y2="32" stroke="#ffb000" stroke-width="3"/><line x1="0" y1="20" x2="0" y2="44" stroke="#ffb000" stroke-width="3"/><circle cx="940" cy="32" r="7" fill="#ffb000"/></svg></div>
+<div class="rail"><svg width="1000" height="64"><line x1="0" y1="32" x2="600" y2="32" stroke="#ffb000" stroke-width="3"/><line x1="0" y1="20" x2="0" y2="44" stroke="#ffb000" stroke-width="3"/><line x1="300" y1="26" x2="312" y2="38" stroke="#ffb000" stroke-width="2"/><circle cx="600" cy="32" r="7" fill="#ffb000"/></svg></div>
+</section></div>
+</body></html>

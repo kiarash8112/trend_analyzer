@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700;800&family=Alegreya:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--g:#f4f6f1;--ink:#1d2a22;--leaf:#2f6b4f;--amb:#e0a526;--m:#5d6b62}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--g);color:var(--ink);font:17px/1.55 'Alegreya',serif}
+header{background:var(--leaf);color:#fff;padding:22px 80px;display:flex;justify-content:space-between;align-items:baseline}
+header h1{font:800 34px/1 'Alegreya Sans'}
+header p{font:400 16px 'Alegreya Sans'}
+.idx{display:flex;gap:28px;padding:12px 80px;border-bottom:1px solid #cdd5cc;font:700 14px 'Alegreya Sans';color:var(--m)}
+.idx b{color:var(--leaf)}
+main{display:grid;grid-template-columns:420px 1fr;gap:56px;padding:32px 80px}
+.plate{background:#fff;border:1px solid #cdd5cc;padding:24px}
+.plate .no{font:800 64px/1 'Alegreya Sans';color:var(--leaf)}
+.plate h2{font:800 30px/1.1 'Alegreya Sans';margin:6px 0}
+.plate h2 span{font-weight:400;color:var(--m)}
+.plate dl{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;margin-top:16px;font:400 15px 'Alegreya Sans'}
+.plate dt{color:var(--m)}
+.acc h3{font:800 14px/1 'Alegreya Sans';color:var(--leaf);margin:0 0 8px}
+.acc .id{font-style:italic;font-size:19px;margin-bottom:20px;max-width:62ch}
+.marks{list-style:none;counter-reset:m;max-width:66ch}
+.marks li{counter-increment:m;display:grid;grid-template-columns:40px 1fr;margin-bottom:12px}
+.marks li::before{content:counter(m);width:26px;height:26px;border-radius:50%;background:var(--amb);font:800 14px/26px 'Alegreya Sans';text-align:center}
+</style></head><body>
+<header><h1>Trend Analyzer · A Field Guide to Trending Repos</h1><p>Sightings for Thursday 29 October 2026</p></header>
+<nav class="idx"><b>1 DeepTutor</b><span>2 superpowers</span><span>3 impeccable</span><span>4 thinkrail</span><span>5 OpenMausBot</span><span>6–10</span></nav>
+<main>
+<div class="plate"><div class="no">1</div><h2><span>HKUDS /</span> DeepTutor</h2><p>AI tutor · Python</p>
+<dl><dt>Population</dt><dd>49,545 stars</dd><dt>Seen today</dt><dd>+1,926</dd><dt>First sighting</dt><dd>29 Dec 2025, GitHub</dd><dt>Habitat</dt><dd>Students, self-learners, researchers</dd><dt>Certainty</dt><dd>Medium</dd></dl></div>
+<div class="acc"><h3>Identification</h3><p class="id">A self-hosted AI tutor that teaches from your own textbooks, cites the page, and remembers what you have learned.</p>
+<h3>Field marks: why it is trending</h3><ol class="marks">
+<li><span>Lab track record: the HKUDS lab made LightRAG and nanobot, so DeepTutor launched to an audience that starred it within days.</span></li>
+<li><span>A v1.0 rewrite and an arXiv paper in April 2026 took it past 10k stars in 39 days.</span></li>
+<li><span>The October surge matches the v1.7.0 release on 28 October: narrated video lessons and block notebooks.</span></li>
+</ol></div>
+</main>
+</body></html>

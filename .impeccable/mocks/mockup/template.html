@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trend Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f8f9fb; --surface: #ffffff; --wash: #eaf0fd; --wash-rule: #d4def5;
+  --ink: #141a2b; --ink-2: #3c4558; --muted: #5f687e; --rule: #dfe3ea; --rule-2: #c9d0dc;
+  --cobalt: #2856d9; --cobalt-deep: #1d3fa6; --danger: #b42318; --warn: #8a5a00; --ok: #11734b;
+  --font-display: 'Familjen Grotesk', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --gutter: 72px; --ease: cubic-bezier(.16, 1, .3, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; overflow-x: clip; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--wash-rule); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+a { color: var(--cobalt); text-decoration-color: var(--rule-2); text-underline-offset: .2em; }
+a:hover { text-decoration-color: var(--cobalt); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Top bar: title and keycap date tabs */
+.top { display: flex; align-items: center; gap: 28px; padding: 18px var(--gutter); background: var(--surface); border-bottom: 1px solid var(--rule); }
+.brand { font: 700 22px/1 var(--font-display); letter-spacing: -.02em; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.dates { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 2px 2px 5px; }
+.key { font: 500 15px/1 var(--font-display); padding: 10px 16px; border: 1px solid var(--rule-2); border-radius: 6px; background: var(--surface); color: var(--muted); box-shadow: 0 2px 0 var(--rule-2); cursor: pointer; white-space: nowrap; transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); }
+.key:hover { transform: translateY(-1px); box-shadow: 0 3px 0 var(--rule-2); color: var(--ink); }
+.key:active { transform: translateY(2px); box-shadow: 0 0 0 var(--rule-2); }
+.key[aria-current="date"] { background: var(--cobalt); border-color: var(--cobalt-deep); color: #fff; box-shadow: 0 2px 0 var(--cobalt-deep); }
+.meta { margin-left: auto; font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+/* Page heading */
+.head { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 28px var(--gutter) 20px; }
+.head h1 { margin: 0; font: 700 34px/1.1 var(--font-display); letter-spacing: -.025em; text-wrap: balance; }
+.head p { margin: 6px 0 0; color: var(--ink-2); }
+.filter { width: min(320px, 100%); padding: 10px 14px; border: 1px solid var(--rule-2); border-radius: 6px; background: var(--surface); font: 15px var(--font-body); color: var(--ink); }
+.filter::placeholder { color: var(--muted); }
+.filter:focus-visible { outline: none; border-color: var(--cobalt); box-shadow: 0 0 0 3px var(--wash); }
+
+/* Timetable */
+.tt { margin: 0 var(--gutter) 64px; }
+.cols, .row { display: grid; grid-template-columns: 64px minmax(0, 290px) 120px minmax(0, 210px) minmax(0, 1fr); gap: 0 16px; align-items: start; }
+.cols { font: 500 12px var(--font-display); color: var(--muted); padding: 0 0 10px; border-bottom: 1px solid var(--rule-2); }
+.line { border-bottom: 1px solid var(--rule); }
+.row { width: 100%; padding: 16px 0; background: none; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: background-color 160ms var(--ease); }
+.row:hover { background: color-mix(in srgb, var(--wash) 45%, transparent); }
+.line.open { background: var(--wash); border-bottom-color: var(--wash-rule); }
+.line.open .row:hover { background: none; }
+.roundel { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-left: 12px; border-radius: 50%; border: 2px solid var(--ink); font: 700 15px/1 var(--font-display); }
+.open .roundel { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.name { font: 600 18px/1.3 var(--font-display); overflow-wrap: anywhere; }
+.name .owner { font-weight: 500; color: var(--muted); }
+.stars { font: 500 16px/1.7 var(--font-mono); color: var(--cobalt); font-variant-numeric: tabular-nums; }
+.via { font: 500 14px/1.35 var(--font-display); color: var(--ink-2); }
+.via .mono { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; }
+.lead { color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.open .lead { display: none; }
+.failed { color: var(--danger); }
+
+/* Open row */
+.detail { padding: 0 32px 28px 96px; }
+.what { max-width: 75ch; margin: 0 0 18px; font-size: 17px; }
+.what b { font-family: var(--font-display); font-weight: 600; }
+.label { font: 500 12px var(--font-display); color: var(--muted); margin: 0 0 6px; }
+.route { width: 100%; height: auto; display: block; overflow: visible; margin-bottom: 18px; }
+.route .track { fill: none; stroke: var(--cobalt); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 900ms var(--ease) forwards; }
+.route .stop { fill: var(--surface); stroke: var(--cobalt); stroke-width: 3; }
+.route .now { fill: var(--surface); stroke: var(--cobalt); stroke-width: 4; }
+.route .t { font: 500 13px var(--font-display); fill: var(--ink); }
+.route .d { font: 400 10.5px var(--font-mono); fill: var(--muted); }
+.route .m { font: 400 10.5px var(--font-mono); fill: var(--muted); }
+.route .tick { stroke: var(--wash-rule); }
+.route .lead-line { stroke: var(--rule-2); stroke-width: 1; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.vroute { display: none; list-style: none; margin: 0 0 18px; padding: 0; }
+h3 { font: 600 16px var(--font-display); margin: 0 0 4px; }
+.why { list-style: none; counter-reset: w; margin: 0 0 18px; padding: 0; max-width: 1040px; }
+.why li { counter-increment: w; display: grid; grid-template-columns: 40px minmax(0, 1fr); padding: 9px 0; border-top: 1px solid var(--wash-rule); }
+.why li::before { content: counter(w); width: 24px; height: 24px; margin-top: 1px; border-radius: 50%; border: 2px solid var(--cobalt); color: var(--cobalt); font: 500 12px/20px var(--font-mono); text-align: center; }
+.prose { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 1040px; margin: 8px 0 18px; }
+.prose p { margin: 0 0 8px; color: var(--ink-2); }
+.prose .for { font-size: 14px; }
+.prose .for b { font: 500 12px var(--font-display); color: var(--muted); margin-right: 6px; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 28px; margin: 0 0 14px; font-size: 14px; color: var(--ink-2); }
+.facts b { font: 500 12px var(--font-display); color: var(--muted); margin-right: 6px; }
+.conf-high { color: var(--ok); } .conf-medium { color: var(--warn); } .conf-low { color: var(--danger); }
+details { border-top: 1px solid var(--wash-rule); padding: 10px 0 0; margin-top: 10px; max-width: 1040px; }
+summary { cursor: pointer; font: 500 14px var(--font-display); color: var(--ink-2); }
+summary:hover { color: var(--cobalt); }
+.events { list-style: none; padding: 0; margin: 10px 0 0; }
+.events li { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 4px 0; font-size: 15px; }
+.sources { margin: 10px 0 0; padding-left: 20px; font: 13px/1.8 var(--font-mono); overflow-wrap: anywhere; }
+.foot { margin-top: 14px; font-size: 13px; color: var(--muted); }
+.empty { padding: 48px 0; color: var(--muted); text-align: center; }
+
+@media (max-width: 1100px) { :root { --gutter: 32px; } .detail { padding-left: 32px; } }
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  .top { flex-wrap: wrap; gap: 12px; padding: 14px var(--gutter); }
+  .dates { order: 3; width: 100%; }
+  .head { flex-direction: column; align-items: stretch; padding-top: 20px; }
+  .head h1 { font-size: 26px; }
+  .filter { width: 100%; }
+  .cols { display: none; }
+  .row { grid-template-columns: 46px minmax(0, 1fr) auto; grid-template-areas: "r n s" ". v v" ". l l"; gap: 4px 10px; }
+  .row > :nth-child(1) { grid-area: r; } .row > :nth-child(2) { grid-area: n; } .row > :nth-child(3) { grid-area: s; }
+  .row > :nth-child(4) { grid-area: v; } .row > :nth-child(5) { grid-area: l; }
+  .roundel { margin-left: 0; width: 32px; height: 32px; }
+  .via .mono { display: inline; margin-left: 6px; }
+  .detail { padding: 0 16px 24px; }
+  .route { display: none; }
+  .vroute { display: block; position: relative; }
+  .vroute::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 6px; border-radius: 3px; background: var(--cobalt); }
+  .vroute li { position: relative; padding: 4px 0 10px 32px; }
+  .vroute li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 3px solid var(--cobalt); }
+  .vroute .mono { display: block; font-size: 12px; color: var(--muted); }
+  .events li { grid-template-columns: 1fr; gap: 0; }
+  .prose { grid-template-columns: 1fr; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0s !important; animation: none !important; } .route .track { stroke-dashoffset: 0; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#">Trend Analyzer</a>
+  <nav class="dates" aria-label="Reports by date" id="dates"></nav>
+  <span class="meta mono">github trending · daily</span>
+</header>
+<section class="head">
+  <div><h1 id="title"></h1><p id="sub"></p></div>
+  <input class="filter" id="filter" type="search" placeholder="Filter by repo, language, channel…" aria-label="Filter repositories">
+</section>
+<main class="tt">
+  <div class="cols" aria-hidden="true"><span>Line</span><span>Repo</span><span>Stars today</span><span>Via (launched on)</span><span>Why it is trending</span></div>
+  <div id="lines"></div>
+</main>
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const REPORTS = JSON.parse(document.getElementById('data').textContent);
+const DAY = 864e5;
+const fmt = new Intl.NumberFormat('en-US');
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const [hashName, hashRank] = location.hash.slice(1).split('/');
+let current = (REPORTS.find((x) => x.name === hashName) || REPORTS[0]).name, openIndex = hashRank === undefined ? 0 : +hashRank - 1, query = '';
+
+// Reasons arrive as a list ("1) ...") or, in older reports, one string with inline numbering.
+function reasons(why) {
+  if (Array.isArray(why)) return why.map((r) => r.replace(/^\s*\(?\d{1,2}[.)]\s+/, ''));
+  const marks = [];
+  for (const m of why.matchAll(/(?<=^|\s)\(?(\d{1,2})[.)]\s+/g)) if (+m[1] === marks.length + 1) marks.push(m);
+  if (marks.length < 2) return [why];
+  return marks.map((m, i) => why.slice(m.index + m[0].length, i + 1 < marks.length ? marks[i + 1].index : why.length).trim());
+}
+const parse = (s) => { const m = /^(\d{4})-(\d{2})(?:-(\d{2}))?/.exec(s || ''); return m ? Date.UTC(+m[1], +m[2] - 1, +(m[3] || 15)) : null; };
+const day = (t) => new Date(t).toISOString().slice(0, 10);
+const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
+const shortChannel = (c) => (c || '').split(/[,(;.]/)[0].trim();
+
+// The route: spaced by real dates; it steps up only at launch and at the start of the trending window.
+function route(ins, reportDate) {
+  const evs = ins.timeline.map((e) => ({ ...e, t: parse(e.date) })).filter((e) => e.t !== null).sort((a, b) => a.t - b.t);
+  const launch = parse(ins.launch_date), end = reportDate;
+  if (!evs.length) return '';
+  const start = Math.min(evs[0].t, launch ?? evs[0].t);
+  const W = 1100, x0 = 10, x1 = W - 20, span = Math.max(end - start, 30 * DAY);
+  const X = (t) => x0 + ((t - start) / span) * (x1 - x0);
+  const surge = end - 30 * DAY, Y = [128, 96, 64];
+  const level = (t) => (t >= surge ? 2 : launch && t >= launch ? 1 : launch && t < launch ? 0 : 1);
+  const steps = [];
+  if (launch && launch > start) steps.push(X(launch));
+  if (surge > start) steps.push(X(surge));
+  let lv = level(start), d = `M${X(start)} ${Y[lv]}`;
+  for (const sx of steps) { d += ` H${Math.max(sx - 32, X(start))} L${sx} ${Y[lv + 1]}`; lv += 1; }
+  d += ` H${X(end)}`;
+  const groups = [];
+  for (const e of evs) { const g = groups.at(-1); if (g && X(e.t) - X(g[0].t) < 14) g.push(e); else groups.push([e]); }
+  const yAt = (t) => { let y = Y[level(start)], lv2 = level(start); for (const sx of steps) { if (X(t) >= sx) { lv2++; y = Y[lv2]; } else if (X(t) > sx - 32) { y = Y[lv2] - (X(t) - (sx - 32)); } } return y; };
+  let svg = '', labels = '', lastEnd = { up: -1e9, down: -1e9 };
+  const months = [];
+  for (let m = new Date(start); m <= end; m = new Date(Date.UTC(m.getUTCFullYear(), m.getUTCMonth() + 1, 1))) {
+    const t = Date.UTC(m.getUTCFullYear(), m.getUTCMonth(), 1); if (t < start) continue;
+    const lab = m.toLocaleString('en', { month: 'short', timeZone: 'UTC' }).toLowerCase() + (m.getUTCMonth() === 0 ? ' ' + m.getUTCFullYear() : '');
+    months.push(`<line class="tick" x1="${X(t)}" y1="48" x2="${X(t)}" y2="146"/><text class="m" x="${X(t) + 3}" y="212">${lab}</text>`);
+  }
+  groups.forEach((g, i) => {
+    const x = X(g[0].t), y = yAt(g[0].t), last = i === groups.length - 1;
+    svg += g.length > 1 ? `<rect class="stop" x="${x - 9}" y="${y - 9}" width="${18 + X(g.at(-1).t) - x}" height="18" rx="9"/>` : `<circle class="${last ? 'now' : 'stop'}" cx="${x}" cy="${y}" r="${last ? 11 : 7}"/>`;
+    const text = g.map((e) => e.event).join(' · ');
+    const lab = text.length > 34 ? text.slice(0, 33).trimEnd() + '…' : text;
+    const w = Math.max(lab.length * 6.6, 90), anchorEnd = x + w > W;
+    const left = anchorEnd ? x - w : x, right = anchorEnd ? x : x + w;
+    const side = left > lastEnd.up + 12 ? 'up' : left > lastEnd.down + 12 ? 'down' : null;
+    if (!side) return;
+    lastEnd[side] = right;
+    const ty = side === 'up' ? 22 : 170, a = anchorEnd ? 'end' : 'start';
+    labels += `<line class="lead-line" x1="${x}" y1="${side === 'up' ? ty + 20 : y + 10}" x2="${x}" y2="${side === 'up' ? y - 10 : ty - 14}"/><text class="t" x="${x}" y="${ty}" text-anchor="${a}">${esc(lab)}<title>${esc(text)}</title></text><text class="d" x="${x}" y="${ty + 14}" text-anchor="${a}">${esc(g[0].date)}</text>`;
+  });
+  const len = 2 * W;
+  return `<p class="label">Route · ${esc(day(start))} to today, spaced by real dates</p>
+<svg class="route" viewBox="-10 0 ${W + 20} 218" role="img" aria-label="Timeline from ${esc(day(start))} to ${esc(day(end))}, ${evs.length} events">${months.join('')}<path class="track" style="--len:${len}" d="${d}"/>${svg}${labels}</svg>
+<ol class="vroute">${evs.map((e) => `<li><span class="mono">${esc(e.date)}</span>${esc(e.event)}</li>`).join('')}</ol>`;
+}
+
+function detail(r, reportDate) {
+  const i = r.insight, repo = r.evidence.repo;
+  const conf = { high: 'High: most claims have a direct source.', medium: 'Medium: some steps are inferred from indirect sources.', low: 'Low: mostly inferred; treat as a hypothesis.' }[i.confidence] || i.confidence;
+  return `<div class="detail">
+${repo.description ? `<p class="what">${esc(repo.description)}</p>` : ''}
+${route(i, reportDate)}
+<h3>Why it is trending</h3>
+<ol class="why">${reasons(i.why_popular).map((x) => `<li><span>${esc(x)}</span></li>`).join('')}</ol>
+<div class="prose">
+<section><h3>What it is</h3><p>${esc(i.problem_solved)}</p>${i.target_users ? `<p class="for"><b>For</b> ${esc(i.target_users)}</p>` : ''}</section>
+<section><h3>How it spread</h3><p>${esc(i.how_it_spread)}</p><p class="for"><b>Launched on</b> ${esc(i.launch_channel)}${i.launch_url ? ` <a href="${esc(i.launch_url)}" target="_blank" rel="noopener">${esc(host(i.launch_url))}</a>` : ''}</p></section>
+</div>
+<div class="facts"><span><b>Total stars</b><span class="mono">${fmt.format(repo.stars)}</span></span>${repo.language ? `<span><b>Language</b>${esc(repo.language)}</span>` : ''}<span class="conf-${esc(i.confidence)}"><b>Confidence</b>${esc(conf)}</span></div>
+<details><summary>All events (${i.timeline.length})</summary><ol class="events">${i.timeline.map((e) => `<li><span class="mono">${esc(e.date)}</span><span>${esc(e.event)}${e.source_url ? ` <a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(host(e.source_url))}</a>` : ''}</span></li>`).join('')}</ol></details>
+<details><summary>Sources (${i.sources.length})</summary><ul class="sources">${i.sources.map((s) => `<li><a href="${esc(s)}" target="_blank" rel="noopener">${esc(s)}</a></li>`).join('')}</ul></details>
+<p class="foot">Analyzed <span class="mono">${esc(i.analyzed_at.slice(0, 16).replace('T', ' '))} UTC</span> · <a href="${esc(repo.url)}" target="_blank" rel="noopener">Open on GitHub</a></p>
+</div>`;
+}
+
+function render() {
+  const rep = REPORTS.find((x) => x.name === current);
+  const reportDate = parse(rep.date);
+  document.getElementById('dates').innerHTML = REPORTS.map((x) => {
+    const d = new Date(parse(x.date));
+    const lab = d.toLocaleString('en', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+    return `<button class="key" data-name="${esc(x.name)}" ${x.name === current ? 'aria-current="date"' : ''}>${lab}</button>`;
+  }).join('');
+  const long = new Date(reportDate).toLocaleString('en', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  document.getElementById('title').textContent = long;
+  document.getElementById('sub').textContent = `${rep.results.length} ${rep.results.length === 1 ? 'repo' : 'repos'} on GitHub Trending today, and the story of how each one got popular.`;
+  const q = query.trim().toLowerCase();
+  const rows = rep.results.map((r, idx) => ({ r, idx })).filter(({ r }) => !q || JSON.stringify(r).toLowerCase().includes(q));
+  document.getElementById('lines').innerHTML = rows.length ? rows.map(({ r, idx }) => {
+    const repo = r.evidence.repo, i = r.insight, open = idx === openIndex && i;
+    const lead = i ? reasons(i.why_popular)[0] : `Analysis failed: ${r.error}`;
+    return `<div class="line${open ? ' open' : ''}">
+<button class="row" data-idx="${idx}" aria-expanded="${!!open}" ${i ? '' : 'disabled'}>
+<span><span class="roundel">${idx + 1}</span></span>
+<span class="name"><span class="owner">${esc(repo.owner)} /</span> ${esc(repo.name)}</span>
+<span class="stars">+${fmt.format(repo.stars_in_period)}</span>
+<span class="via">${i ? esc(shortChannel(i.launch_channel)) : '—'}<span class="mono">${i ? esc(i.launch_date) : ''}</span></span>
+<span class="lead${i ? '' : ' failed'}">${esc(lead)}</span>
+</button>${open ? detail(r, reportDate) : ''}</div>`;
+  }).join('') : `<p class="empty">No repos match “${esc(query)}”.</p>`;
+}
+
+document.addEventListener('click', (e) => {
+  const k = e.target.closest('.key');
+  if (k) { current = k.dataset.name; openIndex = 0; render(); return; }
+  const row = e.target.closest('.row');
+  if (row && !row.disabled) { const idx = +row.dataset.idx; openIndex = openIndex === idx ? -1 : idx; history.replaceState(null, '', `#${current}/${openIndex + 1}`); render(); document.querySelector(`.row[data-idx="${idx}"]`).focus({ preventScroll: true }); }
+});
+document.getElementById('filter').addEventListener('input', (e) => { query = e.target.value; render(); });
+render();
+</script>
+</body>
+</html>

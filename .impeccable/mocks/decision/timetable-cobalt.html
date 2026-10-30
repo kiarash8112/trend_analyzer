@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Departure Timetable · Cobalt</title>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f8f9fb;--p2:#eef1f6;--ink:#141a2b;--ink2:#3c4558;--m:#69728a;--rule:#dfe3ea;--co:#2856d9;--wash:#eaf0fd;--gr:#1a2030;--gr2:#232b3e;--gri:#e7ebf3;--grm:#9aa5bd;--co2:#8fb0ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--paper);color:var(--ink);font:16px/1.55 'IBM Plex Sans',sans-serif}
+.mast{padding:22px 72px 16px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px}
+.mast h1{font:700 48px/1 'Familjen Grotesk';letter-spacing:-.03em}
+.mast h1 b{color:var(--co);font-weight:700}
+.mast .d{font:500 14px 'JetBrains Mono';color:var(--m);text-align:right}
+.pad{display:flex;gap:8px;grid-column:1/-1}
+.key{font:500 14px/1 'Familjen Grotesk';padding:9px 14px;border:1px solid #c9d0dc;border-radius:6px;background:#fff;box-shadow:0 2px 0 #c9d0dc}
+.key.on{background:var(--co);color:#fff;border-color:#1d3fa6;box-shadow:0 2px 0 #1d3fa6}
+.key.past{color:var(--m)}
+.tt{margin:0 72px}
+.row,.head{display:grid;grid-template-columns:56px 300px 120px 200px 1fr;gap:0 12px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:start}
+.head{font:500 12px/1 'Familjen Grotesk';color:var(--m);padding:16px 0 10px;border-bottom:1px solid #c9d0dc}
+.rk{font:600 28px/1 'Familjen Grotesk';color:var(--m)}
+.row.on .rk{color:var(--co)}
+.nm{font:600 18px/1.25 'Familjen Grotesk'}
+.nm span{font-weight:500;color:var(--m)}
+.num{font:500 16px/1.5 'JetBrains Mono';color:var(--co)}
+.via{font:500 14px/1.35 'Familjen Grotesk';color:var(--ink2)}
+.via small{display:block;font:400 12px 'JetBrains Mono';color:var(--m)}
+.row.on{background:var(--wash);border-bottom:none;box-shadow:inset 3px 0 0 var(--co)}
+.row.on .rk{padding-left:14px}
+.det{background:var(--wash);padding:4px 28px 20px 82px;border-bottom:1px solid var(--rule)}
+.panel{background:var(--gr);color:var(--gri);padding:14px 22px 6px;clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);margin:6px 0 16px}
+.panel h3{font:500 12px 'Familjen Grotesk';color:var(--grm)}
+.tl{position:relative;height:112px;width:1120px}
+.axis{position:absolute;left:0;right:0;top:56px;height:1px;background:#3a4560}
+.surge{position:absolute;top:54px;height:5px;border-radius:3px;background:var(--co2)}
+.mo{position:absolute;top:64px;font:400 10px 'JetBrains Mono';color:#6f7a94}
+.ev{position:absolute;width:10px;height:10px;top:51px;margin-left:-5px;background:var(--gr);border:2px solid var(--co2);transform:rotate(45deg)}
+.ev.now{width:16px;height:16px;top:48px;margin-left:-8px;background:var(--co2);box-shadow:0 0 0 6px rgba(143,176,255,.18)}
+.lb{position:absolute;font:500 13px/1.25 'Familjen Grotesk';white-space:nowrap;color:var(--gri)}
+.lb small{display:block;font:400 11px 'JetBrains Mono';color:var(--grm)}
+.lb.up{bottom:66px}.lb.dn{top:76px}.lb.r{transform:translateX(-100%);text-align:right}
+.det h4{font:600 15px 'Familjen Grotesk';margin-bottom:4px}
+.why{list-style:none;counter-reset:w;max-width:1060px}
+.why li{counter-increment:w;display:grid;grid-template-columns:34px 1fr;padding:7px 0;border-top:1px solid #d4def5}
+.why li::before{content:counter(w,decimal-leading-zero);font:500 13px/1.9 'JetBrains Mono';color:var(--co)}
+</style></head><body>
+<header class="mast"><h1>Trending <b>departures</b></h1><span class="d">github trending · daily<br>thu 2026-10-29 · 10 lines</span>
+<nav class="pad"><span class="key on">Thu 29</span><span class="key past">Wed 28</span><span class="key past">Tue 27</span><span class="key past">Mon 26</span><span class="key past">Archive</span></nav></header>
+<div class="tt">
+<div class="head"><span>No.</span><span>Repo</span><span>Stars today</span><span>Via (launched on)</span><span>Why it is trending</span></div>
+<div class="row on"><span class="rk">1</span><span class="nm"><span>HKUDS /</span> DeepTutor</span><span class="num">+1,926</span><span class="via">GitHub lab release<small>2025-12-29</small></span><span>A lab with LightRAG and nanobot behind it; v1.7.0 on 28 October restarted growth.</span></div>
+<div class="det"><div class="panel"><h3>Route · spaced by real dates</h3>
+<div class="tl"><div class="axis"></div><div class="surge" style="left:1043px;width:77px"></div>
+<span class="mo" style="left:12px">jan</span><span class="mo" style="left:127px">feb</span><span class="mo" style="left:233px">mar</span><span class="mo" style="left:350px">apr</span><span class="mo" style="left:463px">may</span><span class="mo" style="left:580px">jun</span><span class="mo" style="left:693px">jul</span><span class="mo" style="left:810px">aug</span><span class="mo" style="left:927px">sep</span><span class="mo" style="left:1043px">oct</span>
+<i class="ev" style="left:0"></i><i class="ev" style="left:18px"></i><i class="ev" style="left:361px"></i><i class="ev" style="left:463px"></i><i class="ev now" style="left:1120px"></i>
+<span class="lb up" style="left:0">Launched on GitHub<small>2025-12-29</small></span>
+<span class="lb dn" style="left:18px">1.4k stars, lab audience<small>2026-01-03</small></span>
+<span class="lb up" style="left:361px">v1.0 rewrite + arXiv paper<small>2026-04-04 → 04-10</small></span>
+<span class="lb dn" style="left:463px">Chinese tech media<small>2026-04 → 05</small></span>
+<span class="lb up r" style="left:1120px">Trending now · v1.7.0<small>2026-10-28</small></span></div></div>
+<h4>Why it is trending</h4>
+<ol class="why"><li>Lab track record: HKUDS, Chao Huang's lab at the University of Hong Kong, made LightRAG and nanobot, so DeepTutor launched to an audience that starred it within days.</li><li>A rewrite restarted growth: v1.0 in April 2026 and an arXiv paper took it past 10k stars in 39 days.</li><li>It fits current trends: agents, RAG, long-term memory and tools other agents can call.</li><li>The October surge matches v1.7.0 on 28 October: narrated video lessons and block notebooks.</li></ol></div>
+<div class="row"><span class="rk">2</span><span class="nm"><span>obra /</span> superpowers</span><span class="num">+1,037</span><span class="via">Author's blog<small>2025-10-09</small></span><span>Shipped the same morning Claude Code launched plugins, and became the reference plugin.</span></div>
+</div>
+</body></html>

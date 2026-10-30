@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Midnight Transit</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--mid:#0f1a3a;--por:#f4f1ea;--sc:#e4002b;--co:#2f6fe4;--am:#f5a800;--gr:#00a651;--m:#9aa3bd}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--mid);color:var(--por);font:17px/1.6 'Fira Sans',sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 72px}
+header h1{font:700 26px 'Fira Sans'}
+header p{color:var(--m);font-size:15px}
+.lines{display:flex;gap:14px;padding:0 72px 18px;border-bottom:1px solid #26335e}
+.ln{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:#18244a;font-weight:500;font-size:15px}
+.ln i{width:26px;height:26px;border-radius:50%;background:var(--por);color:var(--mid);font:700 13px/26px 'Fira Sans';text-align:center;font-style:normal}
+.ln.on{background:var(--por);color:var(--mid)}
+.ln.on i{background:var(--sc);color:#fff}
+.map{position:relative;height:330px;margin:0 72px}
+.lab{position:absolute;font-size:14px;font-weight:500;width:170px}
+.lab small{display:block;color:var(--m);font-weight:400}
+.legend{display:flex;gap:24px;padding:0 72px;font-size:13px;color:var(--m)}
+.legend span::before{content:'';display:inline-block;width:22px;height:5px;margin-right:8px;vertical-align:middle;background:var(--c)}
+.why{display:grid;grid-template-columns:240px 680px;gap:48px;padding:22px 72px}
+.why h2{font:700 26px/1.15 'Fira Sans'}
+.why h2 small{display:block;font:400 15px 'Fira Sans';color:var(--m);margin-top:6px}
+.why ol{padding-left:22px}
+.why li{margin-bottom:8px}
+</style></head><body>
+<header><h1>Trend Analyzer · Today's lines</h1><p>GitHub Trending · Thursday 29 October 2026</p></header>
+<nav class="lines"><span class="ln on"><i>1</i>DeepTutor</span><span class="ln"><i>2</i>superpowers</span><span class="ln"><i>3</i>impeccable</span><span class="ln"><i>4</i>thinkrail</span><span class="ln"><i>5</i>OpenMausBot</span><span class="ln"><i>+</i>5 more</span></nav>
+<div class="map"><svg width="1296" height="330" viewBox="0 0 1296 330" style="position:absolute;inset:0">
+<path d="M40 250 H300 L380 170 H700" stroke="#2f6fe4" stroke-width="12" fill="none" stroke-linejoin="round"/>
+<path d="M700 170 H860 L940 90 H1250" stroke="#00a651" stroke-width="12" fill="none" stroke-linejoin="round"/>
+<path d="M560 250 L640 170" stroke="#f5a800" stroke-width="12" fill="none"/>
+<path d="M940 90 H1250" stroke="#e4002b" stroke-width="12" fill="none" transform="translate(0 18)"/>
+<g fill="#f4f1ea" stroke="#0f1a3a" stroke-width="4"><circle cx="40" cy="250" r="13"/><circle cx="300" cy="250" r="10"/><circle cx="640" cy="170" r="16"/><circle cx="860" cy="170" r="10"/><circle cx="1250" cy="99" r="18"/></g>
+</svg>
+<div class="lab" style="left:0;top:272px">Launched on GitHub<small>29 Dec 2025</small></div>
+<div class="lab" style="left:250px;top:272px">1.4k stars, lab audience<small>3 Jan 2026</small></div>
+<div class="lab" style="left:600px;top:196px">v1.0 + arXiv paper<small>Apr 2026 · interchange</small></div>
+<div class="lab" style="left:820px;top:196px">Chinese tech media<small>Apr–May 2026</small></div>
+<div class="lab" style="left:1130px;top:132px">Trending now · v1.7.0<small>28 Oct 2026</small></div></div>
+<div class="legend"><span style="--c:#2f6fe4">GitHub</span><span style="--c:#f5a800">Papers and blogs</span><span style="--c:#00a651">Media</span><span style="--c:#e4002b">Trending</span></div>
+<section class="why"><h2>HKUDS / DeepTutor<small>+1,926 today · 49,545 stars · Python</small></h2><ol>
+<li>The HKUDS lab made LightRAG and nanobot, so DeepTutor launched to an audience that starred it within days.</li>
+<li>A v1.0 rewrite and an arXiv paper in April 2026 restarted growth: past 10k stars in 39 days.</li>
+<li>The v1.7.0 release on 28 October set off today's surge.</li></ol></section>
+</body></html>

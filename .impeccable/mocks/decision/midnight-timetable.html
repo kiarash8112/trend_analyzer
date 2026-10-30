@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Midnight Timetable</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--mid:#0f1a3a;--mid2:#16234b;--mid3:#1e2d5c;--por:#f4f1ea;--line:#e4002b;--m:#9aa3bd;--rule:#26335e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--mid);color:var(--por);font:16px/1.55 'Fira Sans',sans-serif}
+header{display:flex;align-items:center;gap:28px;padding:20px 72px;border-bottom:1px solid var(--rule)}
+header h1{font:700 24px 'Fira Sans';margin-right:12px}
+.dates{display:flex;gap:10px}
+.dt{padding:8px 16px;border-radius:999px;background:var(--mid2);font-weight:500;font-size:15px;color:var(--m)}
+.dt.on{background:var(--por);color:var(--mid)}
+header .meta{margin-left:auto;font:400 13px 'Fira Mono';color:var(--m)}
+.tt{margin:0 72px}
+.row,.head{display:grid;grid-template-columns:64px 290px 120px 210px 1fr;gap:0 14px;padding:13px 0;border-bottom:1px solid var(--rule);align-items:start}
+.head{font:500 12px 'Fira Sans';color:var(--m);padding:16px 0 10px}
+.rk i{display:inline-block;width:34px;height:34px;border-radius:50%;background:var(--por);color:var(--mid);font:700 16px/34px 'Fira Sans';text-align:center;font-style:normal}
+.row.on .rk i{background:var(--line);color:#fff}
+.nm{font:700 18px/1.3 'Fira Sans'}
+.nm span{font-weight:400;color:var(--m)}
+.num{font:500 16px/1.6 'Fira Mono'}
+.via{font:500 14px/1.35 'Fira Sans'}
+.via small{display:block;font:400 12px 'Fira Mono';color:var(--m)}
+.why1{color:#dcd8cf}
+.row.on{background:var(--mid2);border-bottom:none;padding-left:0}
+.row.on .rk{padding-left:12px}
+.det{background:var(--mid2);padding:8px 28px 20px 90px;border-bottom:1px solid var(--rule)}
+.det h3{font:500 12px 'Fira Sans';color:var(--m);margin:0 0 4px}
+.det h4{font:700 15px 'Fira Sans';margin:10px 0 2px}
+.why{list-style:none;counter-reset:w;max-width:1040px}
+.why li{counter-increment:w;display:grid;grid-template-columns:40px 1fr;padding:7px 0;border-top:1px solid var(--rule)}
+.why li::before{content:counter(w);width:24px;height:24px;margin-top:2px;border-radius:50%;border:2px solid var(--por);font:700 12px/20px 'Fira Sans';text-align:center}
+</style></head><body>
+<header><h1>Trend Analyzer · Today's lines</h1><nav class="dates"><span class="dt on">Thu 29 Oct</span><span class="dt">Wed 28</span><span class="dt">Tue 27</span><span class="dt">Mon 26</span><span class="dt">Archive</span></nav><span class="meta">github trending · daily · 10 lines</span></header>
+<div class="tt">
+<div class="head"><span>Line</span><span>Repo</span><span>Stars today</span><span>Via (launched on)</span><span>Why it is trending</span></div>
+<div class="row on"><span class="rk"><i>1</i></span><span class="nm"><span>HKUDS /</span> DeepTutor</span><span class="num">+1,926</span><span class="via">GitHub lab release<small>2025-12-29</small></span><span class="why1">A lab with LightRAG and nanobot behind it; v1.7.0 on 28 October restarted growth.</span></div>
+<div class="det"><h3>Route · spaced by real dates</h3>
+<svg width="1150" height="160" style="display:block;overflow:visible">
+<g font-family="Fira Mono" font-size="10" fill="#6f7aa0"><text x="12" y="156">jan</text><text x="128" y="156">feb</text><text x="233" y="156">mar</text><text x="350" y="156">apr</text><text x="463" y="156">may</text><text x="580" y="156">jun</text><text x="693" y="156">jul</text><text x="810" y="156">aug</text><text x="927" y="156">sep</text><text x="1043" y="156">oct</text></g>
+<path d="M0 98 H360 L390 68 H1060 L1090 38 H1140" stroke="#e4002b" stroke-width="9" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<g fill="#f4f1ea" stroke="#16234b" stroke-width="3"><circle cx="0" cy="98" r="9"/><circle cx="18" cy="98" r="7"/><rect x="383" y="56" width="54" height="24" rx="12"/><circle cx="827" cy="68" r="7"/><circle cx="1140" cy="38" r="13"/></g>
+<g font-family="Fira Sans" font-size="13" font-weight="500" fill="#f4f1ea"><text x="0" y="124">Launched on GitHub</text><text x="383" y="46">v1.0 rewrite + arXiv paper</text><text x="827" y="94">v1.5 releases</text><text x="1120" y="16" text-anchor="end">Trending now · v1.7.0</text></g>
+<g font-family="Fira Mono" font-size="10" fill="#9aa3bd"><text x="0" y="138">2025-12-29 · 1.4k stars by 01-02</text><text x="383" y="32">2026-04-04 → 04-10</text><text x="827" y="108">2026-08-02</text><text x="1120" y="30" text-anchor="end">2026-10-28</text></g>
+</svg>
+<h4>Why it is trending</h4>
+<ol class="why"><li>Lab track record: HKUDS, Chao Huang's lab at the University of Hong Kong, made LightRAG and nanobot, so DeepTutor launched to an audience that starred it within days.</li><li>A rewrite restarted growth: v1.0 in April 2026 and an arXiv paper took it past 10k stars in 39 days.</li><li>It fits current trends: agents, RAG, long-term memory and tools other agents can call.</li><li>The October surge matches v1.7.0 on 28 October: narrated video lessons and block notebooks.</li></ol></div>
+<div class="row"><span class="rk"><i>2</i></span><span class="nm"><span>obra /</span> superpowers</span><span class="num">+1,037</span><span class="via">Author's blog<small>2025-10-09</small></span><span class="why1">Shipped the same morning Claude Code launched plugins, and became the reference plugin.</span></div>
+<div class="row"><span class="rk"><i>3</i></span><span class="nm"><span>pbakaus /</span> impeccable</span><span class="num">+2,881</span><span class="via">X, author's account<small>2026-01-09</small></span><span class="why1">The jQuery UI creator gives coding agents a design vocabulary.</span></div>
+</div>
+</body></html>

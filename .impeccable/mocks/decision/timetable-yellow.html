@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Departure Timetable · Yellow</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Public+Sans:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--yel:#ffd400;--k:#111;--w:#fff;--m:#6b6b6b;--rule:#e2e2e2;--tint:#fffbe0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--w);color:var(--k);font:16px/1.55 'Public Sans',sans-serif}
+.mast{background:var(--yel);padding:22px 72px 0;border-bottom:4px solid var(--k)}
+.top{display:flex;justify-content:space-between;align-items:baseline}
+.top h1{font:800 50px/1 'Public Sans';letter-spacing:-.02em}
+.top h1 span{font-weight:400}
+.top .d{font:700 20px/1 'Archivo Narrow'}
+.pad{display:flex;margin-top:14px}
+.pad a{font:700 15px/1 'Archivo Narrow';padding:10px 16px;border-right:1px solid rgba(0,0,0,.25)}
+.pad a.on{background:var(--k);color:var(--yel)}
+.pad a.past{opacity:.55}
+.tt{margin:0 72px}
+.row,.head{display:grid;grid-template-columns:56px 300px 120px 200px 1fr;gap:0 12px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:start}
+.head{font:700 13px/1 'Archivo Narrow';border-bottom:2px solid var(--k);padding:14px 0 10px}
+.rk{font:700 30px/1 'Archivo Narrow'}
+.nm{font:800 18px/1.25 'Public Sans'}
+.nm span{font-weight:400;color:var(--m)}
+.num{font:700 18px/1.25 'Archivo Narrow'}
+.via{font:600 14px/1.35 'Archivo Narrow'}
+.row.on{background:var(--tint);border-bottom:none;box-shadow:inset 6px 0 0 var(--k);padding-left:0}
+.row.on .rk{padding-left:16px}
+.det{background:var(--tint);padding:6px 32px 22px 84px;border-bottom:1px solid var(--rule)}
+.det h3{font:700 13px/1 'Archivo Narrow';color:var(--m);margin:10px 0 8px}
+.tl{position:relative;height:118px;width:1150px}
+.axis{position:absolute;left:0;right:0;top:58px;height:2px;background:#d8d4bd}
+.surge{position:absolute;top:56px;height:6px;border-radius:3px;background:var(--k)}
+.mo{position:absolute;top:64px;font:500 10px 'JetBrains Mono';color:var(--m)}
+.mo::before{content:'';position:absolute;left:0;top:-10px;width:1px;height:8px;background:#c9c4a6}
+.ev{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--w);border:3px solid var(--k);top:53px;margin-left:-6px}
+.ev.now{width:20px;height:20px;top:49px;margin-left:-10px;background:var(--yel);box-shadow:0 0 0 5px rgba(255,212,0,.35)}
+.lb{position:absolute;font:600 13px/1.25 'Public Sans';white-space:nowrap}
+.lb small{display:block;font:500 11px 'JetBrains Mono';color:var(--m)}
+.lb.up{bottom:72px}.lb.dn{top:82px}
+.lb.r{transform:translateX(-100%);text-align:right}
+.why{list-style:none;counter-reset:w;max-width:1050px}
+.why li{counter-increment:w;display:grid;grid-template-columns:34px 1fr;padding:7px 0;border-top:1px solid #ece7c8}
+.why li::before{content:counter(w);font:700 16px/1.55 'Archivo Narrow'}
+</style></head><body>
+<header class="mast"><div class="top"><h1>Trending departures <span>· GitHub daily</span></h1><span class="d">Thursday 29 October 2026 · 10 lines</span></div>
+<nav class="pad"><a class="on">Thu 29</a><a class="past">Wed 28</a><a class="past">Tue 27</a><a class="past">Mon 26</a><a class="past">Archive</a></nav></header>
+<div class="tt">
+<div class="head"><span>No.</span><span>Repo</span><span>Stars today</span><span>Via (launched on)</span><span>Why it is trending</span></div>
+<div class="row on"><span class="rk">1</span><span class="nm"><span>HKUDS /</span> DeepTutor</span><span class="num">+1,926</span><span class="via">GitHub lab release<br>29 Dec 2025</span><span>A lab with LightRAG and nanobot behind it; v1.7.0 on 28 October restarted growth.</span></div>
+<div class="det"><h3>Route · 29 Dec 2025 → today, spaced by real dates</h3>
+<div class="tl"><div class="axis"></div><div class="surge" style="left:1068px;width:82px"></div>
+<span class="mo" style="left:12px">JAN</span><span class="mo" style="left:131px">FEB</span><span class="mo" style="left:240px">MAR</span><span class="mo" style="left:360px">APR</span><span class="mo" style="left:476px">MAY</span><span class="mo" style="left:596px">JUN</span><span class="mo" style="left:712px">JUL</span><span class="mo" style="left:832px">AUG</span><span class="mo" style="left:952px">SEP</span><span class="mo" style="left:1068px">OCT</span>
+<i class="ev" style="left:0"></i><i class="ev" style="left:19px"></i><i class="ev" style="left:371px"></i><i class="ev" style="left:476px"></i><i class="ev now" style="left:1150px"></i>
+<span class="lb up" style="left:0">Launched on GitHub<small>2025-12-29</small></span>
+<span class="lb dn" style="left:19px">1.4k stars, lab audience<small>2026-01-03</small></span>
+<span class="lb up" style="left:371px">v1.0 rewrite + arXiv paper<small>2026-04-04 → 04-10</small></span>
+<span class="lb dn" style="left:476px">Chinese tech media<small>Apr–May 2026</small></span>
+<span class="lb up r" style="left:1150px">Trending now · v1.7.0<small>2026-10-28</small></span></div>
+<h3>Why it is trending</h3>
+<ol class="why"><li>Lab track record: HKUDS, Chao Huang's lab at the University of Hong Kong, made LightRAG and nanobot, so DeepTutor launched to an audience that starred it within days.</li><li>A rewrite restarted growth: v1.0 in April 2026 and an arXiv paper took it past 10k stars in 39 days.</li><li>It fits current trends: agents, RAG, long-term memory and tools other agents can call.</li><li>The October surge matches v1.7.0 on 28 October: narrated video lessons and block notebooks.</li></ol></div>
+<div class="row"><span class="rk">2</span><span class="nm"><span>obra /</span> superpowers</span><span class="num">+1,037</span><span class="via">Author's blog<br>9 Oct 2025</span><span>Shipped the same morning Claude Code launched plugins, and became the reference plugin.</span></div>
+</div>
+</body></html>
