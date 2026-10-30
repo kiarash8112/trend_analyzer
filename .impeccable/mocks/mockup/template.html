@@ -48,14 +48,16 @@ a:hover { text-decoration-color: var(--cobalt); }
 .tt { margin: 0 var(--gutter) 64px; }
 .cols, .row { display: grid; grid-template-columns: 64px minmax(0, 290px) 120px minmax(0, 210px) minmax(0, 1fr); gap: 0 16px; align-items: start; }
 .cols { font: 500 12px var(--font-display); color: var(--muted); padding: 0 0 10px; border-bottom: 1px solid var(--rule-2); }
-.line { border-bottom: 1px solid var(--rule); }
-.row { width: 100%; padding: 16px 0; background: none; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: background-color 160ms var(--ease); }
-.row:hover { background: color-mix(in srgb, var(--wash) 45%, transparent); }
+.line { border-bottom: 1px solid var(--rule); scroll-margin-top: 12px; }
+.row { padding: 16px 0; cursor: pointer; transition: background-color 160ms var(--ease); }
+.row:not(.off):hover { background: color-mix(in srgb, var(--wash) 45%, transparent); }
 .line.open { background: var(--wash); border-bottom-color: var(--wash-rule); }
-.line.open .row:hover { background: none; }
-.roundel { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-left: 12px; border-radius: 50%; border: 2px solid var(--ink); font: 700 15px/1 var(--font-display); }
+.line.open .row:not(.off):hover { background: none; }
+.roundel { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-left: 12px; padding: 0; border-radius: 50%; border: 2px solid var(--ink); background: none; color: inherit; font: 700 15px/1 var(--font-display); cursor: pointer; }
+.roundel:disabled { cursor: default; border-color: var(--rule-2); color: var(--muted); }
 .open .roundel { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
-.name { font: 600 18px/1.3 var(--font-display); overflow-wrap: anywhere; }
+.name { font: 600 18px/1.3 var(--font-display); overflow-wrap: anywhere; color: var(--ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .2em; transition: text-decoration-color 160ms var(--ease); }
+.name:hover { text-decoration-color: var(--cobalt); }
 .name .owner { font-weight: 500; color: var(--muted); }
 .stars { font: 500 16px/1.7 var(--font-mono); color: var(--cobalt); font-variant-numeric: tabular-nums; }
 .via { font: 500 14px/1.35 var(--font-display); color: var(--ink-2); }
@@ -244,21 +246,25 @@ function render() {
     const repo = r.evidence.repo, i = r.insight, open = idx === openIndex && i;
     const lead = i ? reasons(i.why_popular)[0] : `Analysis failed: ${r.error}`;
     return `<div class="line${open ? ' open' : ''}">
-<button class="row" data-idx="${idx}" aria-expanded="${!!open}" ${i ? '' : 'disabled'}>
-<span><span class="roundel">${idx + 1}</span></span>
-<span class="name"><span class="owner">${esc(repo.owner)} /</span> ${esc(repo.name)}</span>
+<div class="row${i ? '' : ' off'}" data-idx="${idx}">
+<span><button class="roundel" aria-expanded="${!!open}" aria-label="${open ? 'Hide' : 'Show'} why ${esc(repo.owner)}/${esc(repo.name)} is trending" ${i ? '' : 'disabled'}>${idx + 1}</button></span>
+<a class="name" href="${esc(repo.url)}" target="_blank" rel="noopener"><span class="owner">${esc(repo.owner)} /</span> ${esc(repo.name)}</a>
 <span class="stars">+${fmt.format(repo.stars_in_period)}</span>
 <span class="via">${i ? esc(shortChannel(i.launch_channel)) : '—'}<span class="mono">${i ? esc(i.launch_date) : ''}</span></span>
 <span class="lead${i ? '' : ' failed'}">${esc(lead)}</span>
-</button>${open ? detail(r, reportDate) : ''}</div>`;
+</div>${open ? detail(r, reportDate) : ''}</div>`;
   }).join('') : `<p class="empty">No repos match “${esc(query)}”.</p>`;
 }
 
 document.addEventListener('click', (e) => {
   const k = e.target.closest('.key');
   if (k) { current = k.dataset.name; openIndex = 0; render(); return; }
+  if (e.target.closest('a')) return;
   const row = e.target.closest('.row');
-  if (row && !row.disabled) { const idx = +row.dataset.idx; openIndex = openIndex === idx ? -1 : idx; history.replaceState(null, '', `#${current}/${openIndex + 1}`); render(); document.querySelector(`.row[data-idx="${idx}"]`).focus({ preventScroll: true }); }
+  if (row && !row.classList.contains('off')) { const idx = +row.dataset.idx; openIndex = openIndex === idx ? -1 : idx; history.replaceState(null, '', `#${current}/${openIndex + 1}`); render(); const r2 = document.querySelector(`.row[data-idx="${idx}"]`);
+    r2.querySelector('.roundel').focus({ preventScroll: true });
+    // Opening a row brings its start to the top; the row above may have just collapsed.
+    if (openIndex === idx) r2.parentElement.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }
 });
 document.getElementById('filter').addEventListener('input', (e) => { query = e.target.value; render(); });
 render();
