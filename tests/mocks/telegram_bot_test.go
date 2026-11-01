@@ -1,10 +1,12 @@
 package mocks
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -145,6 +147,32 @@ func TestStopAndBlockedChatsLeaveTheList(t *testing.T) {
 	}
 	if !subs.Has(3) || len(subs.Due("2026-11-01")) != 1 {
 		t.Error("a temporary failure should keep the chat due for a retry")
+	}
+}
+
+func TestLogsEventsButNotMessageText(t *testing.T) {
+	var logs bytes.Buffer
+	log.SetOutput(&logs)
+	t.Cleanup(func() { log.SetOutput(os.Stderr) })
+
+	sends := stubSend(t)
+	bot, subs, _ := newBot(t)
+	ctx := context.Background()
+	subs.Add(1, "")
+	subs.Add(2, "")
+	sends.refuse[2] = `{"ok":false,"error_code":403,"description":"Forbidden: bot was blocked by the user"}`
+
+	bot.HandleUpdate(ctx, start(1, telegram.ChatTypePrivate, "my private note"), at(1, 12))
+	bot.Remind(ctx, at(1, 12))
+
+	out := logs.String()
+	for _, want := range []string{"chat 1: other message", "sending to 2 chats", "chat 2: removed", "sent 1 of 2"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("logs miss %q:\n%s", want, out)
+		}
+	}
+	if strings.Contains(out, "private note") || strings.Contains(out, "secret") {
+		t.Errorf("logs leak message text or the token:\n%s", out)
 	}
 }
 

@@ -40,24 +40,32 @@ func (b *TelegramBot) Run(ctx context.Context) error {
 	if err := b.api.SetMenuButton(ctx, menuButtonText, b.webAppURL); err != nil {
 		return err
 	}
+	log.Printf("menu button set, %d subscribers, reminders daily at %02d:00 UTC", b.subs.Count(), reminderHourUTC)
 
 	var wg sync.WaitGroup
 	wg.Go(func() { b.remindLoop(ctx) })
 	wg.Go(func() { b.pollLoop(ctx) })
 	wg.Wait()
+	log.Print("bot stopped")
 	return nil
 }
 
 func (b *TelegramBot) pollLoop(ctx context.Context) {
 	var offset int64
+	failing := false
 	for ctx.Err() == nil {
 		updates, err := b.api.GetUpdates(ctx, offset)
 		if err != nil {
 			if ctx.Err() == nil {
 				log.Printf("poll: %v", err)
+				failing = true
 			}
 			sleep(ctx, pollRetryDelay)
 			continue
+		}
+		if failing {
+			log.Print("poll: reconnected")
+			failing = false
 		}
 		for _, u := range updates {
 			offset = u.UpdateID + 1
@@ -77,28 +85,36 @@ func (b *TelegramBot) remindLoop(ctx context.Context) {
 
 // HandleUpdate answers one incoming message.
 func (b *TelegramBot) HandleUpdate(ctx context.Context, u telegram.Update, now time.Time) {
-	if u.Message == nil || u.Message.Chat.Type != telegram.ChatTypePrivate {
+	if u.Message == nil {
 		return
 	}
 	chat := u.Message.Chat.ID
+	if u.Message.Chat.Type != telegram.ChatTypePrivate {
+		log.Printf("chat %d: ignored, %s chat", chat, u.Message.Chat.Type)
+		return
+	}
 
 	var text string
 	switch command(u.Message.Text) {
 	case "/start":
+		log.Printf("chat %d: /start", chat)
 		if err := b.subs.Add(chat, reminderSlot(now)); err != nil {
-			log.Printf("subscribe: %v", err)
+			log.Printf("chat %d: subscribe: %v", chat, err)
 		}
 		text = fmt.Sprintf("See what's trending on GitHub and why. I'll remind you every day at %02d:00 UTC. Send /stop to turn reminders off.", reminderHourUTC)
 	case "/stop":
+		log.Printf("chat %d: /stop", chat)
 		if err := b.subs.Remove(chat); err != nil {
-			log.Printf("unsubscribe: %v", err)
+			log.Printf("chat %d: unsubscribe: %v", chat, err)
 		}
 		text = "Reminders are off. Send /start to turn them back on."
 	default:
+		// Only the fact: what people write to the bot stays out of the logs.
+		log.Printf("chat %d: other message", chat)
 		text = "Send /start to get a daily reminder, or /stop to turn it off."
 	}
 	if err := b.send(ctx, chat, text); err != nil {
-		log.Printf("reply: %v", err)
+		log.Printf("chat %d: reply: %v", chat, err)
 	}
 }
 
@@ -110,26 +126,33 @@ func (b *TelegramBot) Remind(ctx context.Context, now time.Time) {
 		return
 	}
 
+	log.Printf("reminder %s: sending to %d chats", slot, len(due))
 	text := b.reminderText()
+	sent := 0
 	for _, chat := range due {
 		if ctx.Err() != nil {
-			return
+			break
 		}
 		if err := b.send(ctx, chat, text); err != nil {
-			log.Printf("remind: %v", err)
-		} else if err := b.subs.MarkReminded(chat, slot); err != nil {
-			log.Printf("remind: %v", err)
+			log.Printf("chat %d: remind: %v", chat, err)
+		} else {
+			sent++
+			if err := b.subs.MarkReminded(chat, slot); err != nil {
+				log.Printf("chat %d: remind: %v", chat, err)
+			}
 		}
 		sleep(ctx, sendGap)
 	}
+	log.Printf("reminder %s: sent %d of %d", slot, sent, len(due))
 }
 
 // send delivers text with the Mini App button and drops chats that can no longer receive it.
 func (b *TelegramBot) send(ctx context.Context, chat int64, text string) error {
 	err := b.api.SendWebAppMessage(ctx, chat, text, openButton, b.webAppURL)
 	if errors.Is(err, telegram.ErrChatGone) {
+		log.Printf("chat %d: removed, it can no longer receive messages", chat)
 		if rmErr := b.subs.Remove(chat); rmErr != nil {
-			log.Printf("unsubscribe: %v", rmErr)
+			log.Printf("chat %d: unsubscribe: %v", chat, rmErr)
 		}
 	}
 	return err

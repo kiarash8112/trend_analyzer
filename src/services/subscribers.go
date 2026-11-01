@@ -63,6 +63,13 @@ func (s *Subscribers) Has(chatID int64) bool {
 	return ok
 }
 
+// Count returns the number of subscribed chats.
+func (s *Subscribers) Count() int {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return len(s.chats)
+}
+
 // Due returns the chats that have not received slot yet.
 func (s *Subscribers) Due(slot string) []int64 {
 	s.mu.Lock()
