@@ -1,6 +1,6 @@
 <app-top-bar [reports]="reports()" [current]="name()" />
 
-<div class="bar">
+<div class="bar" #bar>
   <a class="back" [routerLink]="listLink()">← All {{ total() }} repos</a>
   <app-progress-segments
     [count]="total()"

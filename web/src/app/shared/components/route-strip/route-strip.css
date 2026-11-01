@@ -1,0 +1,147 @@
+:host {
+  display: block;
+}
+
+/* Runs to the slide's edges (its phone padding is 18px) so the card scrolls cleanly beneath. */
+.pinned {
+  position: sticky;
+  top: var(--bar-height, 0);
+  z-index: 1;
+  margin: 0 -18px;
+  padding: 6px 18px 4px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+}
+
+.pinned > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.tick {
+  stroke: var(--wash-rule);
+}
+
+.month {
+  font: 400 10px var(--font-mono);
+  fill: var(--muted);
+}
+
+.ahead,
+.past {
+  fill: none;
+  stroke-width: 6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ahead {
+  stroke: var(--rule-2);
+}
+
+.past {
+  stroke: var(--cobalt);
+}
+
+.stop {
+  fill: var(--surface);
+  stroke: var(--rule-2);
+  stroke-width: 2.5;
+}
+
+.stop.passed {
+  stroke: var(--cobalt);
+}
+
+.stop.on {
+  fill: var(--cobalt);
+  stroke: var(--cobalt);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.nav button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 6px;
+  border: 0;
+  background: none;
+  color: var(--cobalt-deep);
+  font: 500 14px var(--font-display);
+  cursor: pointer;
+}
+
+.nav button:disabled {
+  color: var(--muted);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.nav svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.position {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.card {
+  margin-top: 14px;
+}
+
+.date {
+  margin: 0;
+  font: 700 24px/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.since {
+  margin: 2px 0 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.event {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.source {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+
+.peek {
+  display: -webkit-box;
+  margin: 16px 0 0;
+  padding-top: 10px;
+  overflow: hidden;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}

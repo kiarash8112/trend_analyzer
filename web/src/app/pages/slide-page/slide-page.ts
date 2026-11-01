@@ -1,11 +1,13 @@
 import {
   Component,
+  ElementRef,
   afterRenderEffect,
   computed,
   inject,
   input,
   linkedSignal,
   signal,
+  viewChild,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ReportApi } from '../../core/services/report-api';
@@ -25,6 +27,7 @@ import { ProgressSegments } from '../../shared/components/progress-segments/prog
     '(document:keydown)': 'onKey($event)',
     '(window:scroll)': 'measureScroll()',
     '(window:resize)': 'measureScroll()',
+    '[style.--bar-height.px]': 'barHeight()',
   },
 })
 export class SlidePage {
@@ -67,6 +70,10 @@ export class SlidePage {
   /** How far the reader is through the current slide, 0 to 1; fills the current segment. */
   protected readonly readProgress = signal(0);
 
+  /** Height of the pinned bar, so what pins inside a slide can sit just below it. */
+  protected readonly barHeight = signal(0);
+  private readonly bar = viewChild.required<ElementRef<HTMLElement>>('bar');
+
   constructor() {
     // Re-measure once a new slide has rendered, since its height changes the scrollable range.
     afterRenderEffect(() => {
@@ -78,6 +85,7 @@ export class SlidePage {
   protected measureScroll(): void {
     const range = document.documentElement.scrollHeight - window.innerHeight;
     this.readProgress.set(range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 1);
+    this.barHeight.set(this.bar().nativeElement.offsetHeight);
   }
 
   protected onKey(event: KeyboardEvent): void {

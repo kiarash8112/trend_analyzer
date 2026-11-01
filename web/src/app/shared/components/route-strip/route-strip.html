@@ -1,0 +1,68 @@
+<div class="pinned">
+  @if (layout(); as l) {
+    <svg
+      [attr.viewBox]="'0 0 ' + l.width + ' ' + l.height"
+      role="slider"
+      tabindex="0"
+      aria-label="Choose an event on the route"
+      aria-valuemin="1"
+      [attr.aria-valuemax]="count()"
+      [attr.aria-valuenow]="index() + 1"
+      [attr.aria-valuetext]="current().date"
+      (keydown)="onKey($event)"
+      (pointerdown)="onPress($event)"
+      (pointermove)="onMove($event)"
+      (pointerup)="onRelease($event)"
+      (pointercancel)="onCancel()"
+    >
+      <defs>
+        <clipPath [attr.id]="clipId">
+          <rect x="-10" y="0" [attr.width]="current().x + 10" [attr.height]="l.height" />
+        </clipPath>
+      </defs>
+      @for (m of l.months; track m.x) {
+        <line class="tick" [attr.x1]="m.x" y1="4" [attr.x2]="m.x" [attr.y2]="l.height - 12" />
+        <text class="month" [attr.x]="m.x + 3" [attr.y]="l.height - 2">{{ m.label }}</text>
+      }
+      <path class="ahead" [attr.d]="l.path" />
+      <path class="past" [attr.d]="l.path" [attr.clip-path]="'url(#' + clipId + ')'" />
+      @for (s of l.stations; track $index) {
+        @if ($index !== index()) {
+          <circle
+            class="stop"
+            [class.passed]="$index < index()"
+            [attr.cx]="s.x"
+            [attr.cy]="s.y"
+            r="4.5"
+          />
+        }
+      }
+      <circle class="stop on" [attr.cx]="current().x" [attr.cy]="current().y" r="8" />
+    </svg>
+  }
+  <div class="nav">
+    <button type="button" [disabled]="index() === 0" (click)="go(index() - 1)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+      Earlier
+    </button>
+    <span class="position mono">{{ index() + 1 }} of {{ count() }}</span>
+    <button type="button" [disabled]="!next()" (click)="go(index() + 1)">
+      Later
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+    </button>
+  </div>
+</div>
+
+<div class="card" aria-live="polite">
+  <p class="date">{{ current().date }}</p>
+  <p class="since mono">{{ current().since }}</p>
+  <p class="event">{{ current().event }}</p>
+  @if (current().sourceUrl) {
+    <a class="source" [href]="current().sourceUrl" target="_blank" rel="noopener">{{
+      current().sourceUrl | host
+    }}</a>
+  }
+</div>
+@if (next(); as n) {
+  <p class="peek">Later, {{ n.date }}: {{ n.event }}</p>
+}

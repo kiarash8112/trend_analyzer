@@ -1,0 +1,385 @@
+<title>Mobile Timeline Mocks</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the site's Cobalt paper world, one true-width phone column per direction, all fed the same real report data. */
+:root {
+  --paper:#f8f9fb; --surface:#fff; --wash:#eaf0fd; --wash-rule:#d4def5;
+  --ink:#141a2b; --ink-2:#3c4558; --muted:#5f687e; --rule:#dfe3ea; --rule-2:#c9d0dc;
+  --cobalt:#2856d9; --cobalt-deep:#1d3fa6;
+  --display:'Familjen Grotesk',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+::selection{background:var(--wash-rule)}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+a{color:var(--cobalt);text-decoration-color:var(--rule-2);text-underline-offset:.2em}
+.wrap{max-width:1720px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font:700 clamp(26px,4vw,38px)/1.1 var(--display);letter-spacing:-.025em;margin:0 0 8px;text-wrap:balance}
+.intro{max-width:68ch;margin:0 0 24px;color:var(--ink-2)}
+.controls{display:flex;flex-wrap:wrap;gap:12px 28px;margin-bottom:24px}
+.control{display:flex;flex-direction:column;gap:6px;min-width:0}
+.control>span{font:500 13px var(--display);color:var(--muted)}
+.keys{display:flex;flex-wrap:wrap;gap:8px}
+.key{font:500 14px/1 var(--display);min-height:44px;padding:0 14px;border:1px solid var(--rule-2);border-radius:6px;background:var(--surface);color:var(--ink-2);box-shadow:0 2px 0 var(--rule-2);cursor:pointer}
+.key[aria-pressed=true]{background:var(--cobalt);border-color:var(--cobalt-deep);color:#fff;box-shadow:0 2px 0 var(--cobalt-deep)}
+.key small{font:400 11px var(--mono);opacity:.8;margin-left:6px}
+.only-phone{display:none}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;align-items:start}
+.panel{min-width:0}
+.panel>header{min-height:150px;margin-bottom:12px}
+.panel h2{font:700 21px/1.2 var(--display);letter-spacing:-.015em;margin:0 0 4px}
+.panel .pick{font:500 12px var(--mono);color:var(--cobalt);margin-left:6px;white-space:nowrap}
+.panel header p{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.panel header p+p{margin-top:6px;color:var(--muted)}
+.screen{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 16px 20px;max-width:430px;overflow:clip}
+.label{font:500 12px var(--display);color:var(--muted);margin:0 0 12px}
+.mono{font-family:var(--mono)}
+.text{font-size:15px;line-height:1.48;color:var(--ink);text-wrap:pretty;margin:0}
+.src{display:block;font-size:12.5px;margin-top:2px;overflow-wrap:anywhere}
+.tag{font:500 11px var(--mono);color:var(--cobalt-deep);margin-left:8px}
+
+/* Today's list */
+.now ol{list-style:none;margin:0;padding:0;position:relative}
+.now ol::before{content:'';position:absolute;left:7px;top:10px;bottom:10px;width:6px;border-radius:3px;background:var(--cobalt)}
+.now li{position:relative;padding:4px 0 10px 32px}
+.now li::before{content:'';position:absolute;left:2px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--cobalt)}
+.now .d{display:block;font:400 12px var(--mono);color:var(--muted)}
+.now .t{font-size:16px;line-height:1.5}
+
+/* A: measured line */
+.measured{position:relative;margin:0 -16px;padding:0 16px}
+.measured svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.measured .band{fill:var(--wash)}
+.measured .bandrule{stroke:var(--wash-rule)}
+.track{fill:none;stroke:var(--cobalt);stroke-width:6;stroke-linejoin:round;stroke-linecap:round}
+.cut-under{stroke:var(--surface);stroke-width:10}
+.cut{stroke:var(--cobalt);stroke-width:3;stroke-dasharray:2 5;stroke-linecap:round}
+.st{fill:var(--surface);stroke:var(--cobalt);stroke-width:3}
+.st.term{stroke-width:4;fill:var(--cobalt)}
+.flow{position:relative}
+.gap{position:relative;padding-left:56px;display:flex;align-items:center;font:400 11.5px var(--mono);color:var(--muted)}
+.gap.before-window{align-items:flex-start;padding-top:8px}
+.grp{position:relative;padding-left:56px}
+.grp .ev+.ev{margin-top:10px}
+.date{font:500 12.5px/18px var(--mono);color:var(--ink-2);display:block}
+.wlabel{position:absolute;right:16px;font:500 11px/1 var(--mono);color:var(--cobalt-deep)}
+.term-t{font:600 15px/18px var(--display);color:var(--cobalt-deep);display:block}
+
+/* B: strip map */
+.strip{position:sticky;top:0;z-index:2;background:var(--surface);margin:-6px -16px 0;padding:6px 16px 8px;border-bottom:1px solid var(--rule)}
+.strip>svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:pointer;overflow:visible}
+.strip .tick{stroke:var(--wash-rule)}
+.strip .mo{font:400 10px var(--mono);fill:var(--muted)}
+.strip .ahead{fill:none;stroke:var(--rule-2);stroke-width:6;stroke-linejoin:round;stroke-linecap:round}
+.strip .past{fill:none;stroke:var(--cobalt);stroke-width:6;stroke-linejoin:round;stroke-linecap:round}
+.strip .s{fill:var(--surface);stroke:var(--rule-2);stroke-width:2.5}
+.strip .s.done{stroke:var(--cobalt)}
+.strip .s.on{fill:var(--cobalt);stroke:var(--cobalt)}
+.strip .hit{fill:transparent}
+.nav{display:flex;align-items:center;justify-content:space-between;margin:4px 0 0}
+.nav .pos{font:400 12px var(--mono);color:var(--muted)}
+.nav button{min-height:44px;padding:0 6px;display:flex;align-items:center;gap:4px;border:0;background:none;cursor:pointer;color:var(--cobalt-deep);font:500 14px var(--display)}
+.nav button:disabled{opacity:.35;cursor:default}
+.nav svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.card{margin-top:14px}
+.repo-arrows{position:sticky;bottom:16px;display:flex;justify-content:space-between;margin-top:28px;pointer-events:none}
+.repo-arrow{pointer-events:auto;width:56px;height:56px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--rule-2);background:var(--surface);box-shadow:0 2px 0 var(--rule-2);color:var(--ink);font:500 24px/1 var(--display);cursor:pointer}
+.repo-arrow.fwd{background:var(--cobalt);border-color:var(--cobalt-deep);box-shadow:0 2px 0 var(--cobalt-deep);color:#fff}
+.repo-arrow:disabled{color:var(--rule-2);background:transparent;box-shadow:none;cursor:default}
+.bigdate{font:700 24px/1.15 var(--display);letter-spacing:-.02em;margin:0}
+.since{font:400 12px var(--mono);color:var(--muted);margin:2px 0 10px}
+.card .text{font-size:16.5px;line-height:1.5}
+.peek{margin:16px 0 0;padding-top:10px;border-top:1px solid var(--rule);font-size:13.5px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* C: month ledger */
+.ledger{margin:0 -16px}
+.year{position:sticky;top:0;z-index:2;background:var(--surface);border-block:1px solid var(--rule);padding:4px 16px;font:700 17px/1.3 var(--display);letter-spacing:-.01em}
+.mrow{display:grid;grid-template-columns:40px 22px minmax(0,1fr);column-gap:6px;padding:0 16px 0 14px;position:relative}
+.mrow.win{background:var(--wash)}
+.mname{font:500 12px/18px var(--mono);color:var(--ink-2);padding-top:7px}
+.mrow.empty .mname{color:var(--muted);font-weight:400;font-size:10.5px;padding-top:0;line-height:17px}
+.rail{position:relative;align-self:stretch}
+.rail::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:6px;background:var(--cobalt)}
+.mrow.first .rail::before{top:13px;border-radius:3px 3px 0 0}
+.mrow.cutrow .rail::before{background:repeating-linear-gradient(var(--cobalt) 0 3px,transparent 3px 8px);left:9.5px;width:3px}
+.mrow.empty .rail::after{content:'';position:absolute;left:14px;top:8px;width:7px;height:1px;background:var(--rule-2)}
+.dot{position:absolute;left:4px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--cobalt)}
+.dot.term{background:var(--cobalt)}
+.mbody{padding:7px 0 12px;min-width:0}
+.mrow.empty .mbody{padding:0;height:17px}
+.mrow.cutrow .mbody{height:auto;padding:4px 0;font:400 11.5px/1.4 var(--mono);color:var(--muted)}
+.mev{position:relative}
+.mev+.mev{margin-top:10px}
+.day{font:500 12px/18px var(--mono);color:var(--ink-2);display:block}
+
+@media (max-width:819px){
+  .board{grid-template-columns:minmax(0,1fr)}
+  .panel:not(.show){display:none}
+  .panel>header{min-height:0}
+  .only-phone{display:flex}
+  .screen{max-width:none}
+}
+</style>
+
+<div class="wrap">
+  <h1>Making the mobile timeline read as time</h1>
+  <p class="intro">Today every event gets the same space, so three events in one day look the same as a two-year silence. These directions use the real reports. Try macro to see a gap of more than two years, and OpenMausBot to see three events on one day.</p>
+  <div class="controls">
+    <div class="control"><span id="l-repo">Repo</span><div class="keys" id="repos" role="group" aria-labelledby="l-repo"></div></div>
+    <div class="control only-phone"><span id="l-dir">Direction</span><div class="keys" id="dirs" role="group" aria-labelledby="l-dir"></div></div>
+  </div>
+  <div class="board">
+    <section class="panel" data-p="now"><header><h2>Today</h2><p>A list with a line behind it. Spacing follows text length, so it has no sense of time.</p></header><div class="screen now" id="s-now"></div></section>
+    <section class="panel show" data-p="a"><header><h2>A. Measured line <span class="pick">my pick</span></h2><p>The vertical route. Real time sets the gaps, the line steps at launch, and the last 30 days are washed in blue.</p><p>Everything stays readable by scrolling. Long gaps are cut and labelled, so the scale is not strict.</p></header><div class="screen" id="s-a"></div></section>
+    <section class="panel" data-p="b"><header><h2>B. Strip map</h2><p>Your desktop route, kept horizontal and to scale and pinned to the top. Drag along it or tap Earlier and Later to read one event at a time. The round arrows at the bottom change repo, as they do on the site today.</p><p>The clearest overview, but reading every event takes many taps, and close events bunch up.</p></header><div class="screen" id="s-b"></div></section>
+    <section class="panel" data-p="c"><header><h2>C. Month ledger</h2><p>A timetable with one row per month, even the empty ones, and the year pinned as you scroll.</p><p>The easiest to scan by date, and the most rigid. It looks more like a calendar than a route.</p></header><div class="screen" id="s-c"></div></section>
+  </div>
+</div>
+
+<script>
+const DATA = [{"name": "claude-mem", "note": "14 months", "launch": "2025-08-31", "events": [{"date": "2025-08-31", "event": "Original launch: Alex Newman (thedotmack) creates the claude-mem repository on GitHub as a persistent-memory plugin for Claude Code. No launch announcement found.", "url": "https://gittrend.io/repo/thedotmack/claude-mem", "host": "gittrend.io"}, {"date": "2025-10", "event": "Anthropic opens Claude Code plugins (installed with /plugin) to all users in public beta, giving claude-mem a two-command install path. An Oct 27, 2025 news write-up covers the launch.", "url": "https://alternativeto.net/news/2025/10/anthropic-launches-unified-plugin-support-for-claude-code-in-public-beta/", "host": "alternativeto.net"}, {"date": "2026-01-19", "event": "Ownership of $CMEM, a Solana token made through the Bags launchpad by a third party, is claimed by a community according to DEX Screener. The creator later 'officially embraced' it and linked it from the README.", "url": "https://dexscreener.com/solana/6mzfakwnac6gsk1edfx93dzeukgfzrfq4uhwarhgsqyd", "host": "dexscreener.com"}, {"date": "2026-02-02", "event": "First documented surge: 1,469 stars in one day, 17,733 total. The writer suggests the token may be contributing.", "url": "https://claudeopus45.substack.com/p/claude-code-plugin-claude-mem-explodes", "host": "claudeopus45.substack.com"}, {"date": "2026-02", "event": "A HackMD analysis reports over 26,200 stars and repeated top GitHub Trending placements, and raises concerns about the token, the AGPL license and data sent to Anthropic's servers.", "url": "https://hackmd.io/@BASHCAT/S1tqslOwWe", "host": "hackmd.io"}, {"date": "2026-02-23", "event": "Issue #1212 criticizes the token promotion and the bundled binary and minified files. The maintainer closes it on 2026-02-24, calling them standard build output.", "url": "https://github.com/thedotmack/claude-mem/issues/1212", "host": "github.com"}, {"date": "2026-04-07", "event": "Augment Code reports 46.1K stars, 3.5K forks, 92 contributors and v12.0.0.", "url": "https://www.augmentcode.com/learn/claude-mem-46k-stars-persistent-memory-claude-code", "host": "augmentcode.com"}, {"date": "2026-04-16", "event": "Best tracked GitHub Trending rank, #4, according to gittrend.io, whose records start 2026-04-04.", "url": "https://gittrend.io/repo/thedotmack/claude-mem", "host": "gittrend.io"}, {"date": "2026-05-11", "event": "v13.1.0 adds a team/server runtime. 74.8K stars. The license has changed from AGPL-3.0 to Apache-2.0.", "url": "https://www.augmentcode.com/learn/claude-mem-74k-stars-agent-memory", "host": "augmentcode.com"}, {"date": "2026-08", "event": "The paid hosted tier CMEM Pro is introduced, per a community wiki that cites no sources.", "url": "https://ai.miraheze.org/wiki/Claude-mem", "host": "ai.miraheze.org"}, {"date": "2026-10-12", "event": "Passes 100,000 stars.", "url": "https://gittrend.io/repo/thedotmack/claude-mem", "host": "gittrend.io"}, {"date": "2026-10-20", "event": "v15.0.0 makes 'Smart' memory search the default and adds Hermes Agent support. It starts a run of releases through v15.6.0 (2026-10-29), including a new React 'My Work' viewer.", "url": "https://github.com/thedotmack/claude-mem/releases", "host": "github.com"}, {"date": "2026-10-29", "event": "Best single day in the past 30: 977 stars. The project is back on daily Trending, about 105.7K stars as of 2026-10-30.", "url": "https://gittrend.io/repo/thedotmack/claude-mem", "host": "gittrend.io"}]}, {"name": "OpenMausBot", "note": "3 on one day", "launch": "2026-08-11", "events": [{"date": "2026-08-11", "event": "xAI launches Grok Bot beta for premium SuperGrok Heavy and Cursor plans", "url": "https://www.datacamp.com/blog/grok-bot", "host": "datacamp.com"}, {"date": "2026-08-11", "event": "Milind Soni creates the repo (as OpenGrokBot) and announces an open-source Grok Bot on X, crediting ascii.dev, Cua and co-builder Omkar Satpute", "url": "https://x.com/milindlabs/status/2087289803964559746", "host": "x.com"}, {"date": "2026-08-11", "event": "Reply from Keith W: 'within 4 hours an OSS clone exists'", "url": "https://x.com/keith__w/status/2087325352490094891", "host": "x.com"}, {"date": "2026-08-12", "event": "Vaibhav Sisinty amplifies it on X (date approximate, decoded from post ID)", "url": "https://x.com/VaibhavSisinty/status/2087426362793771026?lang=en", "host": "x.com"}, {"date": "2026-08-13", "event": "Windows build announced (approximate date)", "url": "https://x.com/milindlabs/status/2087981111091896552", "host": "x.com"}, {"date": "2026-09-08", "event": "Meta launches Muse, a second closed product for the project to position against", "url": "https://axios.com/2026/09/08/meta-debuts-muse-personal-ai-agent", "host": "axios.com"}, {"date": "2026-09-11", "event": "Independent review reports 2.5k+ stars", "url": "https://baeseokjae.github.io/posts/openmausbot-grok-bot-alternative/", "host": "baeseokjae.github.io"}, {"date": "2026-09-23", "event": "Ranks #9 on Trendshift TypeScript trending; around this time 'Introducing OpenMausBot' rename post", "url": "https://trendshift.io/repositories/138660", "host": "trendshift.io"}, {"date": "2026-10-13", "event": "Product Hunt launch as MausBot, #7 of the day, 165 upvotes", "url": "https://www.producthunt.com/products/mausbot", "host": "producthunt.com"}, {"date": "2026-10-16", "event": "v0.1.113 adds in-app purchase of paid MausBot Cloud", "url": "https://github.com/milind-soni/OpenMausBot/releases/tag/v0.1.113", "host": "github.com"}, {"date": "2026-10-23", "event": "About 5.5k stars per comparison article", "url": "https://www.bitdoze.com/best-open-source-grok-bot-alternatives/", "host": "bitdoze.com"}, {"date": "2026-10-29", "event": "Reaches GitHub Trending (best #2) after +836 stars/day on Oct 28 and 29 and a burst of releases", "url": "https://trendshift.io/repositories/138660", "host": "trendshift.io"}]}, {"name": "macro", "note": "3.6 years", "launch": "2026-08-10", "events": [{"date": "2023-03-04", "event": "Press coverage of the $9.3M seed round led by a16z for Macro's original document/PDF product. The founder is Jacob Beckerman, a former Bridgewater engineer, and the company was founded in 2020.", "url": "https://finance.technews.tw/2023/03/04/macro-raises-9-3m-to-layer-intelligence-on-top-of-digital-documents/", "host": "finance.technews.tw"}, {"date": "2023-05-25", "event": "Macro PDF Editor ranks #3 of the day on Product Hunt (earlier product, not the workspace).", "url": "https://producthunt.com/products/macro-workspace", "host": "producthunt.com"}, {"date": "2025-11-08", "event": "GitHub repository macro-inc/macro created, initially under a source-available model.", "url": "https://github.com/macro-inc/macro", "host": "github.com"}, {"date": "2026-06 (approx.)", "event": "Show HN post by jbecke: 'Macro, a unified system for email, chat, tasks, docs, and agents (AGPL/Rust)'. Received 8 points and 1 comment.", "url": "https://news.ycombinator.com/item?id=48546561", "host": "news.ycombinator.com"}, {"date": "2026-06-22", "event": "Founder interviewed on the devtools.fm podcast.", "url": "https://podscan.fm/podcasts/devtoolsfm-developer-tools-open-source-software-development", "host": "podscan.fm"}, {"date": "2026-07-02", "event": "Workspace launched on Product Hunt, ranking #5 of the day.", "url": "https://producthunt.com/products/macro-workspace", "host": "producthunt.com"}, {"date": "2026-07-31", "event": "Third-party review records 689 GitHub stars.", "url": "https://baeseokjae.github.io/posts/macro-unified-email-chat-tasks-docs-agents-2026/", "host": "baeseokjae.github.io"}, {"date": "2026-08-07", "event": "Founder publishes 'Why Macro Is Open Source', announcing a fully open-source AGPLv3 product.", "url": "https://macro.com/posts/why-macro-is-open-source", "host": "macro.com"}, {"date": "2026-08-10", "event": "Macro 1.0 launched on X as an open-source 'office suite for the intelligence age'.", "url": "https://x.com/macrodotcom/status/2086843485898887523", "host": "x.com"}, {"date": "2026-08-11 (approx.)", "event": "Vaibhav Sisinty's post on X amplifies the 'entire office stack replaced' message.", "url": "https://x.com/VaibhavSisinty/status/2087196095273377925", "host": "x.com"}, {"date": "2026-08-13", "event": "Blog reports 2,400+ stars, about 1,180 gained in one day. Macro says it reached #1 on GitHub Trending in August.", "url": "https://www.coddykit.com/pages/blog-detail?id=513012&slug=macro-the-open-source-unified-workspace-with-2-400-github-stars-that-replaces-sl", "host": "coddykit.com"}, {"date": "2026-10-26", "event": "Large release adds agent-guided Notion import, Linear and Jira imports, bring-your-own Anthropic/OpenAI keys, Outlook improvements and a new design system.", "url": "https://github.com/macro-inc/macro/releases/tag/v2026.10.26.0", "host": "github.com"}, {"date": "2026-10-29", "event": "Star count at about 5,640, rising to 5,752 (+117 in a day) on 2026-10-30.", "url": "https://github.com/macro-inc/macro", "host": "github.com"}]}];
+const DAY = 864e5, REPORT = Date.UTC(2026, 9, 30), MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SVG = 'http://www.w3.org/2000/svg';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $ = id => document.getElementById(id);
+let repo = 0, bIndex = 0;
+
+function parse(v) { const m = /^(\d{4})-(\d{2})(?:-(\d{2}))?/.exec(v || ''); return m ? Date.UTC(+m[1], +m[2]-1, m[3] ? +m[3] : 15) : null; }
+function label(raw, withYear = true) {
+  const m = /^(\d{4})-(\d{2})(?:-(\d{2}))?/.exec(raw), approx = /approx/.test(raw) ? '~' : '';
+  const mon = MON[+m[2]-1];
+  if (!m[3]) return `${approx}${mon} ${m[1]}`;
+  return `${approx}${mon} ${+m[3]}${withYear ? ', ' + m[1] : ''}`;
+}
+function span(days) {
+  if (days < 14) return `${days} day${days === 1 ? '' : 's'}`;
+  if (days < 45) { const w = Math.round(days / 7); return `${w} week${w === 1 ? '' : 's'}`; }
+  const mo = Math.round(days / 30.44);
+  if (mo < 12) return `${mo} month${mo === 1 ? '' : 's'}`;
+  const y = Math.floor(mo / 12), r = mo % 12;
+  return `${y} yr${y > 1 ? 's' : ''}${r ? ' ' + r + ' mo' : ''}`;
+}
+function model() {
+  const r = DATA[repo];
+  const events = r.events.map(e => ({...e, t: parse(e.date)})).sort((a, b) => a.t - b.t);
+  const launch = parse(r.launch), surge = REPORT - 30 * DAY;
+  const groups = [];
+  for (const e of events) { const g = groups.at(-1); if (g && g[0].t === e.t) g.push(e); else groups.push([e]); }
+  return {r, events, groups, launch, surge, start: Math.min(events[0].t, launch ?? events[0].t)};
+}
+const src = e => e.host ? `<a class="src" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.host)}</a>` : '';
+
+function renderNow(m) {
+  $('s-now').innerHTML = `<p class="label">Route · ${new Date(m.start).toISOString().slice(0,10)} to today, spaced by real dates</p><ol>` +
+    m.events.map(e => `<li><span class="d">${esc(e.date)}</span><span class="t">${esc(e.event)}</span></li>`).join('') + '</ol>';
+}
+
+/* A: gaps grow with real time, up to a cap; a longer gap is drawn cut and labelled. */
+const CUT_DAYS = 183;
+function gapHeight(days) { return days < 14 ? Math.max(14, days * 1.2) : Math.min(124, Math.max(34, days * .8)); }
+function renderA(m) {
+  const host = $('s-a');
+  let html = `<p class="label">Route · ${span(Math.round((REPORT - m.start) / DAY))}, spaced by real time</p><div class="measured"><svg aria-hidden="true"></svg><div class="flow">`;
+  const launchIdx = m.groups.findIndex(g => m.launch !== null && g[0].t >= m.launch);
+  const surgeIdx = m.groups.findIndex(g => g[0].t >= m.surge);
+  m.groups.forEach((g, i) => {
+    if (i) {
+      const days = Math.round((g[0].t - m.groups[i-1][0].t) / DAY);
+      const h = i === surgeIdx ? Math.max(gapHeight(days), 60) : gapHeight(days);
+      html += `<div class="gap ${i === surgeIdx ? 'before-window' : ''}" style="height:${h}px" data-days="${days}">${days >= 14 ? esc(span(days)) : ''}</div>`;
+    }
+    const isLaunch = i === launchIdx && m.launch !== null && Math.abs(g[0].t - m.launch) < 3 * DAY;
+    html += `<div class="grp" data-i="${i}"><span class="date">${esc(label(g[0].date))}${isLaunch ? '<span class="tag">launch</span>' : ''}</span>` +
+      g.map(e => `<div class="ev"><p class="text">${esc(e.event)}</p>${src(e)}</div>`).join('') + '</div>';
+  });
+  const lastT = m.groups.at(-1)[0].t, tail = Math.round((REPORT - lastT) / DAY);
+  if (tail > 0) html += `<div class="gap" style="height:${gapHeight(tail)}px" data-days="${tail}">${tail >= 14 ? esc(span(tail)) : ''}</div><div class="grp term"><span class="term-t">Today · ${label('2026-10-30', false)}</span></div>`;
+  html += '</div></div>';
+  host.innerHTML = html;
+  drawA(host, m, launchIdx, surgeIdx);
+}
+function drawA(host, m, launchIdx, surgeIdx) {
+  const wrap = host.querySelector('.measured'), svg = wrap.querySelector('svg');
+  const box = wrap.getBoundingClientRect(), W = box.width, H = box.height;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const rows = [...wrap.querySelectorAll('.grp')].map(el => {
+    const r = el.getBoundingClientRect();
+    const evs = el.querySelectorAll('.ev');
+    return {y: r.top - box.top + 9, bottom: r.bottom - box.top, last: evs.length > 1 ? evs[evs.length-1].getBoundingClientRect().top - box.top + 9 : null};
+  });
+  const hasStep = launchIdx > 0;
+  const X = [22, 34, 46];
+  let lv = hasStep ? 0 : 1, parts = '', x = X[lv];
+  const STEP = 12, cuts = [];
+  let path = `M${x} ${rows[0].y}`;
+  const firstSurgeRow = surgeIdx === -1 ? rows.length - 1 : surgeIdx;
+  rows.forEach((r, i) => {
+    if (!i) return;
+    if (i === launchIdx && hasStep || i === firstSurgeRow) {
+      path += ` V${r.y - STEP - 2} L${x + STEP} ${r.y - 2} V${r.y}`;
+      lv++; x = X[lv];
+    } else path += ` V${r.y}`;
+  });
+  let out = '';
+  /* The window band runs from the first row inside the last 30 days down to the end. */
+  const bandTop = rows[firstSurgeRow].y - 30;
+  out += `<rect class="band" x="0" y="${bandTop}" width="${W}" height="${H - bandTop + 20}"/><line class="bandrule" x1="0" x2="${W}" y1="${bandTop}" y2="${bandTop}"/>`;
+  out += `<path class="track" d="${path}"/>`;
+  /* Cuts for gaps too long to draw. */
+  [...wrap.querySelectorAll('.gap')].forEach(g => {
+    if (+g.dataset.days <= CUT_DAYS) return;
+    const r = g.getBoundingClientRect(), a = r.top - box.top + 22, b = r.bottom - box.top - 22;
+    const gx = stationX(g, rows, wrap, box, launchIdx, firstSurgeRow, hasStep, X);
+    out += `<line class="cut-under" x1="${gx}" x2="${gx}" y1="${a}" y2="${b}"/><line class="cut" x1="${gx}" x2="${gx}" y1="${a}" y2="${b}"/>`;
+  });
+  /* Stations; a same-day group is one tall interchange, as on the desktop route. */
+  rows.forEach((r, i) => {
+    let l = hasStep ? 0 : 1;
+    if (hasStep && i >= launchIdx) l++;
+    if (i >= firstSurgeRow) l++;
+    const sx = X[Math.min(l, 2)], isTerm = i === rows.length - 1;
+    if (r.last) out += `<rect class="st" x="${sx - 7}" y="${r.y - 7}" width="14" height="${r.last - r.y + 14}" rx="7"/>`;
+    else out += `<circle class="st ${isTerm ? 'term' : ''}" cx="${sx}" cy="${r.y}" r="${isTerm ? 9 : 7}"/>`;
+  });
+  svg.innerHTML = out;
+  const lab = document.createElement('span');
+  lab.className = 'wlabel'; lab.textContent = 'last 30 days'; lab.style.top = bandTop + 8 + 'px';
+  wrap.appendChild(lab);
+}
+function stationX(gap, rows, wrap, box, launchIdx, surge, hasStep, X) {
+  const y = gap.getBoundingClientRect().top - box.top;
+  let i = rows.findIndex(r => r.y > y); if (i < 0) i = rows.length - 1;
+  let l = hasStep ? 0 : 1;
+  if (hasStep && i - 1 >= launchIdx) l++;
+  if (i - 1 >= surge) l++;
+  return X[Math.min(l, 2)];
+}
+
+/* B: one route to scale, with a pinned scrubber and one event at a time. */
+function renderB(m) {
+  const host = $('s-b'), W = 358, H = 92, n = m.events.length;
+  bIndex = Math.min(bIndex, n - 1);
+  const x = t => 10 + (t - m.start) / (REPORT - m.start) * (W - 22);
+  const steps = [];
+  const launchStep = m.launch !== null && x(m.launch) - x(m.start) > 18;
+  if (launchStep) steps.push(x(m.launch));
+  if (m.surge > m.start) steps.push(x(m.surge));
+  const Y = [62, 44, 26], base = launchStep ? 0 : 1, STEP = 18;
+  let lv = base, d = `M${x(m.start)} ${Y[lv]}`;
+  for (const sx of steps) { d += ` H${Math.max(sx - STEP, x(m.start))} L${sx} ${Y[lv + 1]}`; lv++; }
+  d += ` H${x(REPORT)}`;
+  const yAt = px => { let l = base, y = Y[l]; for (const sx of steps) { if (px >= sx) y = Y[++l]; else if (px > sx - STEP) y = Y[l] - (px - (sx - STEP)); } return y; };
+  const months = []; const f = new Date(m.start);
+  const total = (REPORT - m.start) / DAY, every = total > 800 ? 12 : total > 300 ? 3 : 1;
+  for (let y = f.getUTCFullYear(), mo = f.getUTCMonth() + 1; ; mo++) {
+    const t = Date.UTC(y, mo, 1); if (t > REPORT) break;
+    const dt = new Date(t);
+    if (dt.getUTCMonth() % every === 0) months.push({x: x(t), l: dt.getUTCMonth() === 0 ? String(dt.getUTCFullYear()) : MON[dt.getUTCMonth()]});
+  }
+  const stations = m.events.map(e => x(e.t));
+  const cur = m.events[bIndex], prev = m.events[bIndex - 1], next = m.events[bIndex + 1];
+  const curX = stations[bIndex];
+  host.innerHTML = `<div class="strip"><svg viewBox="0 0 ${W} ${H}" role="slider" tabindex="0" aria-label="Choose an event on the route" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${bIndex + 1}" aria-valuetext="${esc(label(cur.date))}">
+    <defs><clipPath id="bclip"><rect x="-10" y="0" width="${curX + 10}" height="${H}"/></clipPath></defs>
+    ${months.map(mm => `<line class="tick" x1="${mm.x}" x2="${mm.x}" y1="4" y2="${H - 12}"/><text class="mo" x="${mm.x + 3}" y="${H - 2}">${mm.l}</text>`).join('')}
+    <path class="ahead" d="${d}"/><path class="past" d="${d}" clip-path="url(#bclip)"/>
+    ${stations.map((sx, i) => i === bIndex ? '' : `<circle class="s ${i < bIndex ? 'done' : ''}" cx="${sx}" cy="${yAt(sx)}" r="4.5"/>`).join('')}
+    <circle class="s on" cx="${curX}" cy="${yAt(curX)}" r="8"/>
+    <rect class="hit" x="0" y="0" width="${W}" height="${H}"/></svg>
+  <div class="nav"><button class="prev" aria-label="Earlier event" ${bIndex ? '' : 'disabled'}><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>Earlier</button><span class="pos">${bIndex + 1} of ${n}</span><button class="next" aria-label="Later event" ${next ? '' : 'disabled'}>Later<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
+  <div class="card" aria-live="polite"><p class="bigdate">${esc(label(cur.date))}</p><p class="since">${prev ? (cur.t === prev.t ? 'same day as the last event' : esc(span(Math.round((cur.t - prev.t) / DAY))) + ' after the last event') : 'first event'}</p><p class="text">${esc(cur.event)}</p>${src(cur)}</div>
+  ${next ? `<p class="peek">Later, ${esc(label(next.date))}: ${esc(next.event)}</p>` : ''}
+  <div class="repo-arrows"><button class="repo-arrow back" aria-label="Previous repo${repo ? ': ' + esc(DATA[repo - 1].name) : ''}" ${repo ? '' : 'disabled'}>←</button><button class="repo-arrow fwd" aria-label="Next repo${DATA[repo + 1] ? ': ' + esc(DATA[repo + 1].name) : ''}" ${DATA[repo + 1] ? '' : 'disabled'}>→</button></div>`;
+  const toRepo = i => document.querySelectorAll('#repos button')[i].click();
+  host.querySelector('.repo-arrow.back').onclick = () => toRepo(repo - 1);
+  host.querySelector('.repo-arrow.fwd').onclick = () => toRepo(repo + 1);
+  const go = i => { bIndex = Math.max(0, Math.min(n - 1, i)); renderB(m); };
+  host.querySelector('.prev').onclick = () => { go(bIndex - 1); host.querySelector('.prev').focus(); };
+  host.querySelector('.next').onclick = () => { go(bIndex + 1); host.querySelector('.next').focus(); };
+  const svg = host.querySelector('.strip svg');
+  svg.onkeydown = e => { if (e.key === 'ArrowLeft') go(bIndex - 1); else if (e.key === 'ArrowRight') go(bIndex + 1); else return; e.preventDefault(); e.stopPropagation(); host.querySelector('.strip svg').focus(); };
+  const pick = e => {
+    const r = svg.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * W;
+    let best = 0; stations.forEach((sx, i) => { if (Math.abs(sx - px) < Math.abs(stations[best] - px)) best = i; });
+    if (best !== bIndex) { bIndex = best; updateB(host, m, stations, yAt, W, H, n); }
+  };
+  svg.onpointerdown = e => { pick(e); svg.setPointerCapture(e.pointerId); svg.onpointermove = pick; };
+  svg.onpointerup = svg.onpointercancel = () => { svg.onpointermove = null; renderB(m); };
+}
+function updateB(host, m, stations, yAt, W, H, n) {
+  const svg = host.querySelector('.strip svg');
+  svg.querySelector('#bclip rect').setAttribute('width', stations[bIndex] + 10);
+  const on = svg.querySelector('.s.on'); on.setAttribute('cx', stations[bIndex]); on.setAttribute('cy', yAt(stations[bIndex]));
+  const cur = m.events[bIndex], prev = m.events[bIndex - 1];
+  host.querySelector('.bigdate').textContent = label(cur.date);
+  host.querySelector('.since').textContent = prev ? (cur.t === prev.t ? 'same day as the last event' : span(Math.round((cur.t - prev.t) / DAY)) + ' after the last event') : 'first event';
+  host.querySelector('.card .text').textContent = cur.event;
+  host.querySelector('.pos').textContent = `${bIndex + 1} of ${n}`;
+}
+
+/* C: every month gets a row; runs of more than six empty months collapse into one. */
+function renderC(m) {
+  const first = new Date(m.start), rows = [];
+  const byMonth = new Map();
+  for (const e of m.events) { const d = new Date(e.t), k = d.getUTCFullYear() * 12 + d.getUTCMonth(); (byMonth.get(k) || byMonth.set(k, []).get(k)).push(e); }
+  const startK = first.getUTCFullYear() * 12 + first.getUTCMonth(), endK = 2026 * 12 + 9;
+  for (let k = startK; k <= endK; k++) rows.push({k, y: Math.floor(k / 12), mo: k % 12, ev: byMonth.get(k) || []});
+  const out = []; let year = null;
+  const row = (r, cls, name, body) => `<div class="mrow ${cls}"><div class="mname">${name}</div><div class="rail">${r}</div><div class="mbody">${body}</div></div>`;
+  const surgeK = (() => { const d = new Date(m.surge); return d.getUTCFullYear() * 12 + d.getUTCMonth(); })();
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i];
+    if (r.y !== year) { year = r.y; out.push(`<div class="year">${year}</div>`); }
+    if (!r.ev.length) {
+      let j = i; while (j + 1 < rows.length && !rows[j + 1].ev.length) j++;
+      if (j - i >= 6) {
+        const a = rows[i], b = rows[j];
+        out.push(row('', 'empty cutrow', '', `${span(Math.round((j - i + 1) * 30.44))} with no recorded events · ${MON[a.mo]} ${a.y} to ${MON[b.mo]} ${b.y}`));
+        i = j; year = b.y; continue;
+      }
+      out.push(row('', `empty ${r.k >= surgeK ? 'win' : ''}`, MON[r.mo], ''));
+      continue;
+    }
+    const isLast = r.k === endK;
+    const body = r.ev.map(e => {
+      const m2 = /^\d{4}-\d{2}-(\d{2})/.exec(e.date), approx = /approx/.test(e.date) ? '~' : '';
+      return `<div class="mev"><span class="day">${m2 ? approx + (+m2[1]) : (approx ? '~' + MON[r.mo] : 'in ' + MON[r.mo])}</span><p class="text">${esc(e.event)}</p>${src(e)}</div>`;
+    }).join('');
+    out.push(row('', `${i === 0 ? 'first' : ''} ${r.k >= surgeK ? 'win' : ''}`, MON[r.mo], body));
+  }
+  const host = $('s-c');
+  host.innerHTML = `<p class="label">Route · month by month, ${span(Math.round((REPORT - m.start) / DAY))}</p><div class="ledger">${out.join('')}</div>`;
+  /* Place one station per event, on the same line as its day. */
+  host.querySelectorAll('.mrow').forEach(row => {
+    const rail = row.querySelector('.rail'), top = rail.getBoundingClientRect().top;
+    row.querySelectorAll('.mev').forEach(ev => {
+      const dot = document.createElement('span'); dot.className = 'dot';
+      dot.style.top = ev.getBoundingClientRect().top - top + 2 + 'px';
+      rail.appendChild(dot);
+    });
+  });
+  const dots = host.querySelectorAll('.dot'); if (dots.length) dots[dots.length - 1].classList.add('term');
+}
+
+function render() { const m = model(); renderNow(m); renderA(m); renderB(m); renderC(m); }
+function key(host, items, active, onPick) {
+  host.innerHTML = items.map((it, i) => `<button class="key" aria-pressed="${i === active}" data-i="${i}">${esc(it.name)}${it.note ? `<small>${esc(it.note)}</small>` : ''}</button>`).join('');
+  host.onclick = e => { const b = e.target.closest('button'); if (!b) return; host.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); onPick(+b.dataset.i); };
+}
+key($('repos'), DATA.map(d => ({name: d.name, note: d.note})), 0, i => { repo = i; bIndex = 0; render(); });
+const DIRS = [['Today','now'],['A','a'],['B','b'],['C','c']];
+key($('dirs'), DIRS.map(d => ({name: d[0]})), 1, i => {
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('show', p.dataset.p === DIRS[i][1])); render();
+});
+render();
+document.fonts?.ready.then(render);
+let lastW = innerWidth;
+addEventListener('resize', () => { if (innerWidth !== lastW) { lastW = innerWidth; render(); } });
+</script>

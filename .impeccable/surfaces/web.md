@@ -24,6 +24,8 @@ Memorable moment: opening a row draws that repo's route, launch to today, spaced
 
 Navigation (chosen 2026-10-30, surface round seed key 6f9536ff): list + slides. The timetable is the overview; opening a repo shows it as a slide (route + top three reasons on one screen, the rest below) with a segmented progress bar, previous/next arrows, ← → keys and Esc back to the list. Sketch: .impeccable/mocks/pager/slide-stories.html.
 
+Phone timeline (chosen 2026-11-01): strip map. The route stays horizontal and to scale, pinned while its event is on screen, and shows one event at a time. Earlier and Later move through events; the slide's round arrows change repo. Sketch: .impeccable/mocks/timeline-mobile/compare.html.
+
 ## Direction contract
 
 THESIS: Today's trending repos as a departure timetable; each repo is a numbered line and its spread is a metro route. Refuses the card grid and the GitHub-trending list.
