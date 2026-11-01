@@ -28,6 +28,7 @@ GitHub Trending shows what is popular. Trend Analyzer explains why, as an eviden
 
 - `cmd/analyze_trending` collects evidence (GitHub repo data, star history samples, Hacker News posts), asks Claude to research each repo through the local Claude Code CLI, and writes `reports/<date>-daily.json` and `.md`.
 - `cmd/report_server` serves the reports as JSON and the built Angular app (`web/`), which lists reports by date and shows one card per repo with a text filter.
+- `cmd/telegram_bot` opens the site as a Telegram Mini App and reminds subscribers once a day. It needs the site at a public HTTPS address.
 - Reports are produced daily; analyses are cached so a repo that stays trending is not re-researched within the cache window.
 
 ## Capabilities and Constraints
