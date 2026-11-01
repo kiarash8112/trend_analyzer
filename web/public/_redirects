@@ -1,0 +1,2 @@
+/api/reports /data/index.json 200
+/api/reports/:name /data/:name.json 200
