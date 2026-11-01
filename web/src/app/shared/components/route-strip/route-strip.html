@@ -37,7 +37,9 @@
           />
         }
       }
+      <circle class="handle" [attr.cx]="current().x" [attr.cy]="current().y" r="13" />
       <circle class="stop on" [attr.cx]="current().x" [attr.cy]="current().y" r="8" />
+      <circle #ghost class="ghost" r="8" />
     </svg>
   }
   <div class="nav">
@@ -45,8 +47,19 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
       Earlier
     </button>
-    <span class="position mono">{{ index() + 1 }} of {{ count() }}</span>
-    <button type="button" [disabled]="!next()" (click)="go(index() + 1)">
+    <span class="status">
+      <span class="position mono">{{ index() + 1 }} of {{ count() }}</span>
+      @if (!learned() && count() > 1) {
+        <span class="hint">Drag the route</span>
+      }
+    </span>
+    <button
+      type="button"
+      class="later"
+      [class.nudge]="demonstrating()"
+      [disabled]="!next()"
+      (click)="go(index() + 1)"
+    >
       Later
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
     </button>
@@ -64,5 +77,8 @@
   }
 </div>
 @if (next(); as n) {
-  <p class="peek">Later, {{ n.date }}: {{ n.event }}</p>
+  <button type="button" class="peek" (click)="go(index() + 1)">
+    <span class="peek-text">Later, {{ n.date }}: {{ n.event }}</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+  </button>
 }
