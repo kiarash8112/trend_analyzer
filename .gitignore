@@ -15,3 +15,6 @@
 # Local analysis cache
 .cache/
  
+
+# Impeccable design tool output
+.impeccable/
