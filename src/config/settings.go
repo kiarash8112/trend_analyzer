@@ -13,6 +13,10 @@ type Settings struct {
 
 	CacheDir   string
 	ReportsDir string
+
+	TelegramBotToken  string
+	TelegramWebAppURL string
+	SubscribersFile   string
 }
 
 // Load reads settings from the environment, after loading a local .env file if present.
@@ -25,6 +29,10 @@ func Load() Settings {
 
 		CacheDir:   getEnv("CACHE_DIR", ".cache/insights"),
 		ReportsDir: getEnv("REPORTS_DIR", "reports"),
+
+		TelegramBotToken:  os.Getenv("TELEGRAM_BOT_TOKEN"),
+		TelegramWebAppURL: os.Getenv("TELEGRAM_WEB_APP_URL"),
+		SubscribersFile:   getEnv("SUBSCRIBERS_FILE", ".data/telegram_subscribers.json"),
 	}
 }
 
